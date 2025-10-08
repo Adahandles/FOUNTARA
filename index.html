@@ -579,5 +579,104 @@ recalc();
     <a class="btn secondary" style="padding:.35rem .6rem;border-width:1px" href="mailto:wbgjr81@gmail.com?subject=Water%20Bank%20Location%20Inquiry">Request it</a>
   </div>
 </section>
+<script>
+// --------- Regional Water Bank (simple selector) ---------
+(function(){
+  const el = (id)=>document.getElementById(id);
+  const shortPop = (n)=> Number(n||0).toLocaleString();
+
+  const rbSelect = el('rb_select');
+  const rbSearch = el('rb_search');
+  const rbApply  = el('rb_apply');
+  const rbReset  = el('rb_reset');
+
+  const outCity  = el('rb_city');
+  const outState = el('rb_state');
+  const outPop   = el('rb_pop');
+  const outRef   = el('rb_ref');
+
+  // TODO: Replace/extend this with the full list of ALL U.S. cities >= 60,000.
+  // Schema: { city: "Ocala", state: "FL", pop: 64000 }
+  const REGIONAL_BANKS = [
+    // --- Starter FL & a few majors (example seed) ---
+    { city:'Ocala',           state:'FL', pop: 64000 },
+    { city:'Orlando',         state:'FL', pop:309000 },
+    { city:'Tampa',           state:'FL', pop:398000 },
+    { city:'Jacksonville',    state:'FL', pop:971000 },
+    { city:'Miami',           state:'FL', pop:454000 },
+    { city:'Gainesville',     state:'FL', pop:145000 },
+    { city:'St. Petersburg',  state:'FL', pop:258000 },
+    { city:'Tallahassee',     state:'FL', pop:201000 },
+    // --- Examples outside FL ---
+    { city:'Atlanta',         state:'GA', pop:510000 },
+    { city:'Charlotte',       state:'NC', pop:897000 },
+    { city:'Nashville',       state:'TN', pop:715000 },
+    { city:'Dallas',          state:'TX', pop:1300000 },
+    { city:'Houston',         state:'TX', pop:2310000 },
+    { city:'Phoenix',         state:'AZ', pop:1680000 },
+    { city:'Denver',          state:'CO', pop:717000 },
+    { city:'Chicago',         state:'IL', pop:2700000 },
+    { city:'Seattle',         state:'WA', pop:762000 },
+    { city:'Los Angeles',     state:'CA', pop:3890000 },
+    { city:'San Diego',       state:'CA', pop:1380000 },
+    { city:'New York',        state:'NY', pop:8460000 }
+  ];
+
+  function genRef(){
+    return 'RB-' + new Date().toISOString().replaceAll(':','').replaceAll('-','').slice(0,15)
+           + '-' + Math.random().toString(36).slice(2,6).toUpperCase();
+  }
+
+  function renderOptions(list){
+    rbSelect.innerHTML = '';
+    list
+      .sort((a,b)=> a.state.localeCompare(b.state) || a.city.localeCompare(b.city))
+      .forEach((r,i)=>{
+        const opt = document.createElement('option');
+        opt.value = String(i);
+        opt.textContent = `${r.city}, ${r.state} — ${shortPop(r.pop)}`;
+        rbSelect.appendChild(opt);
+      });
+  }
+
+  function applySelection(){
+    const idx = Number(rbSelect.value || 0);
+    const r = current[idx] || REGIONAL_BANKS[0];
+    if (!r) return;
+    outCity.textContent  = r.city;
+    outState.textContent = r.state;
+    outPop.textContent   = shortPop(r.pop);
+    outRef.textContent   = genRef();
+  }
+
+  // Simple search filter
+  let current = [...REGIONAL_BANKS];
+  function search(){
+    const q = (rbSearch.value || '').trim().toLowerCase();
+    current = REGIONAL_BANKS.filter(r=>{
+      const s = `${r.city}, ${r.state}`.toLowerCase();
+      return !q || s.includes(q);
+    });
+    renderOptions(current);
+    rbSelect.value = '0';
+    applySelection();
+  }
+
+  rbApply.addEventListener('click', applySelection);
+  rbReset.addEventListener('click', ()=>{
+    rbSearch.value = '';
+    current = [...REGIONAL_BANKS];
+    renderOptions(current);
+    rbSelect.value = '0';
+    applySelection();
+  });
+  rbSearch.addEventListener('input', search);
+
+  // Initial paint
+  renderOptions(current);
+  rbSelect.value = '0';
+  applySelection();
+})();
+</script>
 
 

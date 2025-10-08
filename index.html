@@ -278,15 +278,185 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
 
   <footer>© Fountara — Bulk Water • Sod • Crypto-ready checkout</footer>
 </div>
-
 <script>
-// Utility
-const fmtUSD=n=>Number(n||0).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:2});
-const fmtNum=(n,d=6)=>Number(n||0).toLocaleString(undefined,{maximumFractionDigits:d});
-const el=id=>document.getElementById(id);
-const short=s=>s?(s.length>18?s.slice(0,6)+'…'+s.slice(-6):s):'';
+// ---------- Small helpers ----------
+const fmtUSD = n => Number(n||0).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:2});
+const fmtNum = (n,d=6)=> Number(n||0).toLocaleString(undefined,{maximumFractionDigits:d});
+const el = id => document.getElementById(id);
+const short = s => s ? (s.length>18? s.slice(0,6)+'…'+s.slice(-6): s) : '';
 
-// Tab switch
-const tabs=document.querySelectorAll('[data-mode]');
-const waterForm=el('waterForm');const sodForm=el('sodForm');
-tabs.forEach(b=>b.onclick=()=>{tabs.forEach(x=>x.classList.remove
+// ---------- Elements ----------
+const tabs = document.querySelectorAll('[data-mode]');
+const waterForm = el('waterForm');
+const sodForm   = el('sodForm');
+
+// WATER inputs
+const waterSize = el('waterSize');
+const waterLoads= el('waterLoads');
+const waterMiles= el('waterMiles');
+const pricePerGallon = el('pricePerGallon');
+const deliveryPerMile = el('deliveryPerMile');
+const roundTrip = el('roundTrip');
+
+// SOD inputs
+const sodType   = el('sodType');
+const sodPallets= el('sodPallets');
+const sodMiles  = el('sodMiles');
+const sodPrice  = el('sodPrice');
+const sodDelivery = el('sodDelivery');
+
+// Currency inputs
+const payCurrency = el('payCurrency');
+const adaUsd = el('adaUsd');
+const wtrAda = el('wtrAda');
+
+// Summary/checkout outputs
+const summary = el('summary');
+const orderTotalEl = el('orderTotal');
+const payBreakdown = el('payBreakdown');
+const ckCurrency = el('ckCurrency');
+const ckAmount = el('ckAmount');
+const ckUsd = el('ckUsd');
+const orderRef = el('orderRef');
+
+// ---------- Tab switching (FIXED) ----------
+tabs.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabs.forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');
+    const mode = btn.getAttribute('data-mode');
+    // Toggle forms
+    const isWater = (mode === 'water');
+    waterForm.style.display = isWater ? '' : 'none';
+    sodForm.style.display   = isWater ? 'none' : '';
+    // Recalculate with current form
+    recalc();
+  });
+});
+
+// ---------- Default price per grass (edit to your market) ----------
+const GRASS_DEFAULTS = {
+  'bahia':      170,  // per pallet USD
+  'st-aug':     260,
+  'zoysia':     280
+};
+sodType.addEventListener('change', ()=>{
+  const v = sodType.value;
+  if (GRASS_DEFAULTS[v]) {
+    sodPrice.value = GRASS_DEFAULTS[v];
+  }
+  recalc();
+});
+
+// ---------- Recalculate ----------
+function recalc(){
+  // Which tab is active?
+  const active = document.querySelector('[data-mode].active');
+  const mode = active ? active.getAttribute('data-mode') : 'water';
+
+  let itemLabel = '';
+  let subtotal = 0;
+  let delivery = 0;
+
+  if (mode==='water'){
+    const size = Number(waterSize.value||0);
+    const loads= Number(waterLoads.value||0);
+    const miles= Number(waterMiles.value||0);
+    const ppg  = Number(pricePerGallon.value||0);
+    const dpm  = Number(deliveryPerMile.value||0);
+    const rt   = (roundTrip.value==='yes') ? 2 : 1;
+
+    const gallons = size * loads;
+    subtotal = gallons * ppg;
+    delivery = miles * rt * dpm * loads;
+    itemLabel = `${loads}× tanker (${fmtNum(size,0)} gal)`;
+  } else {
+    const pallets = Number(sodPallets.value||0);
+    const miles = Number(sodMiles.value||0);
+    const pp    = Number(sodPrice.value||0);
+    const dpm   = Number(sodDelivery.value||0);
+
+    subtotal = pallets * pp;
+    delivery = miles * dpm;
+    const typeLabel = sodType.options[sodType.selectedIndex]?.textContent || 'Sod';
+    itemLabel = `${fmtNum(pallets,0)} pallets (${typeLabel})`;
+  }
+
+  const total = subtotal + delivery;
+  orderTotalEl.textContent = fmtUSD(total);
+  summary.innerHTML = `
+    <div class="kv"><span>Item</span><strong>${itemLabel}</strong></div>
+    <div class="kv"><span>Subtotal</span><strong>${fmtUSD(subtotal)}</strong></div>
+    <div class="kv"><span>Delivery</span><strong>${fmtUSD(delivery)}</strong></div>
+    <div class="kv"><span><em>Estimated Total</em></span><strong>${fmtUSD(total)}</strong></div>
+  `;
+
+  // Payment math (editable inputs for simple offline pricing)
+  const currency = payCurrency.value;      // WTR or ADA
+  const ada_per_usd = Number(adaUsd.value||0.4);     // ADA price in USD
+  const wtr_per_ada = Number(wtrAda.value||0.00001); // WTR per ADA
+
+  let sendAmount = 0, usdEst = total;
+
+  if (currency==='ADA'){
+    // USD -> ADA
+    sendAmount = (total / ada_per_usd);
+    payBreakdown.textContent = `You’ll send ≈ ${fmtNum(sendAmount,4)} ADA (at ${fmtNum(ada_per_usd,4)} USD/ADA).`;
+  } else {
+    // USD -> ADA -> WTR
+    const adaNeeded = (total / ada_per_usd);
+    sendAmount = (adaNeeded / wtr_per_ada);
+    payBreakdown.textContent = `You’ll send ≈ ${fmtNum(sendAmount,0)} WTR (via ${fmtNum(adaNeeded,4)} ADA × ${fmtNum(1/wtr_per_ada,0)} WTR/ADA).`;
+  }
+
+  ckCurrency.textContent = currency;
+  ckAmount.textContent = (currency==='ADA') ? `${fmtNum(sendAmount,4)} ADA` : `${fmtNum(sendAmount,0)} WTR`;
+  ckUsd.textContent = fmtUSD(usdEst);
+
+  // Fresh order reference each calc
+  const code = 'FO-' + new Date().toISOString().replaceAll(':','').replaceAll('-','').slice(0,15)
+             + '-' + Math.random().toString(36).slice(2,6).toUpperCase();
+  orderRef.textContent = code;
+}
+
+// Bind input changes
+[
+  waterSize,waterLoads,waterMiles,pricePerGallon,deliveryPerMile,roundTrip,
+  sodType,sodPallets,sodMiles,sodPrice,sodDelivery,
+  payCurrency,adaUsd,wtrAda
+].forEach(x=> x.addEventListener('input', recalc));
+el('recalcBtn')?.addEventListener('click', recalc);
+
+// ---------- Copy buttons ----------
+document.querySelectorAll('.copy').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const id = btn.getAttribute('data-copy');
+    const text = el(id).textContent.trim();
+    navigator.clipboard.writeText(text).then(()=>{
+      btn.textContent = 'Copied!';
+      setTimeout(()=>btn.textContent='Copy', 1000);
+    });
+  });
+});
+
+// ---------- Cardano wallet connect (simple CIP-30) ----------
+const walletStatus = el('walletStatus');
+async function connectCardano(which){
+  try{
+    if(!(window.cardano && window.cardano[which])){ walletStatus.textContent = which.toUpperCase()+': not found'; return; }
+    const api = await window.cardano[which].enable();
+    const net = await api.getNetworkId(); if (net !== 1){ walletStatus.textContent = which.toUpperCase()+': wrong network'; return; }
+    const changeAddr = await api.getChangeAddress();
+    walletStatus.textContent = which.toUpperCase()+': '+ short(changeAddr);
+  }catch(e){ walletStatus.textContent = which.toUpperCase()+': failed'; }
+}
+document.getElementById('btnNami')?.addEventListener('click', ()=>connectCardano('nami'));
+document.getElementById('btnEternl')?.addEventListener('click', ()=>connectCardano('eternl'));
+
+// ---------- Set your real receive address here ----------
+el('recvAddress').textContent = 'addr1qyourfountaraaddressxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+
+// Initial paint
+recalc();
+</script>
+

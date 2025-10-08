@@ -527,5 +527,57 @@ recalc();
       <div class="kv"><span class="muted">WTR</span><strong id="wb_wtr">—</strong></div>
       <div class="flex" style="margin-top:.6rem;align-items:center">
         <code id="wb_ref" style="background:#0006;padding:.4rem .6rem;border-radius:10px"></code>
+<!-- WATER BANK LOCATIONS -->
+<section id="locations" class="token-box">
+  <h2 class="section-title">Water Bank Locations — U.S. Cities (Ocala size or bigger)</h2>
+  <p class="muted" style="margin-top:-.4rem">
+    We aim to place a Water Bank in every U.S. city with population the size of Ocala (≈64,000) or larger.
+    Use the filters below to explore planned cities.
+  </p>
+
+  <div class="grid3" style="margin:.6rem 0">
+    <label>Min Population
+      <input id="locMinPop" class="input" type="number" step="1000" value="64000" />
+    </label>
+    <label>Search City (optional)
+      <input id="locSearch" class="input" type="text" placeholder="e.g., Tampa, Denver, Charlotte" />
+    </label>
+    <div style="display:flex;align-items:end;gap:.5rem">
+      <button id="locApply" class="btn">Apply</button>
+      <button id="locReset" class="btn secondary" type="button">Reset</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:1rem">
+    <div class="kv">
+      <span class="muted">Matching cities</span>
+      <strong id="locCount">—</strong>
+    </div>
+    <div class="small muted">Click markers on the map or use the table below.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+    <div class="card" style="height:520px;padding:0;overflow:hidden">
+      <div id="locMap" style="height:520px;width:100%"></div>
+    </div>
+    <div class="card" style="max-height:520px;overflow:auto">
+      <table id="locTable" style="width:100%;border-collapse:collapse">
+        <thead>
+          <tr style="text-align:left">
+            <th style="padding:.5rem;border-bottom:1px solid #ffffff22">City</th>
+            <th style="padding:.5rem;border-bottom:1px solid #ffffff22">State</th>
+            <th style="padding:.5rem;border-bottom:1px solid #ffffff22">Population</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="small muted" style="margin-top:.6rem">
+    Note: Dataset is a starter seed. We’ll continue adding cities ≥ your threshold. Want a Water Bank in your city?
+    <a class="btn secondary" style="padding:.35rem .6rem;border-width:1px" href="mailto:wbgjr81@gmail.com?subject=Water%20Bank%20Location%20Inquiry">Request it</a>
+  </div>
+</section>
 
 

@@ -20,11 +20,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 
 <style>
-:root{--bg1:#001018;--bg2:#00243a;--bg3:#0b1930;--cyan:#6cf;--cyan2:#8cf;--txt:#eaf1fb;--muted:#a7b6c7;--card:rgba(0,0,0,.25)}
+:root{
+  --bg1:#001018;--bg2:#00243a;--bg3:#0b1930;
+  --cyan:#6cf;--cyan2:#8cf;--txt:#eaf1fb;--muted:#a7b6c7;--card:rgba(0,0,0,.25)
+}
 *{box-sizing:border-box}
-body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--txt);
-  background:linear-gradient(270deg,var(--bg1),var(--bg2),var(--bg3),var(--bg1));background-size:600% 600%;animation:aurora 22s ease infinite;overflow-x:hidden}
-@keyframes aurora{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+body{
+  margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  color:var(--txt);
+  background:linear-gradient(270deg,var(--bg1),var(--bg2),var(--bg3),var(--bg1));
+  background-size:600% 600%;animation:aurora 22s ease infinite;
+  overflow-x:hidden
+}
+@keyframes aurora{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
 .wrap{max-width:1100px;margin:0 auto;padding:2rem 1rem}
 .section-title{font-size:clamp(1.9rem,3vw,2.6rem);margin:0 0 .8rem}
 .muted{color:var(--muted)}
@@ -41,10 +53,14 @@ label{font-weight:600;font-size:.95rem}
 .flex{display:flex;gap:.6rem;flex-wrap:wrap}
 .center{display:flex;justify-content:center;align-items:center}
 
-/* Buttons & tabs — big, modern, white letters */
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:1rem 1.5rem;border-radius:14px;border:2px solid var(--cyan2);
-  background:linear-gradient(180deg,rgba(108,207,255,.25),rgba(108,207,255,.1));color:#fff;font-weight:600;font-size:1rem;letter-spacing:.4px;
-  box-shadow:0 0 22px rgba(108,207,255,.35);cursor:pointer;transition:all .25s ease}
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:1rem 1.5rem;border-radius:14px;border:2px solid var(--cyan2);
+  background:linear-gradient(180deg,rgba(108,207,255,.25),rgba(108,207,255,.1));
+  color:#fff;font-weight:600;font-size:1rem;letter-spacing:.4px;
+  box-shadow:0 0 22px rgba(108,207,255,.35);cursor:pointer;transition:all .25s ease
+}
 .btn:hover{background:linear-gradient(180deg,rgba(108,207,255,.4),rgba(108,207,255,.2));box-shadow:0 0 32px rgba(108,207,255,.55);transform:translateY(-1px)}
 .btn.secondary{border-color:#fff4;background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.05));color:#fff}
 .btn.secondary:hover{box-shadow:0 0 26px rgba(255,255,255,.35)}
@@ -54,8 +70,11 @@ label{font-weight:600;font-size:.95rem}
 /* Hero */
 header.hero{min-height:62vh;display:grid;place-items:center;text-align:center;padding:4rem 1rem 2rem}
 .hero-inner{max-width:960px}
-.logo{width:320px;height:320px;border-radius:50%;object-fit:cover;border:3px solid #fff;
-  box-shadow:0 0 26px var(--cyan2);transition:transform .4s ease, box-shadow .4s ease;animation:pulse 3.2s ease-in-out infinite}
+.logo{
+  width:340px;height:340px;border-radius:50%;object-fit:cover;border:3px solid #fff;
+  box-shadow:0 0 26px var(--cyan2);transition:transform .4s ease, box-shadow .4s ease;
+  animation:pulse 3.2s ease-in-out infinite
+}
 .logo:hover{transform:scale(1.03) rotate(2deg);box-shadow:0 0 60px var(--cyan)}
 @keyframes pulse{0%{transform:scale(1);box-shadow:0 0 18px var(--cyan2)}50%{transform:scale(1.03);box-shadow:0 0 36px var(--cyan)}100%{transform:scale(1);box-shadow:0 0 18px var(--cyan2)}}
 h1{font-size:clamp(2.3rem,4vw,3.4rem);margin:.8rem 0 .4rem}
@@ -72,7 +91,7 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
 <!-- HERO -->
 <header class="hero">
   <div class="hero-inner">
-    <img class="logo" src=".wtrcoin.png" alt="Water Token (WTR) coin" />
+    <img class="logo" src="./wtrcoin.png" alt="Water Token (WTR) coin" />
     <h1>Fountara</h1>
     <p class="tag">Bulk potable water & farm-fresh sod. Pay with <strong>Water Token (WTR)</strong> or <strong>ADA</strong> on Cardano.</p>
     <div class="flex center">
@@ -111,32 +130,32 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
       <button class="tab" data-mode="sod">Sod Pallets</button>
     </div>
 
-    <!-- WATER -->
+    <!-- WATER FORM -->
     <div id="waterForm" style="margin-top:1rem">
       <div class="grid3">
-        <label> Tanker Size (gallons)
+        <label>Tanker Size (gallons)
           <select id="waterSize" class="input">
             <option value="6000">6,000 gal</option>
             <option value="7500" selected>7,500 gal</option>
             <option value="8500">8,500 gal</option>
           </select>
         </label>
-        <label> # of Loads
+        <label># of Loads
           <input id="waterLoads" class="input" type="number" min="1" step="1" value="1" />
         </label>
-        <label> Delivery Distance (one-way miles)
+        <label>Delivery Distance (miles)
           <input id="waterMiles" class="input" type="number" min="0" step="1" value="20" />
         </label>
       </div>
 
       <div class="grid3" style="margin-top:.6rem">
-        <label> Price per Gallon (USD)
+        <label>Price per Gallon (USD)
           <input id="pricePerGallon" class="input" type="number" step="0.001" value="0.02" />
         </label>
-        <label> Delivery per Mile (USD)
+        <label>Delivery per Mile (USD)
           <input id="deliveryPerMile" class="input" type="number" step="0.01" value="4.00" />
         </label>
-        <label> Round Trip? (miles ×2)
+        <label>Round Trip? (×2)
           <select id="roundTrip" class="input">
             <option value="yes" selected>Yes</option>
             <option value="no">No</option>
@@ -145,69 +164,68 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
       </div>
     </div>
 
-    <!-- SOD -->
+    <!-- SOD FORM -->
     <div id="sodForm" style="display:none;margin-top:1rem">
       <div class="grid3">
-        <label> Grass Type
+        <label>Grass Type
           <select id="sodType" class="input">
             <option value="st-aug">St. Augustine</option>
             <option value="bahia" selected>Bahia</option>
             <option value="zoysia">Zoysia</option>
           </select>
         </label>
-        <label> Pallets
-          <input id="sodPallets" class="input" type="number" min="1" step="1" value="10" />
+        <label>Pallets
+          <input id="sodPallets" class="input" type="number" min="1" value="10" />
         </label>
-        <label> Delivery Distance (miles)
-          <input id="sodMiles" class="input" type="number" min="0" step="1" value="30" />
+        <label>Delivery Distance (miles)
+          <input id="sodMiles" class="input" type="number" min="0" value="30" />
         </label>
       </div>
       <div class="grid3" style="margin-top:.6rem">
-        <label> Price per Pallet (USD)
+        <label>Price per Pallet (USD)
           <input id="sodPrice" class="input" type="number" step="0.01" value="170" />
         </label>
-        <label> Delivery per Mile (USD)
+        <label>Delivery per Mile (USD)
           <input id="sodDelivery" class="input" type="number" step="0.01" value="3.25" />
         </label>
-        <label> Pallets per Truck (info)
+        <label>Pallets per Truck
           <input class="input" value="16" disabled />
         </label>
       </div>
     </div>
 
-    <!-- SUMMARY + CURRENCY -->
+    <!-- SUMMARY -->
     <div class="grid2" style="margin-top:1rem">
       <div class="card">
-        <h3 style="margin:.2rem 0 .6rem">Order Summary</h3>
+        <h3>Order Summary</h3>
         <div id="summary" class="small">
           <div class="kv"><span>Item</span><strong>—</strong></div>
           <div class="kv"><span>Subtotal</span><strong>$0.00</strong></div>
           <div class="kv"><span>Delivery</span><strong>$0.00</strong></div>
-          <div class="kv"><span><em>Estimated Total</em></span><strong id="orderTotal">$0.00</strong></div>
+          <div class="kv"><span>Total</span><strong id="orderTotal">$0.00</strong></div>
         </div>
-        <div class="notice" style="margin-top:.6rem">* Final dispatch scheduling will be confirmed after on-chain payment clears.</div>
       </div>
 
       <div class="card">
-        <h3 style="margin:.2rem 0 .6rem">Choose Currency</h3>
+        <h3>Choose Currency</h3>
         <div class="grid3">
-          <label> Pay in:
+          <label>Pay in:
             <select id="payCurrency" class="input">
               <option value="WTR" selected>Water Token (WTR)</option>
               <option value="ADA">ADA</option>
             </select>
           </label>
-          <label> ADA/USD (edit)
+          <label>ADA/USD
             <input id="adaUsd" class="input" type="number" step="0.0001" value="0.40" />
           </label>
-          <label> WTR/ADA (edit)
+          <label>WTR/ADA
             <input id="wtrAda" class="input" type="number" step="0.0000001" value="0.00001" />
           </label>
         </div>
-        <div class="small" style="margin-top:.6rem" id="payBreakdown">—</div>
+        <div class="small" id="payBreakdown" style="margin-top:.6rem">—</div>
         <div class="flex" style="margin-top:.6rem">
           <a href="#pay" class="btn">Go to Checkout</a>
-          <button class="btn secondary" id="recalcBtn" type="button">Recalculate</button>
+          <button id="recalcBtn" class="btn secondary">Recalculate</button>
         </div>
       </div>
     </div>
@@ -216,9 +234,8 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
   <!-- CHECKOUT -->
   <section id="pay" class="token-box">
     <h2 class="section-title">Checkout (WTR / ADA)</h2>
-
     <div style="display:flex;gap:.8rem;align-items:center;margin:.2rem 0 1rem">
-      <img src="./cannedwater.png" alt="WTR coin" style="height:56px;width:56px;border-radius:50%;border:1px solid #ffffff33" />
+      <img src="./wtrcoin.png" alt="WTR coin" style="height:56px;width:56px;border-radius:50%;border:1px solid #ffffff33" />
       <div class="muted">Send the exact amount shown. Include your order reference for fastest scheduling.</div>
     </div>
 
@@ -232,17 +249,16 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
 
       <div>
         <strong>Fountara Receive Address</strong>
-        <div class="small muted" style="margin:.35rem 0">Where to send WTR or ADA.</div>
+        <div class="small muted">Where to send WTR or ADA.</div>
         <div class="flex" style="align-items:center">
           <code id="recvAddress" style="background:#0006;padding:.4rem .6rem;border-radius:10px">addr1qyourfountaraaddressxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code>
           <button class="copy" data-copy="recvAddress">Copy</button>
         </div>
-        <div class="small muted" style="margin-top:.35rem">Replace with your real receiving address.</div>
       </div>
 
       <div>
         <strong>Order Reference</strong>
-        <div class="small muted" style="margin:.35rem 0">Paste this in your message so we can match your payment quickly.</div>
+        <div class="small muted">Paste this in your message so we can match your payment quickly.</div>
         <div class="flex" style="align-items:center">
           <code id="orderRef" style="background:#0006;padding:.4rem .6rem;border-radius:10px"></code>
           <button class="copy" data-copy="orderRef">Copy</button>
@@ -251,16 +267,11 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
     </div>
 
     <div class="card" style="margin-top:1rem">
-      <h3 style="margin:.2rem 0 .6rem">Amount to Send</h3>
+      <h3>Amount to Send</h3>
       <div class="grid3">
-        <div class="kv"><span class="muted">Currency</span><strong id="ckCurrency">WTR</strong></div>
-        <div class="kv"><span class="muted">Amount</span><strong id="ckAmount">—</strong></div>
-        <div class="kv"><span class="muted">USD Est.</span><strong id="ckUsd">—</strong></div>
-      </div>
-      <div class="small notice" style="margin-top:.6rem">Need Water Token? Buy on Minswap and send to the Fountara address.</div>
-      <div class="flex" style="margin-top:.6rem">
-        <a id="minswapBuyWTR" class="btn secondary" target="_blank" rel="noopener"
-           href="https://app.minswap.org/swap?outputCurrency=9560f81458d28648d9261d180ee2b10afcf6b2305909d367f8f9f0ad">Buy WTR on Minswap</a>
+        <div class="kv"><span>Currency</span><strong id="ckCurrency">WTR</strong></div>
+        <div class="kv"><span>Amount</span><strong id="ckAmount">—</strong></div>
+        <div class="kv"><span>USD Est.</span><strong id="ckUsd">—</strong></div>
       </div>
     </div>
   </section>
@@ -269,153 +280,13 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
 </div>
 
 <script>
-// ---------- Utilities ----------
-const fmtUSD = n => Number(n||0).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:2});
-const fmtNum = (n,d=6)=> Number(n||0).toLocaleString(undefined,{maximumFractionDigits:d});
-const el = id => document.getElementById(id);
-const short = s => s ? (s.length>18? s.slice(0,6)+'…'+s.slice(-6): s) : '';
+// Utility
+const fmtUSD=n=>Number(n||0).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:2});
+const fmtNum=(n,d=6)=>Number(n||0).toLocaleString(undefined,{maximumFractionDigits:d});
+const el=id=>document.getElementById(id);
+const short=s=>s?(s.length>18?s.slice(0,6)+'…'+s.slice(-6):s):'';
 
-// ---------- Mode toggle ----------
-const tabs = document.querySelectorAll('[data-mode]');
-const waterForm = el('waterForm');
-const sodForm = el('sodForm');
-tabs.forEach(b=> b.addEventListener('click', ()=>{
-  tabs.forEach(x=>x.classList.remove('active')); b.classList.add('active');
-  const m = b.getAttribute('data-mode');
-  waterForm.style.display = (m==='water') ? '' : 'none';
-  sodForm.style.display   = (m==='sod')   ? '' : 'none';
-  recalc();
-}));
-
-// ---------- Inputs ----------
-const waterSize = el('waterSize');
-const waterLoads= el('waterLoads');
-const waterMiles= el('waterMiles');
-const pricePerGallon = el('pricePerGallon');
-const deliveryPerMile = el('deliveryPerMile');
-const roundTrip = el('roundTrip');
-
-const sodType = el('sodType');
-const sodPallets = el('sodPallets');
-const sodMiles = el('sodMiles');
-const sodPrice = el('sodPrice');
-const sodDelivery = el('sodDelivery');
-
-const payCurrency = el('payCurrency');
-const adaUsd = el('adaUsd');
-const wtrAda = el('wtrAda');
-
-[waterSize,waterLoads,waterMiles,pricePerGallon,deliveryPerMile,roundTrip,
- sodType,sodPallets,sodMiles,sodPrice,sodDelivery,
- payCurrency,adaUsd,wtrAda].forEach(x=>x.addEventListener('input', recalc));
-el('recalcBtn').addEventListener('click', recalc);
-
-// ---------- Summary & payment ----------
-const summary = el('summary');
-const orderTotalEl = el('orderTotal');
-const payBreakdown = el('payBreakdown');
-const ckCurrency = el('ckCurrency');
-const ckAmount = el('ckAmount');
-const ckUsd = el('ckUsd');
-const orderRef = el('orderRef');
-
-function recalc(){
-  const mode = document.querySelector('[data-mode].active').getAttribute('data-mode');
-
-  let itemLabel = '';
-  let subtotal = 0;
-  let delivery = 0;
-
-  if (mode==='water'){
-    const size = Number(waterSize.value||0);
-    const loads= Number(waterLoads.value||0);
-    const miles= Number(waterMiles.value||0);
-    const ppg  = Number(pricePerGallon.value||0);
-    const dpm  = Number(deliveryPerMile.value||0);
-    const rt   = (roundTrip.value==='yes') ? 2 : 1;
-
-    const gallons = size * loads;
-    subtotal = gallons * ppg;
-    delivery = miles * rt * dpm * loads;
-    itemLabel = `${loads}× tanker (${fmtNum(size,0)} gal)`;
-  } else {
-    const pallets = Number(sodPallets.value||0);
-    const miles = Number(sodMiles.value||0);
-    const pp    = Number(sodPrice.value||0);
-    const dpm   = Number(sodDelivery.value||0);
-
-    subtotal = pallets * pp;
-    delivery = miles * dpm;
-    const type = sodType.options[sodType.selectedIndex].textContent;
-    itemLabel = `${fmtNum(pallets,0)} pallets (${type})`;
-  }
-
-  const total = subtotal + delivery;
-  orderTotalEl.textContent = fmtUSD(total);
-  summary.innerHTML = `
-    <div class="kv"><span>Item</span><strong>${itemLabel}</strong></div>
-    <div class="kv"><span>Subtotal</span><strong>${fmtUSD(subtotal)}</strong></div>
-    <div class="kv"><span>Delivery</span><strong>${fmtUSD(delivery)}</strong></div>
-    <div class="kv"><span><em>Estimated Total</em></span><strong>${fmtUSD(total)}</strong></div>
-  `;
-
-  // Payment math
-  const currency = payCurrency.value; // WTR or ADA
-  const ada_per_usd = Number(adaUsd.value||0.4); // ADA price in USD
-  const wtr_per_ada = Number(wtrAda.value||0.00001); // WTR per ADA (placeholder, editable)
-
-  let sendAmount = 0, usdEst = total;
-
-  if (currency==='ADA'){
-    // USD -> ADA
-    sendAmount = (total / ada_per_usd);
-    payBreakdown.textContent = `You’ll send ≈ ${fmtNum(sendAmount,4)} ADA (at ${fmtNum(ada_per_usd,4)} USD/ADA).`;
-  } else {
-    // USD -> ADA -> WTR
-    const adaNeeded = (total / ada_per_usd);
-    sendAmount = (adaNeeded / wtr_per_ada);
-    payBreakdown.textContent = `You’ll send ≈ ${fmtNum(sendAmount,0)} WTR (via ${fmtNum(adaNeeded,4)} ADA × ${fmtNum(1/wtr_per_ada,0)} WTR/ADA).`;
-  }
-
-  ckCurrency.textContent = currency;
-  ckAmount.textContent = (currency==='ADA') ? fmtNum(sendAmount,4)+' ADA' : fmtNum(sendAmount,0)+' WTR';
-  ckUsd.textContent = fmtUSD(usdEst);
-
-  // Order reference (UTC timestamp + 4 random chars)
-  const code = 'FO-' + new Date().toISOString().replaceAll(':','').replaceAll('-','').slice(0,15) + '-' + Math.random().toString(36).slice(2,6).toUpperCase();
-  orderRef.textContent = code;
-}
-recalc();
-
-// ---------- Copy buttons ----------
-document.querySelectorAll('.copy').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const id = btn.getAttribute('data-copy');
-    const text = el(id).textContent.trim();
-    navigator.clipboard.writeText(text).then(()=>{
-      btn.textContent='Copied!';
-      setTimeout(()=>btn.textContent='Copy', 1000);
-    });
-  });
-});
-
-// ---------- Simple Cardano wallet connect (CIP-30) ----------
-const walletStatus = el('walletStatus');
-async function connectCardano(which){
-  try{
-    if(!(window.cardano && window.cardano[which])){ walletStatus.textContent = which.toUpperCase()+': not found'; return; }
-    const api = await window.cardano[which].enable();
-    const net = await api.getNetworkId(); if (net!==1){ walletStatus.textContent = which.toUpperCase()+': wrong network'; return; }
-    const changeAddr = await api.getChangeAddress();
-    walletStatus.textContent = which.toUpperCase()+': '+ short(changeAddr);
-  }catch(e){ walletStatus.textContent = which.toUpperCase()+': failed'; }
-}
-el('btnNami').onclick   = ()=>connectCardano('nami');
-el('btnEternl').onclick = ()=>connectCardano('eternl');
-
-// ---------- Replace placeholders ----------
-/* IMPORTANT: Replace with your real Fountara receive address */
-el('recvAddress').textContent = 'addr1qyourfountaraaddressxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-</script>
-</body>
-</html>
+// Tab switch
+const tabs=document.querySelectorAll('[data-mode]');
+const waterForm=el('waterForm');const sodForm=el('sodForm');
+tabs.forEach(b=>b.onclick=()=>{tabs.forEach(x=>x.classList.remove

@@ -1,0 +1,11 @@
+{
+  "type": "atLeast",
+  "required": 3,
+  "scripts": [
+    {"type":"sig","keyHash":"<hw1_hash>"},
+    {"type":"sig","keyHash":"<hw2_hash>"},
+    {"type":"sig","keyHash":"<hw3_hash>"},
+    {"type":"sig","keyHash":"<hw4_hash>"},
+    {"type":"sig","keyHash":"<hw5_hash>"}
+  ]
+}

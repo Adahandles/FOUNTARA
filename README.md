@@ -5,6 +5,7 @@ This repo hosts the public website and governance artifacts for **Water Token (W
 ## Canonical IDs
 - **Policy ID**: `7e159ba1d6ef752b5f3ba12a97f3b46a9706687b233341cc5f83d33b`
 - **Subject**: `7e159ba1d6ef752b5f3ba12a97f3b46a9706687b233341cc5f83d33b575452` ("WTR")
+  - *The Subject is derived by concatenating the Policy ID with the hex-encoded ASCII string for "WTR" (`575452`). This allows readers to verify the correctness of the Subject value.*
 
 ## On‑chain scripts (placeholders)
 - `scripts/treasury.multisig.json` — fill `<hw*_hash>` with 5 signer payment key hashes

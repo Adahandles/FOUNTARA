@@ -14,9 +14,9 @@
     "end_epoch": 642
   },
   "wallets": {
-    "escrow": "addr1_wtr_escrow",
-    "lp_multisig": "addr1_wtr_lpdesk",
-    "payout_reserve": "addr1_wtr_payout"
+    "escrow": "<TO_BE_DEPLOYED>",
+    "lp_multisig": "<TO_BE_DEPLOYED>",
+    "payout_reserve": "<TO_BE_DEPLOYED>"
   },
   "audit": {
     "multisig_scheme": "3-of-5",

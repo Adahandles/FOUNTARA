@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Fountara — Water & Sod • Pay with WTR / ADA</title>
+
+<!-- Social preview -->
+<meta property="og:title" content="Fountara — Water & Sod • Pay with WTR / ADA" />
+<meta property="og:description" content="Order potable bulk water or sod. Reserve Water Bank storage by gallon or by case. Pay with Water Token (WTR) or ADA on Cardano." />
+<meta property="og:image" content="./wtrcoin.png" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Fountara — Water & Sod" />
+<meta name="twitter:description" content="Reserve storage & schedule delivery. Pay with WTR / ADA." />
+<meta name="twitter:image" content="./wtrcoin.png" />
+
+<link rel="icon" href="./Flogo.jpg" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --bg1:#001018;--bg2:#00243a;--bg3:#0b1930;
+  --cyan:#6cf;--cyan2:#8cf;--txt:#eaf1fb;--muted:#a7b6c7;--card:rgba(0,0,0,.25)
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  color:var(--txt);
+  background:linear-gradient(270deg,var(--bg1),var(--bg2),var(--bg3),var(--bg1));
+  background-size:600% 600%;animation:aurora 22s ease infinite;overflow-x:hidden
+}
+@keyframes aurora{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.wrap{max-width:1100px;margin:0 auto;padding:2rem 1rem}
+.section-title{font-size:clamp(1.9rem,3vw,2.6rem);margin:0 0 .8rem}
+.muted{color:var(--muted)}
+.token-box{background:var(--card);border:1px solid #ffffff22;border-radius:16px;padding:1rem;margin-bottom:1rem;box-shadow:0 0 18px rgba(108,207,255,.15)}
+.card{background:var(--card);border:1px solid #ffffff22;border-radius:14px;padding:1rem;box-shadow:0 0 18px rgba(108,207,255,.15)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+@media(max-width:920px){.grid2,.grid3{grid-template-columns:1fr}}
+.input{width:100%;padding:.8rem;border:1px solid #ffffff2a;background:#0005;color:#fff;border-radius:12px}
+label{font-weight:600;font-size:.95rem}
+.small{font-size:.9rem}
+.kv{display:flex;justify-content:space-between;gap:.5rem}
+.flex{display:flex;gap:.6rem;flex-wrap:wrap}
+.center{display:flex;justify-content:center;align-items:center}
+
+/* Buttons & Tabs */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:1rem 1.5rem;border-radius:14px;border:2px solid var(--cyan2);
+  background:linear-gradient(180deg,rgba(108,207,255,.25),rgba(108,207,255,.1));
+  color:#fff;font-weight:600;font-size:1rem;letter-spacing:.4px;
+  box-shadow:0 0 22px rgba(108,207,255,.35);cursor:pointer;transition:all .25s ease
+}
+.btn:hover{background:linear-gradient(180deg,rgba(108,207,255,.4),rgba(108,207,255,.2));box-shadow:0 0 32px rgba(108,207,255,.55);transform:translateY(-1px)}
+.btn.secondary{border-color:#fff4;background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.05));color:#fff}
+.btn.secondary:hover{box-shadow:0 0 26px rgba(255,255,255,.35)}
+.tab{color:#fff;font-weight:600;background:rgba(255,255,255,.08);border-radius:12px;border:1px solid #ffffff33;padding:.6rem 1rem;cursor:pointer;transition:all .2s ease}
+.tab:hover,.tab.active{background:rgba(255,255,255,.18);box-shadow:0 0 18px rgba(108,207,255,.4)}
+
+/* Hero */
+header.hero{min-height:62vh;display:grid;place-items:center;text-align:center;padding:4rem 1rem 2rem}
+.hero-inner{max-width:960px}
+.logo{width:340px;height:340px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 0 26px var(--cyan2);transition:transform .4s ease, box-shadow .4s ease;animation:pulse 3.2s ease-in-out infinite}
+.logo:hover{transform:scale(1.03) rotate(2deg);box-shadow:0 0 60px var(--cyan)}
+@keyframes pulse{0%{transform:scale(1);box-shadow:0 0 18px var(--cyan2)}50%{transform:scale(1.03);box-shadow:0 0 36px var(--cyan)}100%{transform:scale(1);box-shadow:0 0 18px var(--cyan2)}}
+h1{font-size:clamp(2.3rem,4vw,3.4rem);margin:.8rem 0 .4rem}
+.tag{color:var(--muted);font-size:1.05rem;margin:0 auto 1.1rem;max-width:720px}
+
+/* Copy pill + footer */
+.copy{padding:.35rem .55rem;border-radius:9px;border:1px solid #ffffff33;background:#ffffff1a;color:#fff;cursor:pointer}
+footer{color:var(--muted);text-align:center;padding:2rem 1rem}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <img class="logo" src="./wtrcoin.png" alt="Water Token (WTR) coin" />
+    <h1>Fountara</h1>
+    <p class="tag">Potable water & farm-fresh sod. Reserve **Water Bank** storage & schedule delivery. Pay with <strong>WTR</strong> or <strong>ADA</strong>.</p>
+    <div class="flex center">
+      <a href="#order" class="btn">Start Order</a>
+      <a href="#waterbank" class="btn">Water Bank</a>
+      <a href="#pay" class="btn secondary">Checkout</a>
+    </div>
+  </div>
+</header>
+
+<!-- BRAND STRIP -->
+<section class="wrap" style="padding-top:0">
+  <div class="token-box" style="display:grid;grid-template-columns:1.2fr .8fr;gap:1rem;align-items:center">
+    <div>
+      <img src="./Flogo.jpg" alt="Fountara Spring Water" style="height:72px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(108,207,255,.25))" />
+      <p class="muted" style="margin:.6rem 0 0">Florida-built, nationwide vision: water logistics + Water Bank reserves. Crypto-friendly via WTR / ADA.</p>
+    </div>
+    <div style="display:flex;gap:.6rem;justify-content:flex-end;flex-wrap:wrap">
+      <img src="./watertanker.png" alt="Water tanker" style="height:100px;border-radius:12px;border:1px solid #ffffff22" />
+      <img src="./Sodtruck.png" alt="Sod delivery" style="height:100px;border-radius:12px;border:1px solid #ffffff22" />
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <!-- ORDER: DELIVERY NOW -->
+  <section id="order" class="token-box">
+    <h2 class="section-title">Build Your Delivery</h2>
+
+    <div class="flex" role="tablist">
+      <button class="tab active" data-mode="water">Bulk Water</button>
+      <button class="tab" data-mode="sod">Sod Pallets</button>
+    </div>
+
+    <!-- WATER FORM -->
+    <div id="waterForm" style="margin-top:1rem">
+      <div class="grid3">
+        <label>Tanker Size (gallons)
+          <select id="waterSize" class="input">
+            <option value="6000">6,000</option>
+            <option value="7500" selected>7,500</option>
+            <option value="8500">8,500</option>
+          </select>
+        </label>
+        <label># of Loads
+          <input id="waterLoads" class="input" type="number" min="1" step="1" value="1" />
+        </label>
+        <label>Delivery Distance (miles)
+          <input id="waterMiles" class="input" type="number" min="0" step="1" value="20" />
+        </label>
+      </div>
+
+      <div class="grid3" style="margin-top:.6rem">
+        <label>Price per Gallon (USD)
+          <input id="pricePerGallon" class="input" type="number" step="0.001" value="0.02" />
+        </label>
+        <label>Delivery per Mile (USD)
+          <input id="deliveryPerMile" class="input" type="number" step="0.01" value="4.00" />
+        </label>
+        <label>Round Trip? (×2)
+          <select id="roundTrip" class="input">
+            <option value="yes" selected>Yes</option>
+            <option value="no">No</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <!-- SOD FORM -->
+    <div id="sodForm" style="display:none;margin-top:1rem">
+      <div class="grid3">
+        <label>Grass Type
+          <select id="sodType" class="input">
+            <option value="st-aug">St. Augustine</option>
+            <option value="bahia" selected>Bahia</option>
+            <option value="zoysia">Zoysia</option>
+          </select>
+        </label>
+        <label>Pallets
+          <input id="sodPallets" class="input" type="number" min="1" value="10" />
+        </label>
+        <label>Delivery Distance (miles)
+          <input id="sodMiles" class="input" type="number" min="0" value="30" />
+        </label>
+      </div>
+      <div class="grid3" style="margin-top:.6rem">
+        <label>Price per Pallet (USD)
+          <input id="sodPrice" class="input" type="number" step="0.01" value="170" />
+        </label>
+        <label>Delivery per Mile (USD)
+          <input id="sodDelivery" class="input" type="number" step="0.01" value="3.25" />
+        </label>
+        <label>Pallets per Truck
+          <input class="input" value="16" disabled />
+        </label>
+      </div>
+    </div>
+
+    <!-- SUMMARY + CURRENCY -->
+    <div class="grid2" style="margin-top:1rem">
+      <div class="card">
+        <h3>Delivery Summary</h3>
+        <div id="summary" class="small">
+          <div class="kv"><span>Item</span><strong>—</strong></div>
+          <div class="kv"><span>Subtotal</span><strong>$0.00</strong></div>
+          <div class="kv"><span>Delivery</span><strong>$0.00</strong></div>
+          <div class="kv"><span>Total</span><strong id="orderTotal">$0.00</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Currency</h3>
+        <div class="grid3">
+          <label>Pay in
+            <select id="payCurrency" class="input">
+              <option value="WTR" selected>Water Token (WTR)</option>
+              <option value="ADA">ADA</option>
+            </select>
+          </label>
+          <label>ADA / USD
+            <input id="adaUsd" class="input" type="number" step="0.0001" value="0.40" />
+          </label>
+          <label>WTR / ADA
+            <input id="wtrAda" class="input" type="number" step="0.0000001" value="0.00001" />
+          </label>
+        </div>
+        <div class="small" id="payBreakdown" style="margin-top:.6rem">—</div>
+        <div class="flex" style="margin-top:.6rem">
+          <a href="#pay" class="btn">Go to Checkout</a>
+          <button id="recalcBtn" class="btn secondary">Recalculate</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WATER BANK: STORAGE + DELIVERY CREDIT -->
+  <section id="waterbank" class="token-box">
+    <h2 class="section-title">Water Bank — Storage & Delivery Credit</h2>
+    <p class="muted" style="margin-top:-.4rem">Reserve water now and draw down later. Store <strong>by gallon</strong> (bulk) or <strong>by case</strong> (canned). Add optional delivery credit for future dispatch.</p>
+
+    <div class="flex" role="tablist" style="margin-top:.5rem">
+      <button class="tab active" data-mode="gallon">By Gallon (Bulk)</button>
+      <button class="tab" data-mode="case">By Case (Canned)</button>
+    </div>
+
+    <!-- GALLON FORM -->
+    <div id="wb_gallonForm" style="margin-top:1rem">
+      <div class="grid3">
+        <label>Gallons to Reserve
+          <input id="wb_gal" class="input" type="number" min="1000" step="1000" value="10000" />
+        </label>
+        <label>Months of Storage
+          <input id="wb_months_gal" class="input" type="number" min="1" step="1" value="3" />
+        </label>
+        <label>Rate (USD / 1,000 gal / month)
+          <input id="wb_rate_gal" class="input" type="number" step="0.01" value="3.50" />
+        </label>
+      </div>
+    </div>
+
+    <!-- CASE FORM -->
+    <div id="wb_caseForm" style="display:none;margin-top:1rem">
+      <div class="grid3">
+        <label>Cases to Reserve (24 × 16 oz)
+          <input id="wb_cases" class="input" type="number" min="1" step="1" value="100" />
+        </label>
+        <label>Months of Storage
+          <input id="wb_months_case" class="input" type="number" min="1" step="1" value="6" />
+        </label>
+        <label>Rate (USD / case / month)
+          <input id="wb_rate_case" class="input" type="number" step="0.01" value="0.75" />
+        </label>
+      </div>
+    </div>
+
+    <!-- UNIVERSAL FEES + OPTIONAL DELIVERY CREDIT -->
+    <div class="grid3" style="margin-top:.6rem">
+      <label>Setup / Handling (USD)
+        <input id="wb_setup" class="input" type="number" step="0.01" value="75" />
+      </label>
+      <label>Pre-pay Delivery Credit (USD)
+        <input id="wb_delcred" class="input" type="number" step="0.01" value="0" />
+      </label>
+      <label>Preferred Regional Bank
+        <select id="rb_select" class="input"></select>
+      </label>
+    </div>
+
+    <div class="grid2" style="margin-top:1rem">
+      <div class="card">
+        <h3>Reservation Summary</h3>
+        <div class="kv"><span class="muted">Storage (USD)</span><strong id="wb_usd_storage">—</strong></div>
+        <div class="kv"><span class="muted">Setup (USD)</span><strong id="wb_usd_setup">—</strong></div>
+        <div class="kv"><span class="muted">Delivery Credit (USD)</span><strong id="wb_usd_delcred">—</strong></div>
+        <div class="kv"><span class="muted">Total (USD)</span><strong id="wb_usd_total">—</strong></div>
+      </div>
+      <div class="card">
+        <h3>Crypto Equivalent</h3>
+        <div class="kv"><span class="muted">ADA</span><strong id="wb_ada">—</strong></div>
+        <div class="kv"><span class="muted">WTR</span><strong id="wb_wtr">—</strong></div>
+        <div class="kv"><span class="muted">Ref</span><strong><code id="wb_ref" style="background:#0006;padding:.25rem .5rem;border-radius:8px"></code></strong></div>
+        <div class="flex" style="margin-top:.6rem">
+          <button class="copy" data-copy="wb_ref">Copy Ref</button>
+          <a href="#pay" class="btn">Checkout with WTR / ADA</a>
+        </div>
+      </div>
+    </div>
+
+    <small class="muted">We are compiling all U.S. cities ≥ 60,000 population for regional Water Banks. Don’t see yours? Email wbgjr81@gmail.com.</small>
+  </section>
+
+  <!-- CHECKOUT -->
+  <section id="pay" class="token-box">
+    <h2 class="section-title">Checkout (WTR / ADA)</h2>
+    <div style="display:flex;gap:.8rem;align-items:center;margin:.2rem 0 1rem">
+      <img src="./wtrcoin.png" alt="WTR coin" style="height:56px;width:56px;border-radius:50%;border:1px solid #ffffff33" />
+      <div class="muted">Send the exact amount. Include your Delivery or Water Bank reference.</div>
+    </div>
+
+    <div class="grid3">
+      <div>
+        <strong>Connect Cardano Wallet</strong><br />
+        <button class="btn" id="btnNami">Connect Nami</button>
+        <button class="btn secondary" id="btnEternl">Connect Eternl</button>
+        <div id="walletStatus" class="muted small">Not connected</div>
+      </div>
+
+      <div>
+        <strong>Fountara Receive Address</strong>
+        <div class="small muted">WTR or ADA accepted</div>
+        <div class="flex" style="align-items:center">
+          <code id="recvAddress" style="background:#0006;padding:.4rem .6rem;border-radius:10px">addr1qyourfountaraaddressxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code>
+          <button class="copy" data-copy="recvAddress">Copy</button>
+        </div>
+      </div>
+
+      <div>
+        <strong>Delivery / WB Reference</strong>
+        <div class="small muted">Paste your reference code here before paying</div>
+        <div class="flex" style="align-items:center">
+          <code id="orderRef" style="background:#0006;padding:.4rem .6rem;border-radius:10px"></code>
+          <button class="copy" data-copy="orderRef">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:1rem">
+      <h3>Amount to Send</h3>
+      <div class="grid3">
+        <div class="kv"><span>Currency</span><strong id="ckCurrency">WTR</strong></div>
+        <div class="kv"><span>Amount</span><strong id="ckAmount">—</strong></div>
+        <div class="kv"><span>USD Est.</span><strong id="ckUsd">—</strong></div>
+      </div>
+      <small class="muted">Need WTR? Buy on your preferred Cardano DEX, then send to the address above.</small>
+    </div>
+  </section>
+
+  <!-- Verified on Cardano footer -->
+  <footer style="margin-top:3rem;padding:1.5rem 1rem;border-top:1px solid rgba(255,255,255,0.1);text-align:center;">
+    <div style="max-width:800px;margin:0 auto;">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.75rem;margin-bottom:1rem;">
+        <strong style="color:var(--cyan);">💧 Water Token (WTR)</strong>
+        <span style="color:var(--muted);">— Verified on Cardano</span>
+      </div>
+      <div style="margin-top:.5rem;line-height:1.6;color:var(--muted);font-size:0.9rem;">
+        <div><b style="color:var(--txt);">Policy ID:</b> 7e159ba1d6ef752b5f3ba12a97f3b46a9706687b233341cc5f83d33b</div>
+        <div><b style="color:var(--txt);">Subject:</b> 7e159ba1d6ef752b5f3ba12a97f3b46a9706687b233341cc5f83d33b575452</div>
+        <div style="margin-top:0.5rem;">
+          <a href="https://cardanoscan.io/token/7e159ba1d6ef752b5f3ba12a97f3b46a9706687b233341cc5f83d33b575452" 
+             target="_blank" 
+             rel="noopener"
+             style="color:var(--cyan);text-decoration:none;border-bottom:1px solid var(--cyan);">
+            View on Cardanoscan
+          </a>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.05);color:var(--muted);font-size:0.85rem;">
+        © Fountara — Water • Sod • Water Bank reserves
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+/* ---------- Helpers ---------- */
+const fmtUSD = n => Number(n||0).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:2});
+const fmtNum = (n,d=6)=> Number(n||0).toLocaleString(undefined,{maximumFractionDigits:d});
+const el = id => document.getElementById(id);
+const short = s => s ? (s.length>18? s.slice(0,6)+'…'+s.slice(-6): s) : '';
+
+/* ---------- Delivery Builder ---------- */
+const tabs = document.querySelectorAll('[data-mode]');
+const waterForm = el('waterForm');
+const sodForm   = el('sodForm');
+
+const waterSize = el('waterSize');
+const waterLoads= el('waterLoads');
+const waterMiles= el('waterMiles');
+const pricePerGallon = el('pricePerGallon');
+const deliveryPerMile = el('deliveryPerMile');
+const roundTrip = el('roundTrip');
+
+const sodType   = el('sodType');
+const sodPallets= el('sodPallets');
+const sodMiles  = el('sodMiles');
+const sodPrice  = el('sodPrice');
+const sodDelivery = el('sodDelivery');
+
+const payCurrency = el('payCurrency');
+const adaUsd = el('adaUsd');
+const wtrAda = el('wtrAda');
+
+const summary = el('summary');
+const orderTotalEl = el('orderTotal');
+const payBreakdown = el('payBreakdown');
+const ckCurrency = el('ckCurrency');
+const ckAmount = el('ckAmount');
+const ckUsd = el('ckUsd');
+const orderRef = el('orderRef');
+
+tabs.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabs.forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');
+    const mode = btn.getAttribute('data-mode');
+    const isWater = (mode === 'water');
+    waterForm.style.display = isWater ? '' : 'none';
+    sodForm.style.display   = isWater ? 'none' : '';
+    recalc();
+  });
+});
+
+const GRASS_DEFAULTS = { 'bahia':170, 'st-aug':260, 'zoysia':280 };
+sodType.addEventListener('change', ()=>{
+  const v = sodType.value;
+  if (GRASS_DEFAULTS[v]) sodPrice.value = GRASS_DEFAULTS[v];
+  recalc();
+});
+
+function recalc(){
+  const active = document.querySelector('[data-mode].active');
+  const mode = active ? active.getAttribute('data-mode') : 'water';
+
+  let itemLabel = '', subtotal = 0, delivery = 0;
+  if (mode==='water'){
+    const size = +waterSize.value||0;
+    const loads= +waterLoads.value||0;
+    const miles= +waterMiles.value||0;
+    const ppg  = +pricePerGallon.value||0;
+    const dpm  = +deliveryPerMile.value||0;
+    const rt   = (roundTrip.value==='yes') ? 2 : 1;
+
+    const gallons = size * loads;
+    subtotal = gallons * ppg;
+    delivery = miles * rt * dpm * loads;
+    itemLabel = `${loads}× tanker (${fmtNum(size,0)} gal)`;
+  } else {
+    const pallets= +sodPallets.value||0;
+    const miles  = +sodMiles.value||0;
+    const pp     = +sodPrice.value||0;
+    const dpm    = +sodDelivery.value||0;
+    subtotal = pallets * pp;
+    delivery = miles * dpm;
+    const typeLabel = sodType.options[sodType.selectedIndex]?.textContent || 'Sod';
+    itemLabel = `${fmtNum(pallets,0)} pallets (${typeLabel})`;
+  }
+
+  const total = subtotal + delivery;
+  orderTotalEl.textContent = fmtUSD(total);
+  summary.innerHTML = `
+    <div class="kv"><span>Item</span><strong>${itemLabel}</strong></div>
+    <div class="kv"><span>Subtotal</span><strong>${fmtUSD(subtotal)}</strong></div>
+    <div class="kv"><span>Delivery</span><strong>${fmtUSD(delivery)}</strong></div>
+    <div class="kv"><span>Total</span><strong>${fmtUSD(total)}</strong></div>
+  `;
+
+  const currency = payCurrency.value;
+  const ada_per_usd = +adaUsd.value||0.4;
+  const wtr_per_ada = +wtrAda.value||0.00001;
+
+  let sendAmount = 0;
+  if (currency==='ADA'){
+    sendAmount = total / ada_per_usd;
+    payBreakdown.textContent = `You’ll send ≈ ${fmtNum(sendAmount,4)} ADA (at ${fmtNum(ada_per_usd,4)} USD/ADA).`;
+  } else {
+    const adaNeeded = (total / ada_per_usd);
+    sendAmount = (adaNeeded / wtr_per_ada);
+    payBreakdown.textContent = `You’ll send ≈ ${fmtNum(sendAmount,0)} WTR (via ${fmtNum(adaNeeded,4)} ADA × ${fmtNum(1/wtr_per_ada,0)} WTR/ADA).`;
+  }
+  ckCurrency.textContent = currency;
+  ckAmount.textContent = (currency==='ADA') ? `${fmtNum(sendAmount,4)} ADA` : `${fmtNum(sendAmount,0)} WTR`;
+  ckUsd.textContent = fmtUSD(total);
+
+  // fresh delivery ref
+  orderRef.textContent = 'FO-'+new Date().toISOString().replaceAll(':','').replaceAll('-','').slice(0,15)+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
+}
+
+[
+  waterSize,waterLoads,waterMiles,pricePerGallon,deliveryPerMile,roundTrip,
+  sodType,sodPallets,sodMiles,sodPrice,sodDelivery,
+  payCurrency,adaUsd,wtrAda
+].forEach(x=> x.addEventListener('input', recalc));
+document.getElementById('recalcBtn')?.addEventListener('click', recalc);
+
+/* ---------- Water Bank (gallon/case) + Regional selector ---------- */
+const wb_gal=el('wb_gal'), wb_months_gal=el('wb_months_gal'), wb_rate_gal=el('wb_rate_gal');
+const wb_cases=el('wb_cases'), wb_months_case=el('wb_months_case'), wb_rate_case=el('wb_rate_case');
+const wb_setup=el('wb_setup'), wb_delcred=el('wb_delcred');
+const wb_usd_storage=el('wb_usd_storage'), wb_usd_setup=el('wb_usd_setup'), wb_usd_delcred=el('wb_usd_delcred'), wb_usd_total=el('wb_usd_total');
+const wb_ada=el('wb_ada'), wb_wtr=el('wb_wtr'), wb_ref=el('wb_ref');
+
+const galForm=el('wb_gallonForm'), caseForm=el('wb_caseForm');
+const wbTabs = document.querySelectorAll('#waterbank [data-mode]');
+
+wbTabs.forEach(b=>{
+  b.addEventListener('click',()=>{
+    wbTabs.forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const m=b.dataset.mode;
+    galForm.style.display=(m==='gallon')?'':'none';
+    caseForm.style.display=(m==='case')?'':'none';
+    recalcBank();
+  });
+});
+
+// Regional Bank (seed list; replace with full >=60k later)
+const RB_LIST = [
+  { city:'Ocala',state:'FL',pop:64000 },
+  { city:'Orlando',state:'FL',pop:309000 },
+  { city:'Tampa',state:'FL',pop:398000 },
+  { city:'Jacksonville',state:'FL',pop:971000 },
+  { city:'Miami',state:'FL',pop:454000 },
+  { city:'Atlanta',state:'GA',pop:510000 },
+  { city:'Charlotte',state:'NC',pop:897000 },
+  { city:'Houston',state:'TX',pop:2310000 },
+  { city:'Dallas',state:'TX',pop:1300000 },
+  { city:'Phoenix',state:'AZ',pop:1680000 },
+  { city:'Denver',state:'CO',pop:717000 },
+  { city:'Chicago',state:'IL',pop:2700000 },
+  { city:'Seattle',state:'WA',pop:762000 },
+  { city:'Los Angeles',state:'CA',pop:3890000 },
+  { city:'San Diego',state:'CA',pop:1380000 },
+  { city:'New York',state:'NY',pop:8460000 }
+];
+const rbSelect = el('rb_select');
+(function seedRB(){
+  rbSelect.innerHTML='';
+  RB_LIST.sort((a,b)=> a.state.localeCompare(b.state)||a.city.localeCompare(b.city))
+         .forEach((r,i)=>{
+           const opt=document.createElement('option');
+           opt.value=String(i);
+           opt.textContent=`${r.city}, ${r.state} — ${Number(r.pop).toLocaleString()}`;
+           rbSelect.appendChild(opt);
+         });
+})();
+
+function genWBRef(prefix='WB'){
+  return prefix+'-'+new Date().toISOString().replaceAll(':','').replaceAll('-','').slice(0,15)+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
+}
+
+function recalcBank(){
+  const mode = document.querySelector('#waterbank [data-mode].active')?.dataset.mode || 'gallon';
+  const setup = +wb_setup.value||0;
+  const delcred = +wb_delcred.value||0;
+  let storageUSD=0;
+
+  if(mode==='gallon'){
+    const gal=+wb_gal.value||0, mo=+wb_months_gal.value||0, rate=+wb_rate_gal.value||0;
+    storageUSD=(gal/1000)*rate*mo;
+  }else{
+    const cases=+wb_cases.value||0, mo=+wb_months_case.value||0, rate=+wb_rate_case.value||0;
+    storageUSD=cases*rate*mo;
+  }
+
+  const totalUSD=storageUSD+setup+delcred;
+  wb_usd_storage.textContent=fmtUSD(storageUSD);
+  wb_usd_setup.textContent  =fmtUSD(setup);
+  wb_usd_delcred.textContent=fmtUSD(delcred);
+  wb_usd_total.textContent  =fmtUSD(totalUSD);
+
+  const ada_per_usd = +adaUsd.value||0.4;
+  const wtr_per_ada = +wtrAda.value||0.00001;
+  const ada = totalUSD/ada_per_usd;
+  const wtr = ada/wtr_per_ada;
+  wb_ada.textContent = fmtNum(ada,4)+' ADA';
+  wb_wtr.textContent = fmtNum(wtr,0)+' WTR';
+  wb_ref.textContent = genWBRef();
+}
+
+[
+  wb_gal,wb_months_gal,wb_rate_gal,
+  wb_cases,wb_months_case,wb_rate_case,
+  wb_setup,wb_delcred,adaUsd,wtrAda,rbSelect
+].forEach(x=>x?.addEventListener('input',recalcBank));
+
+/* ---------- Copy buttons ---------- */
+document.querySelectorAll('.copy').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const id = btn.getAttribute('data-copy');
+    const text = el(id)?.textContent?.trim() || '';
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(()=>{
+      btn.textContent='Copied!'; setTimeout(()=>btn.textContent='Copy', 1000);
+    });
+  });
+});
+
+/* ---------- Wallet (CIP-30) ---------- */
+const walletStatus = el('walletStatus');
+async function connectCardano(which){
+  try{
+    if(!(window.cardano && window.cardano[which])){ walletStatus.textContent = which.toUpperCase()+': not found'; return; }
+    const api = await window.cardano[which].enable();
+    const net = await api.getNetworkId(); if (net !== 1){ walletStatus.textContent = which.toUpperCase()+': wrong network'; return; }
+    const changeAddr = await api.getChangeAddress();
+    walletStatus.textContent = which.toUpperCase()+': '+ short(changeAddr);
+  }catch(e){ walletStatus.textContent = which.toUpperCase()+': failed'; }
+}
+document.getElementById('btnNami')?.addEventListener('click', ()=>connectCardano('nami'));
+document.getElementById('btnEternl')?.addEventListener('click', ()=>connectCardano('eternl'));
+
+/* ---------- Set your real receive address ---------- */
+el('recvAddress').textContent = 'addr1qyourfountaraaddressxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+
+/* ---------- Initial paint ---------- */
+recalc();
+recalcBank();
+</script>
+</body>
+</html>

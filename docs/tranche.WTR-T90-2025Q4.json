@@ -1,0 +1,25 @@
+{
+  "tranche_id": "WTR-T90-2025Q4",
+  "policy_ids": {
+    "wtr": "7e159ba1d6ef752b5f3ba12a97f3b46a9706687b233341cc5f83d33b",
+    "bond_nft": "TO_BE_DEPLOYED_AFTER_FACTORY"
+  },
+  "terms": {
+    "tenor_days": 90,
+    "apr_ada": 0.00,
+    "apr_wtr": 0.12,
+    "cap_ada": 250000,
+    "early_exit": "disabled",
+    "start_epoch": 630,
+    "end_epoch": 642
+  },
+  "wallets": {
+    "escrow": "addr1_wtr_escrow",
+    "lp_multisig": "addr1_wtr_lpdesk",
+    "payout_reserve": "addr1_wtr_payout"
+  },
+  "audit": {
+    "multisig_scheme": "3-of-5",
+    "signers": ["hw1", "hw2", "hw3", "hw4", "hw5"]
+  }
+}

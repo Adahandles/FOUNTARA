@@ -1,0 +1,7 @@
+{
+  "type": "all",
+  "scripts": [
+    {"type":"sig","keyHash":"<policy_key_hash>"},
+    {"type":"before","slot": <S_cutoff>}
+  ]
+}

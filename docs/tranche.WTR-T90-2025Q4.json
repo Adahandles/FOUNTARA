@@ -7,6 +7,7 @@
   "terms": {
     "tenor_days": 90,
     "apr_ada": 0.00,
+    "apr_ada_comment": "ADA APR is set to 0.00 intentionally; this tranche is designed for WTR-only rewards.",
     "apr_wtr": 0.12,
     "cap_ada": 250000,
     "early_exit": "disabled",

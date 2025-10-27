@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WTR Bond Tranches — Fountara</title>
+  <!-- Social preview -->
+  <meta property="og:title" content="WTR Bond Tranches — Fountara" />
+  <meta property="og:description" content="Explore the current Water Token (WTR) bond tranches and learn how to participate." />
+  <meta property="og:image" content="./wtrcoin.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="WTR Bond Tranches — Fountara" />
+  <meta name="twitter:description" content="Explore the current Water Token (WTR) bond tranches and learn how to participate." />
+  <meta name="twitter:image" content="./wtrcoin.png" />
+  <link rel="icon" href="./Flogo.jpg" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg1:#001018;--bg2:#00243a;--bg3:#0b1930;
+      --cyan:#6cf;--cyan2:#8cf;--txt:#eaf1fb;--muted:#a7b6c7;--card:rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--txt);
+      background:linear-gradient(270deg,var(--bg1),var(--bg2),var(--bg3),var(--bg1));
+      background-size:600% 600%;animation:aurora 22s ease infinite;overflow-x:hidden;
+    }
+    @keyframes aurora{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .wrap{max-width:1100px;margin:0 auto;padding:2rem 1rem}
+    .section-title{font-size:clamp(1.9rem,3vw,2.6rem);margin:0 0 .8rem}
+    .card{background:var(--card);border:1px solid #ffffff22;border-radius:14px;padding:1rem;box-shadow:0 0 18px rgba(108,207,255,.15)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:1rem 1.5rem;border-radius:14px;border:2px solid var(--cyan2);background:linear-gradient(180deg,rgba(108,207,255,.25),rgba(108,207,255,.1));color:#fff;font-weight:600;font-size:1rem;letter-spacing:.4px;box-shadow:0 0 22px rgba(108,207,255,.35);cursor:pointer;transition:all .25s ease}
+    .btn:hover{background:linear-gradient(180deg,rgba(108,207,255,.4),rgba(108,207,255,.2));box-shadow:0 0 32px rgba(108,207,255,.55);transform:translateY(-1px)}
+    .muted{color:var(--muted)}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:920px){.grid2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="wrap" style="text-align:center;padding-top:3rem">
+    <img src="./wtrcoin.png" alt="Water Token (WTR)" style="width:180px;height:180px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 26px var(--cyan2);margin-bottom:1rem" />
+    <h1>Bond Tranches</h1>
+    <p class="muted" style="max-width:700px;margin:0 auto 1.6rem">Fountara’s bond program lets you deposit ADA into timed tranches and earn Water Token (WTR) rewards. Each tranche funds new wells, storage, and restoration projects. Learn about the current tranche below.</p>
+    <div class="flex center" style="display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap">
+      <a href="index.html" class="btn secondary">Home</a>
+      <a href="stake.html" class="btn">Stake</a>
+      <a href="bond.html" class="btn">Bond</a>
+      <a href="earn.html" class="btn">Earn</a>
+      <a href="tokenomics.html" class="btn secondary">Tokenomics</a>
+    </div>
+  </header>
+  <section class="wrap">
+    <h2 class="section-title">Current Bond Tranche</h2>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <p><strong>Tranche ID:</strong> WTR-T90-2025Q4</p>
+          <p><strong>Tenor:</strong> 90&nbsp;days</p>
+          <p><strong>APR&nbsp;(WTR):</strong> 12%</p>
+        </div>
+        <div>
+          <p><strong>Cap:</strong> 250,000&nbsp;ADA</p>
+          <p><strong>Start&nbsp;Epoch:</strong> 630</p>
+          <p><strong>End&nbsp;Epoch:</strong> 642</p>
+        </div>
+      </div>
+      <p class="muted" style="margin-top:1rem"><strong>Use of Funds:</strong> 100&nbsp;% of ADA raised in this tranche is paired with treasury WTR and deposited into a WTR/ADA liquidity pool on a Cardano DEX (e.g.&nbsp;Minswap). This deepens the market and earns trading fees for the treasury.</p>
+      <p class="muted"><strong>Rewards &amp; Emissions:</strong> Bond investors receive their principal back in ADA at maturity plus a 12&nbsp;% WTR yield, paid from the emission schedule described in the tokenomics. There is no ADA APR. Early exit is disabled to protect LP stability.</p>
+      <p class="muted"><strong>Custody &amp; Security:</strong> LP tokens and raised funds are held in a 3‑of‑5 multi‑signature wallet controlled by Fountara trustees and community representatives. On‑chain dashboards allow anyone to verify the custody. We are evaluating Optim Finance’s bond technology【203516177829327†L96-L113】 for future tranches but currently use a custom script.</p>
+      <div style="text-align:center;margin-top:1.4rem">
+        <a href="#" class="btn">Join Waitlist</a>
+      </div>
+    </div>
+  </section>
+  <footer style="color:var(--muted);text-align:center;padding:2rem 1rem">
+    Fountara • info@fountara.com
+  </footer>
+</body>
+</html>

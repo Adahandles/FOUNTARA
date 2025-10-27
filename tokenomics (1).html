@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Water Tokenomics — Fountara</title>
+  <!-- Social preview -->
+  <meta property="og:title" content="Water Tokenomics — Fountara" />
+  <meta property="og:description" content="Learn how the Water Token (WTR) is distributed and used within the Fountara ecosystem." />
+  <meta property="og:image" content="./wtrcoin.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Water Tokenomics — Fountara" />
+  <meta name="twitter:description" content="Learn how the Water Token (WTR) is distributed and used within the Fountara ecosystem." />
+  <meta name="twitter:image" content="./wtrcoin.png" />
+  <link rel="icon" href="./Flogo.jpg" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg1:#001018;--bg2:#00243a;--bg3:#0b1930;
+      --cyan:#6cf;--cyan2:#8cf;--txt:#eaf1fb;--muted:#a7b6c7;--card:rgba(0,0,0,.25)
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--txt);
+      background:linear-gradient(270deg,var(--bg1),var(--bg2),var(--bg3),var(--bg1));
+      background-size:600% 600%;animation:aurora 22s ease infinite;overflow-x:hidden
+    }
+    @keyframes aurora{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .wrap{max-width:1100px;margin:0 auto;padding:2rem 1rem}
+    .section-title{font-size:clamp(1.9rem,3vw,2.6rem);margin:0 0 .8rem}
+    .card{background:var(--card);border:1px solid #ffffff22;border-radius:14px;padding:1rem;box-shadow:0 0 18px rgba(108,207,255,.15)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:1rem 1.5rem;border-radius:14px;border:2px solid var(--cyan2);background:linear-gradient(180deg,rgba(108,207,255,.25),rgba(108,207,255,.1));color:#fff;font-weight:600;font-size:1rem;letter-spacing:.4px;box-shadow:0 0 22px rgba(108,207,255,.35);cursor:pointer;transition:all .25s ease}
+    .btn:hover{background:linear-gradient(180deg,rgba(108,207,255,.4),rgba(108,207,255,.2));box-shadow:0 0 32px rgba(108,207,255,.55);transform:translateY(-1px)}
+    .muted{color:var(--muted)}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:920px){.grid2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="wrap" style="text-align:center;padding-top:3rem">
+    <img src="./wtrcoin.png" alt="Water Token (WTR)" style="width:180px;height:180px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 26px var(--cyan2);margin-bottom:1rem" />
+    <h1>Water Tokenomics</h1>
+    <p class="muted" style="max-width:680px;margin:0 auto 1.6rem">The Water Token (WTR) underpins the Fountara ecosystem. Each token represents a claim on our infrastructure and water production capacity. Learn how WTR is distributed, what it funds, and how you can participate.</p>
+    <div class="flex center" style="display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap">
+      <a href="index.html" class="btn secondary">Home</a>
+      <a href="stake.html" class="btn">Stake</a>
+      <a href="bond.html" class="btn">Bond</a>
+      <a href="earn.html" class="btn">Earn</a>
+    </div>
+  </header>
+  <section class="wrap">
+    <h2 class="section-title">Supply &amp; Distribution</h2>
+    <div class="card">
+      <p><strong>Total Supply:</strong> 50,000&nbsp;WTR (capped). All tokens are minted at genesis and held by the Fountara treasury.</p>
+      <ul>
+        <li><strong>40% – Reserve &amp; Buyback:</strong> Set aside to maintain liquidity, execute buybacks, and underpin the Water Bank reserves.</li>
+        <li><strong>30% – Development &amp; Infrastructure:</strong> Allocated to fund new water wells, treatment facilities, and software development for logistics and token management.</li>
+        <li><strong>20% – Operations &amp; Expansion:</strong> Used to scale our fleet, cover operational expenses, and expand to new regions.</li>
+        <li><strong>10% – DAO &amp; Community:</strong> Reserved for governance, community initiatives, and grants determined by token holders.</li>
+      </ul>
+      <p class="muted">These allocations follow the operations model in the attached spreadsheet. Final percentages are subject to audit and community governance.</p>
+    </div>
+
+    <h2 class="section-title">Emissions &amp; Liquidity Strategy</h2>
+    <div class="card">
+      <p>WTR tokens are emitted gradually rather than all at once. At genesis, 50&nbsp;000&nbsp;WTR were minted to the treasury. New WTR enters circulation over a three‑year emissions schedule to fund staking rewards, bond interest and community incentives. Emissions decay by roughly 25&nbsp;% each year, balancing early growth with long‑term scarcity.</p>
+      <p><strong>Bond Proceeds to Liquidity:</strong> When a bond tranche funds, the ADA raised is paired with treasury WTR and deposited into a liquidity pool on a Cardano DEX (such as Minswap or WingRiders). This provides deep trading liquidity for WTR. LP tokens representing the position are held by the Fountara treasury and locked under a 3‑of‑5 multi‑signature script. Fees earned from the pool accrue back to the treasury to support buybacks and future emissions.</p>
+      <p><strong>On‑Chain Custody:</strong> All treasury assets—including reserves, LP tokens and emission keys—are secured on-chain. A 3‑of‑5 multi‑signature policy (with a mix of core team and community trustees) controls any movement of funds. This ensures that bond proceeds and liquidity positions cannot be misused or withdrawn unilaterally. Transparency dashboards allow anyone to verify the addresses and balances on the Cardano ledger.</p>
+      <p class="muted">We are exploring integration with Optim Finance’s Liquidity Bond contracts for future tranches. Optim’s on‑chain architecture allows non‑custodial lending of ADA staking rights【203516177829327†L96-L113】, but final adoption will depend on community feedback and technical audits.</p>
+    </div>
+    <h2 class="section-title">Utility &amp; Use Cases</h2>
+    <div class="card">
+      <ul>
+        <li><strong>Payment:</strong> Use WTR to order bulk water, sod, and other products on Fountara.</li>
+        <li><strong>Staking:</strong> Stake WTR to earn Water Bank rewards and share in platform fees.</li>
+        <li><strong>Bond Tranches:</strong> Acquire bond‑like tranches to fund expansions and earn attractive WTR yields.</li>
+        <li><strong>Governance:</strong> Participate in community votes on project roadmaps, tranche terms, and key decisions.</li>
+      </ul>
+    </div>
+  </section>
+  <footer style="color:var(--muted);text-align:center;padding:2rem 1rem">
+    Fountara • info@fountara.com
+  </footer>
+</body>
+</html>

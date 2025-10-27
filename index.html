@@ -64,9 +64,9 @@ label{font-weight:600;font-size:.95rem}
 /* Hero */
 header.hero{min-height:62vh;display:grid;place-items:center;text-align:center;padding:4rem 1rem 2rem}
 .hero-inner{max-width:960px}
-.logo{width:340px;height:340px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 0 26px var(--cyan2);transition:transform .4s ease, box-shadow .4s ease;animation:pulse 3.2s eas[...]}
+.logo{width:340px;height:340px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 0 26px var(--cyan2);transition:transform .4s ease, box-shadow .4s ease;animation:pulse 3.2s ease infinite}
 .logo:hover{transform:scale(1.03) rotate(2deg);box-shadow:0 0 60px var(--cyan)}
-@keyframes pulse{0%{transform:scale(1);box-shadow:0 0 18px rgba(108,207,255,.15)}50%{transform:scale(1.03);box-shadow:0 0 36px rgba(108,207,255,.15)}100%{transform:scale(1);box-shadow:0 0 18px rgb[...]}
+@keyframes pulse{0%{transform:scale(1);box-shadow:0 0 18px rgba(108,207,255,.15)}50%{transform:scale(1.03);box-shadow:0 0 36px rgba(108,207,255,.15)}100%{transform:scale(1);box-shadow:0 0 18px rgba(108,207,255,.15)}}
 h1{font-size:clamp(2.3rem,4vw,3.4rem);margin:.8rem 0 .4rem}
 .tag{color:var(--muted);font-size:1.05rem;margin:0 auto 1.1rem;max-width:720px}
 
@@ -82,12 +82,16 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
   <div class="hero-inner">
     <img class="logo" src="./wtrcoin.png" alt="Water Token (WTR) coin" />
     <h1>Fountara</h1>
-    <p class="tag">Potable water & farm-fresh sod. Reserve **Water Bank** storage & schedule delivery. Pay with <strong>WTR</strong> or <strong>ADA</strong>.</p>
+    <p class="tag">Potable water & farm-fresh sod. Reserve <strong>Water Bank</strong> storage & schedule delivery. Pay with <strong>WTR</strong> or <strong>ADA</strong>.</p>
     <div class="flex center">
       <a href="#order" class="btn">Start Order</a>
       <a href="#waterbank" class="btn">Water Bank</a>
-  <a href="https://adahandles.github.io/MossBluffRestoration/" class="btn">Orange Springs</a>
-      <a href="#pay" class="btn secondary">Checkout</a>
+      <a href="#pay" class="btn">Checkout</a>
+      <a href="tokenomics.html" class="btn secondary">Tokenomics</a>
+      <a href="stake.html" class="btn secondary">Stake</a>
+      <a href="bond.html" class="btn secondary">Bond</a>
+      <a href="earn.html" class="btn secondary">Earn</a>
+      <a href="https://adahandles.github.io/MossBluffRestoration/" class="btn secondary">Orange Springs</a>
     </div>
   </div>
 </header>
@@ -106,7 +110,8 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
   </div>
 </section>
 
-<<div class="wrap" id="order">
+<!-- ORDER SECTION -->
+<div class="wrap" id="order">
   <h2 class="section-title">Order Water or Sod</h2>
   <div class="grid2">
     <div class="card">
@@ -135,6 +140,7 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
   </div>
 </div>
 
+<!-- WATERBANK SECTION -->
 <div class="wrap" id="waterbank">
   <h2 class="section-title">Water Bank</h2>
   <div class="card">
@@ -147,6 +153,7 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
   </div>
 </div>
 
+<!-- CHECKOUT SECTION -->
 <div class="wrap" id="pay">
   <h2 class="section-title">Checkout • WTR / ADA</h2>
   <div class="grid2">
@@ -205,6 +212,7 @@ function setPay(x){pay=x;}
 function reserve(g){cart.push({p:`WaterBank ${g} gal`,q:1,m:0,t:g*0.05});renderCart();}
 ['product','qty','miles'].forEach(id=>document.getElementById(id).addEventListener('input',renderQuote));
 renderQuote();
-<script>
+</script>
+
 </body>
 </html>

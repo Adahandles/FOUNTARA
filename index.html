@@ -41,7 +41,7 @@ body{
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
 @media(max-width:920px){.grid2,.grid3{grid-template-columns:1fr}}
 .input{width:100%;padding:.8rem;border:1px solid #ffffff2a;background:#0005;color:#fff;border-radius:12px}
-label{font-weight:600;font-size:.95rem}
+label{font-weight:600;font-size:.95rem;display:block;margin-bottom:.8rem}
 .small{font-size:.9rem}
 .kv{display:flex;justify-content:space-between;gap:.5rem}
 .flex{display:flex;gap:.6rem;flex-wrap:wrap}
@@ -64,7 +64,7 @@ label{font-weight:600;font-size:.95rem}
 /* Hero */
 header.hero{min-height:62vh;display:grid;place-items:center;text-align:center;padding:4rem 1rem 2rem}
 .hero-inner{max-width:960px}
-.logo{width:340px;height:340px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 0 26px var(--cyan2);transition:transform .4s ease, box-shadow .4s ease;animation:pulse 3.2s ease infinite}
+.logo{width:340px;height:340px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 0 26px var(--cyan2);transition:transform .4s ease, box-shadow .4s ease;animation:pulse 3.2s ease-in-out infinite alternate}
 .logo:hover{transform:scale(1.03) rotate(2deg);box-shadow:0 0 60px var(--cyan)}
 @keyframes pulse{0%{transform:scale(1);box-shadow:0 0 18px rgba(108,207,255,.15)}50%{transform:scale(1.03);box-shadow:0 0 36px rgba(108,207,255,.15)}100%{transform:scale(1);box-shadow:0 0 18px rgba(108,207,255,.15)}}
 h1{font-size:clamp(2.3rem,4vw,3.4rem);margin:.8rem 0 .4rem}
@@ -115,11 +115,12 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
   <h2 class="section-title">Order Water or Sod</h2>
   <div class="grid2">
     <div class="card">
-      <label>Product</label>
-      <select class="input" id="product">
-        <option value="water">Bulk Potable Water</option>
-        <option value="sod">Farm-fresh Sod</option>
-      </select>
+      <label>Product
+        <select class="input" id="product">
+          <option value="water">Bulk Potable Water</option>
+          <option value="sod">Farm-fresh Sod</option>
+        </select>
+      </label>
       <div class="kv small" style="margin-top:.8rem">
         <span>Tank / Pallets</span>
         <input class="input" id="qty" type="number" min="1" value="1" />
@@ -145,11 +146,33 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
   <h2 class="section-title">Water Bank</h2>
   <div class="card">
     <p class="small">Reserve storage by the gallon or by the case. Convert reservations to deliveries any time.</p>
-    <div class="flex">
+    <div class="flex" style="margin-bottom: 1rem;">
       <button class="btn secondary" onclick="reserve(250)">Reserve 250 gal</button>
       <button class="btn secondary" onclick="reserve(1000)">Reserve 1,000 gal</button>
       <button class="btn secondary" onclick="reserve(5000)">Reserve 5,000 gal</button>
     </div>
+    <div class="grid2" style="gap: 1rem; margin-top: 1rem;">
+      <div>
+        <label>Destination Address
+          <input id="wb_destination" class="input" type="text" placeholder="Delivery address or location" />
+        </label>
+      </div>
+      <div>
+        <label>Water Bank Action
+          <select id="wb_action" class="input">
+            <option value="pull_up">Pull Up (reserve for later pick-up)</option>
+            <option value="fill_up">Fill Up (schedule refill)</option>
+            <option value="bulk_water">Bulk Water (tanker delivery)</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="card" id="wb_reserves" style="margin-top:1rem;">
+    <h3>My Water Bank Reserves</h3>
+    <div class="kv"><span class="muted">Gallons Reserved</span><strong id="wb_reserved_gal">0</strong></div>
+    <div class="kv"><span class="muted">Cases Reserved</span><strong id="wb_reserved_cases">0</strong></div>
+    <div class="kv"><span class="muted">Delivery Credit (USD)</span><strong id="wb_reserved_credit">$0.00</strong></div>
   </div>
 </div>
 
@@ -209,7 +232,15 @@ function renderCart(){
   ).join('<br>');
 }
 function setPay(x){pay=x;}
-function reserve(g){cart.push({p:`WaterBank ${g} gal`,q:1,m:0,t:g*0.05});renderCart();}
+function reserve(g){
+  const dest = document.getElementById('wb_destination').value;
+  const action = document.getElementById('wb_action').value;
+  let details = `WaterBank ${g} gal`;
+  if (dest) details += ` to ${dest}`;
+  if (action) details += ` (${action})`;
+  cart.push({p: details, q:1, m:0, t:g*0.05});
+  renderCart();
+}
 ['product','qty','miles'].forEach(id=>document.getElementById(id).addEventListener('input',renderQuote));
 renderQuote();
 </script>

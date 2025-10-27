@@ -86,7 +86,7 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
     <div class="flex center">
       <a href="#order" class="btn">Start Order</a>
       <a href="#waterbank" class="btn">Water Bank</a>
-      <a href="orange-springs.html" class="btn">Orange Springs</a>
+  <a href="https://adahandles.github.io/MossBluffRestoration/" class="btn">Orange Springs</a>
       <a href="#pay" class="btn secondary">Checkout</a>
     </div>
   </div>
@@ -106,12 +106,105 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
   </div>
 </section>
 
-<div class="wrap">
-... (rest of original index.html unchanged) ...
+<<div class="wrap" id="order">
+  <h2 class="section-title">Order Water or Sod</h2>
+  <div class="grid2">
+    <div class="card">
+      <label>Product</label>
+      <select class="input" id="product">
+        <option value="water">Bulk Potable Water</option>
+        <option value="sod">Farm-fresh Sod</option>
+      </select>
+      <div class="kv small" style="margin-top:.8rem">
+        <span>Tank / Pallets</span>
+        <input class="input" id="qty" type="number" min="1" value="1" />
+      </div>
+      <div class="kv small" style="margin-top:.8rem">
+        <span>Delivery distance (miles)</span>
+        <input class="input" id="miles" type="number" min="0" value="10" />
+      </div>
+      <div class="flex" style="margin-top:1rem">
+        <button class="btn" onclick="addToCart()">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card" id="quote">
+      <h3 style="margin-top:0">Live Quote</h3>
+      <div class="small muted">Estimates update as you change inputs.</div>
+      <div id="quoteOut" style="margin-top:.8rem"></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" id="waterbank">
+  <h2 class="section-title">Water Bank</h2>
+  <div class="card">
+    <p class="small">Reserve storage by the gallon or by the case. Convert reservations to deliveries any time.</p>
+    <div class="flex">
+      <button class="btn secondary" onclick="reserve(250)">Reserve 250 gal</button>
+      <button class="btn secondary" onclick="reserve(1000)">Reserve 1,000 gal</button>
+      <button class="btn secondary" onclick="reserve(5000)">Reserve 5,000 gal</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" id="pay">
+  <h2 class="section-title">Checkout • WTR / ADA</h2>
+  <div class="grid2">
+    <div class="card">
+      <label>Pay with</label>
+      <div class="flex" style="margin-top:.5rem">
+        <button class="btn" onclick="setPay('WTR')">Water Token (WTR)</button>
+        <button class="btn" onclick="setPay('ADA')">ADA</button>
+      </div>
+      <p class="small muted" style="margin-top:.8rem">Handles supported: <strong>$Waterpay</strong>, <strong>$homeyield</strong>.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Cart</h3>
+      <div id="cartOut" class="small"></div>
+      <div class="flex" style="margin-top:1rem">
+        <button class="btn">Generate Payment QR</button>
+        <button class="btn secondary">Save Quote</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-/* Existing inline scripts unchanged */
-</script>
+let pay='WTR', cart=[];
+function price(product, qty, miles){
+  const base = product==='water' ? 180 : 220;        // example per-unit baseline
+  const haul = Math.max(0, miles)*3.5;               // per-mile
+  return Math.round((base*qty + haul)*100)/100;
+}
+function renderQuote(){
+  const p=document.getElementById('product').value;
+  const q=+document.getElementById('qty').value||1;
+  const m=+document.getElementById('miles').value||0;
+  const total=price(p,q,m);
+  document.getElementById('quoteOut').innerHTML =
+    `<div class="kv"><span>Product</span><strong>${p}</strong></div>
+     <div class="kv"><span>Quantity</span><strong>${q}</strong></div>
+     <div class="kv"><span>Miles</span><strong>${m}</strong></div>
+     <hr style="border-color:#ffffff22">
+     <div class="kv"><span>Total Estimate</span><strong>${total} USD eq.</strong></div>`;
+}
+function addToCart(){
+  const p=document.getElementById('product').value;
+  const q=+document.getElementById('qty').value||1;
+  const m=+document.getElementById('miles').value||0;
+  cart.push({p,q,m,t:price(p,q,m)});
+  renderCart();
+}
+function renderCart(){
+  if(!cart.length){document.getElementById('cartOut').innerHTML='Empty';return;}
+  document.getElementById('cartOut').innerHTML = cart.map((it,i)=>
+    `${i+1}. ${it.p} ×${it.q} • ${it.m} mi — <strong>${it.t}</strong>`
+  ).join('<br>');
+}
+function setPay(x){pay=x;}
+function reserve(g){cart.push({p:`WaterBank ${g} gal`,q:1,m:0,t:g*0.05});renderCart();}
+['product','qty','miles'].forEach(id=>document.getElementById(id).addEventListener('input',renderQuote));
+renderQuote();
+<script>
 </body>
 </html>

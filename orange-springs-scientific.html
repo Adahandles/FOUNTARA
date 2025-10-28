@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Orange Springs – Science & Ecology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #001018;
+      --bg2: #00243a;
+      --bg3: #0b1930;
+      --cyan: #6cf;
+      --cyan2: #8cf;
+      --txt: #eaf1fb;
+      --muted: #a7b6c7;
+      --card: rgba(0,0,0,.25);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      color: var(--txt);
+      background: linear-gradient(270deg, var(--bg1), var(--bg2), var(--bg3), var(--bg1));
+      background-size: 600% 600%;
+      animation: aurora 22s ease infinite;
+    }
+    @keyframes aurora {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+    }
+    nav a {
+      padding: 0.6rem 1.2rem;
+      border-radius: 14px;
+      border: 2px solid var(--cyan2);
+      background: linear-gradient(180deg, rgba(108,207,255,.25), rgba(108,207,255,.1));
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      box-shadow: 0 0 22px rgba(108,207,255,.35);
+      transition: all .25s ease;
+    }
+    nav a:hover {
+      background: linear-gradient(180deg, rgba(108,207,255,.4), rgba(108,207,255,.2));
+      box-shadow: 0 0 32px rgba(108,207,255,.55);
+      transform: translateY(-1px);
+    }
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    p {
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+    img.section-image {
+      width: 100%;
+      border-radius: 12px;
+      margin: 1rem 0;
+      box-shadow: 0 0 12px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="orange-springs-overview.html">Overview</a>
+    <a href="orange-springs-history.html">History</a>
+    <a href="orange-springs-scientific.html">Science</a>
+    <a href="orange-springs-research.html">Research</a>
+  </nav>
+  <div class="wrap">
+    <h1>Scientific &amp; Ecological Aspects</h1>
+    <img class="section-image" src="assets/img/orange4.jpg" alt="Lush vegetation around Orange Springs">
+    <p>
+      Orange Springs offers a glimpse into Florida’s karst hydrogeology and spring ecosystems. The spring emerges from the Floridan Aquifer, forming an oval pool approximately 85 by 100 feet with a depth of more than 20 feet at its limestone vent【33†L83-L90】. The water is crystal clear with a greenish tint and a distinct sulfur odor caused by dissolved hydrogen sulfide gas【33†L87-L90】【8†L1-L4】. After leaving the pool, water flows through a short run into Orange Creek, which eventually joins the Ocklawaha River【33†L91-L99】【37†L49-L57】. The surrounding floodplain forest provides habitat for fish, turtles, wading birds and aquatic invertebrates.
+    </p>
+    <p>
+      The chemistry of Orange Springs is unique. High sulfate levels in the groundwater support colonies of sulfur‑oxidizing bacteria; white filamentous mats of <em>Thiothrix</em> bacteria grow on submerged surfaces and oxidize sulfides【24†L130-L139】【24†L141-L149】. The spring’s constant temperature of about 72 °F (22 °C), neutral to slightly basic pH and low nitrate levels foster healthy algal growth and a diverse aquatic food web【34†L61-L68】. Because public access has been limited and the spring is carefully managed, its water quality remains high, making Orange Springs an ideal site for studying natural sulfur springs and their ecosystems.
+    </p>
+  </div>
+</body>
+</html>

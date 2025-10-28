@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Orange Springs – History</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #001018;
+      --bg2: #00243a;
+      --bg3: #0b1930;
+      --cyan: #6cf;
+      --cyan2: #8cf;
+      --txt: #eaf1fb;
+      --muted: #a7b6c7;
+      --card: rgba(0,0,0,.25);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      color: var(--txt);
+      background: linear-gradient(270deg, var(--bg1), var(--bg2), var(--bg3), var(--bg1));
+      background-size: 600% 600%;
+      animation: aurora 22s ease infinite;
+    }
+    @keyframes aurora {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+    }
+    nav a {
+      padding: 0.6rem 1.2rem;
+      border-radius: 14px;
+      border: 2px solid var(--cyan2);
+      background: linear-gradient(180deg, rgba(108,207,255,.25), rgba(108,207,255,.1));
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      box-shadow: 0 0 22px rgba(108,207,255,.35);
+      transition: all .25s ease;
+    }
+    nav a:hover {
+      background: linear-gradient(180deg, rgba(108,207,255,.4), rgba(108,207,255,.2));
+      box-shadow: 0 0 32px rgba(108,207,255,.55);
+      transform: translateY(-1px);
+    }
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    h2 {
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      margin-top: 1.5rem;
+    }
+    p {
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+    figure {
+      margin: 1.5rem 0;
+    }
+    img.section-image {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.5);
+    }
+    figcaption {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="orange-springs-overview.html">Overview</a>
+    <a href="orange-springs-history.html">History</a>
+    <a href="orange-springs-scientific.html">Science</a>
+    <a href="orange-springs-research.html">Research</a>
+  </nav>
+  <div class="wrap">
+    <h1>Orange Springs History</h1>
+    <figure>
+      <img class="section-image" src="assets/img/orange2.jpg" alt="Historic marker at Orange Springs">
+      <figcaption>Historic marker summarizing Orange Springs’ past as a health resort and Civil War refuge.</figcaption>
+    </figure>
+    <p>
+      Orange Springs has been valued by humans for centuries. Indigenous peoples likely visited the spring long before European settlers arrived. During the Second&nbsp;Seminole War (1835–1842), a fort named Fort&nbsp;Russell was built nearby as part of the conflict and the U.S. government encouraged settlement through the Armed Occupation Act of 1842【47†L253-L261】. In 1843 John&nbsp;W.&nbsp;Pearson and Senator David Levy Yulee purchased the spring property and turned it into a thriving health resort【47†L261-L267】. By the early 1850s the resort included a large hotel, mills, shops and a church and welcomed visitors who travelled by steamboat and stagecoach to “take the waters”【6†L79-L87】【15†L53-L61】.
+    </p>
+    <p>
+      The Civil War disrupted Orange Springs. Pearson organized the Oklawaha Rangers militia and produced arms for the Confederacy【6†L96-L104】. After his death in 1864 and a tax sale in 1875, the resort declined【6†L101-L107】. In the late 19th century the property changed hands several times. In 1912 turpentine entrepreneur James&nbsp;W.&nbsp;Townsend built the two‑story frame house that still stands today【47†L237-L245】. The “Townsend House” served as a seasonal home and base for Townsend’s business but also became a local landmark. Townsend died in 1944 and the house fell into disuse until the 1970s, when his granddaughter restored it and briefly reopened it as a bed‑and‑breakfast inn. It was listed on the National Register of Historic Places in 1988【34†L49-L57】.
+    </p>
+    <p>
+      Although attempts to revive Orange Springs as a tourist destination continued into the early 20th century—promoters even marketed it as a “Fountain of Youth”—they never regained its antebellum popularity【6†L129-L137】. Public swimming at the spring ended around 1990 when a bottled water plant opened on the site【33†L100-L107】. Today, Orange Springs remains quiet but retains its historic structures and rich heritage. The Townsend House is preserved as a private office and historic site, and a state marker commemorates the spring’s storied past【33†L109-L115】.
+    </p>
+    <figure>
+      <img class="section-image" src="assets/img/townsend-house-orange-springs01.jpg" alt="Townsend House at Orange Springs">
+      <figcaption>The Townsend House, built in 1912, now serves as Fountara’s office and a preserved landmark.</figcaption>
+    </figure>
+  </div>
+</body>
+</html>

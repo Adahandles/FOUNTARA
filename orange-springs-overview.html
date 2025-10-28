@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Orange Springs – Overview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Use the same font as the main Fountara site -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    /* Dark theme variables from the Fountara home page */
+    :root {
+      --bg1: #001018;
+      --bg2: #00243a;
+      --bg3: #0b1930;
+      --cyan: #6cf;
+      --cyan2: #8cf;
+      --txt: #eaf1fb;
+      --muted: #a7b6c7;
+      --card: rgba(0,0,0,.25);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      color: var(--txt);
+      background: linear-gradient(270deg, var(--bg1), var(--bg2), var(--bg3), var(--bg1));
+      background-size: 600% 600%;
+      animation: aurora 22s ease infinite;
+    }
+    @keyframes aurora {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+    }
+    nav a {
+      padding: 0.6rem 1.2rem;
+      border-radius: 14px;
+      border: 2px solid var(--cyan2);
+      background: linear-gradient(180deg, rgba(108,207,255,.25), rgba(108,207,255,.1));
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      box-shadow: 0 0 22px rgba(108,207,255,.35);
+      transition: all .25s ease;
+    }
+    nav a:hover {
+      background: linear-gradient(180deg, rgba(108,207,255,.4), rgba(108,207,255,.2));
+      box-shadow: 0 0 32px rgba(108,207,255,.55);
+      transform: translateY(-1px);
+    }
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    p {
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+    img.section-image {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 1rem;
+      box-shadow: 0 0 12px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="orange-springs-overview.html">Overview</a>
+    <a href="orange-springs-history.html">History</a>
+    <a href="orange-springs-scientific.html">Science</a>
+    <a href="orange-springs-research.html">Research</a>
+  </nav>
+  <div class="wrap">
+    <h1>Orange Springs Overview</h1>
+    <img class="section-image" src="assets/img/orange-spring-1.jpg" alt="Orange Springs pool">
+    <p>
+      Orange Springs is a historic mineral spring located in northeast Marion County, Florida. Once a famous spa resort, the spring now serves as the source of Fountara’s sustainable bottled water project. The property spans about 67 acres and includes the spring pool, forest and historic structures. With a flow estimated in the millions of gallons per day, Orange Springs is one of Florida’s larger springs. Fountara bottles water from the spring, packaged in recyclable aluminum cans to avoid plastic waste, while preserving the spring’s flow through responsible withdrawal limits and ongoing monitoring.
+    </p>
+    <p>
+      This overview introduces the natural features of Orange Springs and the modern project to protect and share its waters. Use the navigation above to explore the full history of the spring and Townsend House, learn about its unique ecology, and discover ongoing research and development efforts.
+    </p>
+  </div>
+</body>
+</html>

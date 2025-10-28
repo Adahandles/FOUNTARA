@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Orange Springs – Research & Development</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #001018;
+      --bg2: #00243a;
+      --bg3: #0b1930;
+      --cyan: #6cf;
+      --cyan2: #8cf;
+      --txt: #eaf1fb;
+      --muted: #a7b6c7;
+      --card: rgba(0,0,0,.25);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      color: var(--txt);
+      background: linear-gradient(270deg, var(--bg1), var(--bg2), var(--bg3), var(--bg1));
+      background-size: 600% 600%;
+      animation: aurora 22s ease infinite;
+    }
+    @keyframes aurora {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+    }
+    nav a {
+      padding: 0.6rem 1.2rem;
+      border-radius: 14px;
+      border: 2px solid var(--cyan2);
+      background: linear-gradient(180deg, rgba(108,207,255,.25), rgba(108,207,255,.1));
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      box-shadow: 0 0 22px rgba(108,207,255,.35);
+      transition: all .25s ease;
+    }
+    nav a:hover {
+      background: linear-gradient(180deg, rgba(108,207,255,.4), rgba(108,207,255,.2));
+      box-shadow: 0 0 32px rgba(108,207,255,.55);
+      transform: translateY(-1px);
+    }
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    p {
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+    img.section-image {
+      width: 100%;
+      border-radius: 12px;
+      margin: 1rem 0;
+      box-shadow: 0 0 12px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="orange-springs-overview.html">Overview</a>
+    <a href="orange-springs-history.html">History</a>
+    <a href="orange-springs-scientific.html">Science</a>
+    <a href="orange-springs-research.html">Research</a>
+  </nav>
+  <div class="wrap">
+    <h1>Research &amp; Development</h1>
+    <p>
+      Responsible stewardship is central to Fountara’s work at Orange Springs. Water is drawn from deep in the Floridan Aquifer via underground pipes to minimize disturbance at the spring pool; the natural sulfur odor is removed through aeration and filtration before bottling【33†L109-L113】. A consumptive use permit restricts withdrawals to around 200,000 gallons per day and requires regular monitoring of flow and water quality【34†L49-L59】【34†L61-L68】. Analyses show that Orange Springs’ water remains free of significant contaminants and retains its characteristic mineral richness and stable flow.
+    </p>
+    <p>
+      Scientists are drawn to Orange Springs for its unique microbiology and hydrology. Field studies have sampled the spring to investigate sulfur‑oxidizing bacteria like <em>Thiothrix</em> that thrive in the sulfide‑rich water and play a role in nutrient cycling【24†L130-L139】【24†L141-L149】. The spring is also part of statewide springs monitoring networks: sensors track parameters such as discharge, temperature, dissolved oxygen and nutrient concentrations【30†L99-L107】. Fountara’s vision includes developing an interactive online map that visualizes real‑time spring data and shows how Orange Springs connects to the Ocklawaha and St. Johns River systems. By combining careful management, scientific collaboration and public education, the Orange Springs project aims to protect this unique resource while sharing its natural wonders with the world.
+    </p>
+    <img class="section-image" src="assets/img/wtrcoin.png" alt="Orange Springs project branding">
+  </div>
+</body>
+</html>

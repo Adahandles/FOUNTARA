@@ -1,54 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Orange Springs Restoration Project — Fountara</title>
-<meta name="description" content="Orange Springs Restoration Project by Fountara — Phase 1: water bagging line; Phase 2: canning line funded via WTR tokenomics." />
-<link rel="icon" href="./Flogo.jpg" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
-<style>
-body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#001018;color:#eaf1fb}
-.wrap{max-width:900px;margin:0 auto;padding:2rem 1rem}
-.header{display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.logo{height:52px;border-radius:8px}
-.card{background:rgba(0,0,0,.25);border:1px solid #ffffff22;padding:1rem;border-radius:12px}
-.btn{display:inline-block;padding:.6rem 1rem;border-radius:10px;border:1px solid #6cf;color:#fff;text-decoration:none}
-.small-muted{color:#a7b6c7}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orange Springs Restoration &amp; Preservation Project</title>
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+    crossorigin=""
+  />
+  <style>
+    /* Basic styling to mirror the existing restoration pages */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #222;
+      background: #f2f5fa;
+    }
+    header {
+      background: #124559;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: #0e3145;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      padding: 10px 0;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .content {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+    h2 {
+      color: #124559;
+      margin-top: 1.5em;
+    }
+    #map {
+      width: 100%;
+      height: 600px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .doc-links ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .doc-links li {
+      margin-bottom: 0.5em;
+    }
+    footer {
+      background: #124559;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="header">
-    <div style="display:flex;align-items:center;gap:.8rem">
-      <img class="logo" src="./Flogo.jpg" alt="Fountara logo" />
-      <h1 style="margin:0">Orange Springs Restoration Project</h1>
-    </div>
-    <div>
-      <a href="./index.html" class="btn">Home</a>
-    </div>
+  <header>
+    <h1>Orange Springs Restoration &amp; Preservation Project</h1>
+    <p>Restoring and preserving the Orange Springs wetlands through community‑driven restoration and sustainable practices.</p>
+  </header>
+  <nav>
+    <a href="#overview">Project Overview</a>
+    <a href="#map-section">Interactive Map</a>
+    <a href="#documents">Documents</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="content">
+    <section id="overview">
+      <h2>Project Overview</h2>
+      <p>
+        The Orange Springs Restoration &amp; Preservation Project aims to restore and enhance the natural springs and wetlands in the Orange Springs area of Florida.
+        Our goal is to protect water quality, restore native vegetation, and provide educational and recreational opportunities.
+        Restoration efforts are guided by research, local knowledge, and collaboration with agencies and stakeholders.
+      </p>
+    </section>
+    <section id="map-section">
+      <h2>Interactive Restoration Map</h2>
+      <p>
+        Use the map below to explore overlays showing flood zones and the Orange Springs project parcels. Toggle layers on or off to visualize
+        how the proposed restoration activities intersect with existing site conditions. Zoom in or out and click on features
+        for details.
+      </p>
+      <div id="map"></div>
+    </section>
+    <section id="documents">
+      <h2>Project Documents</h2>
+      <p>Review our project documents below. Clicking a document opens it in an online viewer rather than downloading the file.</p>
+      <div class="doc-links">
+        <ul>
+          <!-- Document links for the Orange Springs project; hosted in the MossBluffRestoration repository -->
+          <li><a href="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/Fountara_Orange_Springs_Grant_Proposal.docx" target="_blank">Grant Proposal (View)</a></li>
+          <li><a href="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/Orange_Springs_Restoration_Brief.docx" target="_blank">Restoration Brief (View)</a></li>
+          <li><a href="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/Orange_Springs_Conditional_Purchase_and_Grantnomics_Plan.docx" target="_blank">Conditional Purchase &amp; Grantnomics Plan (View)</a></li>
+          <li><a href="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/Fountara_Orange_Springs_Contractor_Document_Checklist.docx" target="_blank">Contractor Document Checklist (View)</a></li>
+        </ul>
+      </div>
+    </section>
+    <section id="contact">
+      <h2>Contact &amp; Partnerships</h2>
+      <p>
+        Interested in collaborating? If you represent an agency, nonprofit organization, academic institution, or private sector partner
+        with interest in restoration and preservation of Orange Springs wetlands, we invite you to reach out. Together, we can restore and protect
+        Orange Springs.
+      </p>
+      <p>Email us at <a href="mailto:info@fountara.com">info@fountara.com</a></p>
+    </section>
   </div>
+  <footer>
+    &copy; 2025 Fountara, LLC. All rights reserved.
+  </footer>
+  <!-- Leaflet JS and Esri Leaflet Plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/esri-leaflet@3.0.9/dist/esri-leaflet.js"></script>
+  <script>
+    // Initialize the map near Orange Springs
+    var map = L.map('map').setView([29.509, -81.944], 14);
 
-  <section style="margin-top:1rem" class="card">
-    <h2 style="margin-top:0">Mission</h2>
-    <p>The Orange Springs Restoration Project aims to revitalize the historic spring site in Orange Springs, Florida, through sustainable water harvesting and ecological restoration. The project will deliver clean, locally-produced water while restoring natural habitat and supporting the local community.</p>
+    // Base layer: OpenStreetMap
+    var baseLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-    <h3>Phases</h3>
-    <p><strong>Phase 1 – Water Bagging Line:</strong> Deploy a water bagging production line to begin packaging Orange Springs water for distribution. This phase is top-priority to create early operational output and revenue.</p>
-    <p><strong>Phase 2 – Canning Line Expansion:</strong> Expand with a canning line funded by Phase 1 profits and WTR token-based fundraising (bond tranches), contingent on Phase 1 success.</p>
+    // Additional basemaps from Esri
+    var topoLayer = L.esri.basemapLayer('Topographic');
+    var satelliteLayer = L.esri.basemapLayer('Imagery');
 
-    <h3>Funding & Tokenomics (Overview)</h3>
-    <p>Phase 2 will leverage Fountara’s WTR token model. We plan to offer bond-like token tranches that back equipment and expansion costs. Supporters who participate will help finance infrastructure and may receive rewards tied to water production.</p>
+    // Overlay layers: property parcels and flood zones from Marion County GIS
+    var parcelsLayer = L.esri.dynamicMapLayer({
+      url: 'https://gis.ocalafl.org/arcgis/rest/services/Public/Parcels/MapServer',
+      opacity: 0.6
+    });
+    var floodLayer = L.esri.dynamicMapLayer({
+      url: 'https://gis.marionfl.org/public/rest/services/General/Flood_Zones/MapServer',
+      layers: [2, 3, 6, 7],
+      opacity: 0.6
+    });
 
-    <h3>Get Involved</h3>
-    <p>Join the mailing list to receive updates and local event notices: <a href="mailto:info@fountara.com?subject=Orange Springs Mailing List">info@fountara.com</a></p>
+    // Layer groups for base and overlays
+    var baseMaps = {
+      'OpenStreetMap': null,
+      'Topo (Esri)': topoLayer,
+      'Satellite (Esri)': satelliteLayer
+    };
+    var overlayMaps = {
+      'Parcel Boundaries': parcelsLayer,
+      'Flood Zones (2017)': floodLayer
+    };
+    var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
 
-    <h3 class="small-muted">Map & Parcels</h3>
-    <p class="small-muted">Toggle the Orange Springs Parcels layer on the main interactive map to see the project footprint. If you'd like, we can add a map preview here focused on the parcels.</p>
+    // Display overlays by default
+    parcelsLayer.addTo(map);
+    floodLayer.addTo(map);
 
-  </section>
+    var orangeSpringsLayer;
 
-  <footer style="margin-top:1.6rem;color:#a7b6c7">Fountara • info@fountara.com</footer>
-</div>
+    // Fetch the Orange Springs parcels from the MossBluffRestoration repository
+    fetch('https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/orangesprings.geojson')
+      .then(function(response) { return response.json(); })
+      .then(function(data) {
+        orangeSpringsLayer = L.geoJSON(data, {
+          style: function() {
+            return { color: '#ff8c00', weight: 2, fillOpacity: 0.2 };
+          },
+          onEachFeature: function(feature, layer) {
+            var props = feature.properties || {};
+            var name = props.NAME || props.name || 'Orange Springs Parcel';
+            var parcel = props.PARCEL || props.parcel || '';
+            var acres = props.ACRES || props.acres || '';
+            var info = '<strong>' + name + '</strong>';
+            if (parcel) { info += '<br/>Parcel: ' + parcel; }
+            if (acres) { info += '<br/>Acres: ' + acres; }
+            layer.bindPopup(info);
+          }
+        });
+        orangeSpringsLayer.addTo(map);
+        layerControl.addOverlay(orangeSpringsLayer, 'Orange Springs Parcels');
+        map.fitBounds(orangeSpringsLayer.getBounds());
+      });
+  </script>
 </body>
 </html>

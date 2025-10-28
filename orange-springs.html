@@ -214,9 +214,19 @@
       if (acres) { info += '<br/>Acres: ' + acres; }
       layer.bindPopup(info);
     }
+    /*
+      Load our parcel data.  Originally the map loaded the JSON files from the
+      MossBluffRestoration repository via raw.githubusercontent.com.  When
+      deployed on GitHub Pages this resulted in CORS issues and the layer
+      control failed to appear.  To avoid cross‑domain fetch problems, we
+      assume the GeoJSON files live alongside this HTML file in the same
+      repository (for example at "orangesprings.geojson" and
+      "seminolesprings.geojson").  If you keep the files in a subdirectory,
+      update the paths accordingly.
+    */
     Promise.all([
-      fetch('https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/orangesprings.geojson').then(function(r){ return r.json(); }),
-      fetch('https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/seminolesprings.geojson').then(function(r){ return r.json(); })
+      fetch('orangesprings.geojson').then(function(r){ return r.json(); }),
+      fetch('seminolesprings.geojson').then(function(r){ return r.json(); })
     ]).then(function(results) {
       var orangeData = results[0];
       var seminoleData = results[1];

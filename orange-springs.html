@@ -252,10 +252,23 @@
     */
     Promise.all([
       fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/orangesprings.geojson').then(function(r){ return r.json(); }),
-      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/seminolesprings.geojson').then(function(r){ return r.json(); })
+      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/seminolesprings.geojson').then(function(r){ return r.json(); }),
+      // Additional MCPA government parcel layers
+      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/MCPA%20Parcel%20DataGW.geojson').then(function(r){ return r.json(); }),
+      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/MCPA%20Parcel%20DataGW1.geojson').then(function(r){ return r.json(); }),
+      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/MCPA%20Parcel%20DataGW2.geojson').then(function(r){ return r.json(); }),
+      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/MCPA%20Parcel%20Datagreenway.geojson').then(function(r){ return r.json(); })
     ]).then(function(results) {
+      // Orange Springs and Seminole Springs data
       var orangeData = results[0];
       var seminoleData = results[1];
+      // MCPA government parcel datasets
+      var mcpaGWData = results[2];
+      var mcpaGW1Data = results[3];
+      var mcpaGW2Data = results[4];
+      var mcpaGreenwayData = results[5];
+
+      // Orange Springs layers split by ownership
       orangeGovLayer = L.geoJSON(orangeData, {
         filter: function(feature) {
           return isGov(feature.properties && (feature.properties.NAME || feature.properties.name));
@@ -274,16 +287,42 @@
         style: function() { return { color: '#6a0dad', weight: 2, fillOpacity: 0.2 }; },
         onEachFeature: parcelPopup
       });
+
+      // MCPA government parcel layers with distinct colors
+      var mcpaGWLayer = L.geoJSON(mcpaGWData, {
+        style: function() { return { color: '#4169e1', weight: 2, fillOpacity: 0.2 }; },
+        onEachFeature: parcelPopup
+      });
+      var mcpaGW1Layer = L.geoJSON(mcpaGW1Data, {
+        style: function() { return { color: '#1e90ff', weight: 2, fillOpacity: 0.2 }; },
+        onEachFeature: parcelPopup
+      });
+      var mcpaGW2Layer = L.geoJSON(mcpaGW2Data, {
+        style: function() { return { color: '#00bfff', weight: 2, fillOpacity: 0.2 }; },
+        onEachFeature: parcelPopup
+      });
+      var mcpaGreenwayLayer = L.geoJSON(mcpaGreenwayData, {
+        style: function() { return { color: '#3cb371', weight: 2, fillOpacity: 0.2 }; },
+        onEachFeature: parcelPopup
+      });
+
+      // Add overlays to control
       layerControl.addOverlay(orangeGovLayer, 'Orange Springs Parcels (Gov)');
       layerControl.addOverlay(orangePrivateLayer, 'Orange Springs Parcels (Private)');
       layerControl.addOverlay(seminoleLayer, 'Seminole Springs Parcels');
-      // Add them to the map by default
+      layerControl.addOverlay(mcpaGWLayer, 'MCPA Parcel Data (GW)');
+      layerControl.addOverlay(mcpaGW1Layer, 'MCPA Parcel Data (GW1)');
+      layerControl.addOverlay(mcpaGW2Layer, 'MCPA Parcel Data (GW2)');
+      layerControl.addOverlay(mcpaGreenwayLayer, 'MCPA Parcel Data (Greenway)');
+
+      // Add the primary Orange Springs and Seminole layers to the map by default
       orangeGovLayer.addTo(map);
       orangePrivateLayer.addTo(map);
       seminoleLayer.addTo(map);
-      // Fit map to the combined bounds of all parcel layers
+
+      // Fit map to the combined bounds of all parcel layers (including new MCPA datasets)
       var bounds = L.latLngBounds([]);
-      [orangeGovLayer, orangePrivateLayer, seminoleLayer].forEach(function(l) {
+      [orangeGovLayer, orangePrivateLayer, seminoleLayer, mcpaGWLayer, mcpaGW1Layer, mcpaGW2Layer, mcpaGreenwayLayer].forEach(function(l) {
         bounds.extend(l.getBounds());
       });
       map.fitBounds(bounds);

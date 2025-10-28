@@ -41,7 +41,7 @@ body{
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
 @media(max-width:920px){.grid2,.grid3{grid-template-columns:1fr}}
 .input{width:100%;padding:.8rem;border:1px solid #ffffff2a;background:#0005;color:#fff;border-radius:12px}
-label{font-weight:600;font-size:.95rem;display:block;margin-bottom:.8rem}
+label{font-weight:600;font-size:.95rem}
 .small{font-size:.9rem}
 .kv{display:flex;justify-content:space-between;gap:.5rem}
 .flex{display:flex;gap:.6rem;flex-wrap:wrap}
@@ -64,7 +64,7 @@ label{font-weight:600;font-size:.95rem;display:block;margin-bottom:.8rem}
 /* Hero */
 header.hero{min-height:62vh;display:grid;place-items:center;text-align:center;padding:4rem 1rem 2rem}
 .hero-inner{max-width:960px}
-.logo{width:340px;height:340px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 0 26px var(--cyan2);transition:transform .4s ease, box-shadow .4s ease;animation:pulse 3.2s ease-in-out infinite alternate}
+.logo{width:340px;height:340px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 0 26px var(--cyan2);transition:transform .4s ease, box-shadow .4s ease;animation:pulse 3.2s ease infinite}
 .logo:hover{transform:scale(1.03) rotate(2deg);box-shadow:0 0 60px var(--cyan)}
 @keyframes pulse{0%{transform:scale(1);box-shadow:0 0 18px rgba(108,207,255,.15)}50%{transform:scale(1.03);box-shadow:0 0 36px rgba(108,207,255,.15)}100%{transform:scale(1);box-shadow:0 0 18px rgba(108,207,255,.15)}}
 h1{font-size:clamp(2.3rem,4vw,3.4rem);margin:.8rem 0 .4rem}
@@ -115,12 +115,11 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
   <h2 class="section-title">Order Water or Sod</h2>
   <div class="grid2">
     <div class="card">
-      <label>Product
-        <select class="input" id="product">
-          <option value="water">Bulk Potable Water</option>
-          <option value="sod">Farm-fresh Sod</option>
-        </select>
-      </label>
+      <label>Product</label>
+      <select class="input" id="product">
+        <option value="water">Bulk Potable Water</option>
+        <option value="sod">Farm-fresh Sod</option>
+      </select>
       <div class="kv small" style="margin-top:.8rem">
         <span>Tank / Pallets</span>
         <input class="input" id="qty" type="number" min="1" value="1" />
@@ -146,32 +145,30 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
   <h2 class="section-title">Water Bank</h2>
   <div class="card">
     <p class="small">Reserve storage by the gallon or by the case. Convert reservations to deliveries any time.</p>
-    <div class="flex" style="margin-bottom: 1rem;">
+    <div class="flex">
       <button class="btn secondary" onclick="reserve(250)">Reserve 250 gal</button>
       <button class="btn secondary" onclick="reserve(1000)">Reserve 1,000 gal</button>
       <button class="btn secondary" onclick="reserve(5000)">Reserve 5,000 gal</button>
     </div>
-    <div class="grid2" style="gap: 1rem; margin-top: 1rem;">
-      <div>
-        <label>Destination Address
-          <input id="wb_destination" class="input" type="text" placeholder="Delivery address or location" />
-        </label>
-      </div>
-      <div>
-        <label>Water Bank Action
-          <select id="wb_action" class="input">
-            <option value="pull_up">Pull Up (reserve for later pick-up)</option>
-            <option value="fill_up">Fill Up (schedule refill)</option>
-            <option value="bulk_water">Bulk Water (tanker delivery)</option>
-          </select>
-        </label>
-      </div>
+    <!-- New inputs for destination and action -->
+    <div class="grid2" style="margin-top:1rem">
+      <label>Destination Address
+        <input id="wb_destination" class="input" type="text" placeholder="Delivery address or location" />
+      </label>
+      <label>Water Bank Action
+        <select id="wb_action" class="input">
+          <option value="fill_up">Fill Up (customer pickup)</option>
+          <option value="bulk_water">Bulk Water (delivery by Fountara)</option>
+        </select>
+      </label>
     </div>
   </div>
-  <div class="card" id="wb_reserves" style="margin-top:1rem;">
+  <!-- Reserves summary -->
+  <div class="card" style="margin-top:1rem;">
     <h3>My Water Bank Reserves</h3>
     <div class="kv"><span class="muted">Gallons Reserved</span><strong id="wb_reserved_gal">0</strong></div>
     <div class="kv"><span class="muted">Cases Reserved</span><strong id="wb_reserved_cases">0</strong></div>
+    <div class="kv"><span class="muted">Tankers Reserved</span><strong id="wb_reserved_tankers">0</strong></div>
     <div class="kv"><span class="muted">Delivery Credit (USD)</span><strong id="wb_reserved_credit">$0.00</strong></div>
   </div>
 </div>
@@ -187,6 +184,18 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
         <button class="btn" onclick="setPay('ADA')">ADA</button>
       </div>
       <p class="small muted" style="margin-top:.8rem">Handles supported: <strong>$Waterpay</strong>, <strong>$homeyield</strong>.</p>
+      <!-- New payment method selector -->
+      <label style="display:block;margin-top:.8rem">Payment Method
+        <select id="paymentMethod" class="input">
+          <option value="echk">Bank eCheck</option>
+          <option value="card">Credit / Debit Card</option>
+          <option value="venmo">Venmo</option>
+          <option value="paypal">PayPal</option>
+          <option value="cashapp">Cash App</option>
+          <option value="chime">Chime</option>
+          <option value="anycrypto">Any Crypto (auto-swap to ADA)</option>
+        </select>
+      </label>
     </div>
     <div class="card">
       <h3 style="margin-top:0">Cart</h3>
@@ -201,6 +210,10 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
 
 <script>
 let pay='WTR', cart=[];
+// Track reserves
+let reserved_gal=0, reserved_cases=0, reserved_tankers=0, reserved_credit=0;
+// Payment method variable
+let paymentMethod='echk';
 function price(product, qty, miles){
   const base = product==='water' ? 180 : 220;        // example per-unit baseline
   const haul = Math.max(0, miles)*3.5;               // per-mile
@@ -233,16 +246,47 @@ function renderCart(){
 }
 function setPay(x){pay=x;}
 function reserve(g){
-  const dest = document.getElementById('wb_destination').value;
-  const action = document.getElementById('wb_action').value;
-  let details = `WaterBank ${g} gal`;
-  if (dest) details += ` to ${dest}`;
-  if (action) details += ` (${action})`;
-  cart.push({p: details, q:1, m:0, t:g*0.05});
+  // get destination and action
+  const dest=document.getElementById('wb_destination') ? document.getElementById('wb_destination').value.trim() : '';
+  const actionSelect=document.getElementById('wb_action');
+  const action=actionSelect ? actionSelect.value : '';
+  const actionLabel = actionSelect && actionSelect.selectedIndex >= 0 ? actionSelect.options[actionSelect.selectedIndex].text : '';
+  let desc=`WaterBank ${g} gal`;
+  if(dest){desc+=` to ${dest}`;}
+  if(actionLabel){desc+=` (${actionLabel})`;}
+  // update reserves counters
+  reserved_gal += g;
+  // categorize cases vs tankers based on amount
+  if(g >= 5000){
+    reserved_tankers += 1;
+  } else {
+    reserved_cases += 1;
+  }
+  reserved_credit += g * 0.05;
+  // update DOM reserves
+  const galEl=document.getElementById('wb_reserved_gal');
+  const casesEl=document.getElementById('wb_reserved_cases');
+  const tankEl=document.getElementById('wb_reserved_tankers');
+  const creditEl=document.getElementById('wb_reserved_credit');
+  if(galEl) galEl.textContent = reserved_gal;
+  if(casesEl) casesEl.textContent = reserved_cases;
+  if(tankEl) tankEl.textContent = reserved_tankers;
+  if(creditEl) creditEl.textContent = `$${reserved_credit.toFixed(2)}`;
+  cart.push({p:desc,q:1,m:0,t:g*0.05});
   renderCart();
 }
 ['product','qty','miles'].forEach(id=>document.getElementById(id).addEventListener('input',renderQuote));
 renderQuote();
+</script>
+
+<!-- Listener for payment method dropdown -->
+<script>
+const pmEl = document.getElementById('paymentMethod');
+if (pmEl) {
+  pmEl.addEventListener('change', function(){
+    paymentMethod = this.value;
+  });
+}
 </script>
 
 </body>

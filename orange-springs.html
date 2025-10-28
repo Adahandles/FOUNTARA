@@ -1,348 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Orange Springs Restoration &amp; Preservation Project</title>
-  <!-- Leaflet CSS -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
-    crossorigin=""
-  />
-  <style>
-    /* Basic styling to mirror the existing restoration pages */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      color: #222;
-      background: #f2f5fa;
-    }
-    header {
-      background: #124559;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      background: #0e3145;
-    }
-    nav a {
-      color: #fff;
-      margin: 0 15px;
-      padding: 10px 0;
-      text-decoration: none;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    .content {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
-    }
-    h2 {
-      color: #124559;
-      margin-top: 1.5em;
-    }
-    #map {
-      width: 100%;
-      height: 600px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .doc-links ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    .doc-links li {
-      margin-bottom: 0.5em;
-    }
-    footer {
-      background: #124559;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Orange Springs • Fountara</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#001018;--bg2:#00243a;--bg3:#0b1930;--cyan:#6cf;--cyan2:#8cf;--txt:#eaf1fb;--muted:#a7b6c7;--card:rgba(0,0,0,.25);--border:#ffffff22}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--txt);
+background:linear-gradient(270deg,var(--bg1),var(--bg2),var(--bg3),var(--bg1));background-size:600% 600%;animation:aurora 22s ease infinite;overflow-x:hidden}
+@keyframes aurora{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.wrap{max-width:1100px;margin:0 auto;padding:2rem 1rem}
+h1,h2{margin:0 0 .6rem} h2{font-size:clamp(1.6rem,2.5vw,2rem)}
+.hero{min-height:60vh;display:grid;place-items:center;text-align:center;padding:4rem 1rem 2rem}
+.hero .logo{width:220px;height:220px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 0 26px var(--cyan2)}
+.hero h1{font-size:clamp(2.2rem,4vw,3rem)} .tag{color:var(--muted);max-width:740px;margin:.6rem auto 0}
+.flex{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:.9rem 1.3rem;border-radius:14px;border:2px solid var(--cyan2);
+background:linear-gradient(180deg,rgba(108,207,255,.25),rgba(108,207,255,.1));color:#fff;font-weight:600;letter-spacing:.3px;box-shadow:0 0 22px rgba(108,207,255,.35);cursor:pointer;transition:all .25s ease}
+.btn:hover{background:linear-gradient(180deg,rgba(108,207,255,.4),rgba(108,207,255,.2));box-shadow:0 0 32px rgba(108,207,255,.55);transform:translateY(-1px)}
+.btn.secondary{border-color:#fff4;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03))}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem;box-shadow:0 0 18px rgba(108,207,255,.15)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem} @media(max-width:900px){.grid2{grid-template-columns:1fr}}
+.small{font-size:.95rem;color:var(--muted)} .kv{display:flex;justify-content:space-between;gap:.6rem}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:1rem} @media(max-width:900px){.gallery{grid-template-columns:1fr}}
+.gallery figure{margin:0} .gallery img{width:100%;border-radius:12px;border:1px solid var(--border)} figcaption{color:var(--muted);text-align:center;margin-top:.4rem}
+#map{width:100%;height:560px;border:1px solid var(--border);border-radius:14px} .section{margin-top:2rem}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Orange Springs Restoration &amp; Preservation Project</h1>
-    <p>Restoring and preserving the Orange Springs wetlands through community‑driven restoration and sustainable practices.</p>
-  </header>
-  <nav>
-    <a href="#overview">Project Overview</a>
-    <a href="#map-section">Interactive Map</a>
-    <a href="#development">Development Goals</a>
-  </nav>
-  <div class="content">
-    <section id="overview">
-      <h2>Project Overview</h2>
-      <p>
-        The Orange Springs Restoration &amp; Preservation Project aims to restore and enhance the natural springs and wetlands in the Orange Springs area of Florida.
-        Our goal is to protect water quality, restore native vegetation, and provide educational and recreational opportunities.
-        Restoration efforts are guided by research, local knowledge, and collaboration with agencies and stakeholders.
-      </p>
-      <!-- Detailed restoration phases for the Orange Springs project -->
-      <div style="margin-top:1.5rem;">
-        <h3 style="color:#124559;margin-bottom:.5rem;">Restoration Phases</h3>
-        <!-- Use subheadings and paragraphs rather than a bulleted list to align with site style -->
-        <div style="margin-bottom:1rem;">
-          <h4 style="color:#124559;margin-bottom:.3rem;">Phase 1 – Archaeological and Burial‑Site Survey</h4>
-          <p style="font-size:.9rem;color:#555;margin-bottom:.3rem;">Conduct a state‑licensed Phase IA/IB survey covering Seminole Spring, Orange Springs and the Orange Creek corridor.</p>
-          <p style="font-size:.9rem;color:#555;margin-bottom:0;">Identify and protect any cultural or burial sites per Florida Statute §872.05 and coordinate with tribal representatives.</p>
-        </div>
-        <div style="margin-bottom:1rem;">
-          <h4 style="color:#124559;margin-bottom:.3rem;">Phase 2 – Creek and Spring Restoration (Multi‑County Corridor)</h4>
-          <p style="font-size:.9rem;color:#555;margin-bottom:.3rem;">Remove muck, debris and invasives from Seminole Spring and Orange Springs downstream to Rodman Reservoir, Orange Lake and Lochloosa Lake.</p>
-          <p style="font-size:.9rem;color:#555;margin-bottom:0;">Restore hydrology and improve oxygen levels while minimizing mechanical disturbance.</p>
-        </div>
-        <div style="margin-bottom:1rem;">
-          <h4 style="color:#124559;margin-bottom:.3rem;">Phase 3 – Vegetation and Shoreline Stabilization</h4>
-          <p style="font-size:.9rem;color:#555;margin-bottom:.3rem;">Replant native wetland and upland species.</p>
-          <p style="font-size:.9rem;color:#555;margin-bottom:0;">Employ bio‑engineering techniques such as coir logs, root matting, live staking and native sod stabilization to secure shorelines.</p>
-        </div>
-        <div style="margin-bottom:1rem;">
-          <h4 style="color:#124559;margin-bottom:.3rem;">Phase 4 – Historic and Cultural Preservation</h4>
-          <p style="font-size:.9rem;color:#555;margin-bottom:.3rem;">Stabilize and restore the historic James W. Townsend House using the Secretary of the Interior’s Standards.</p>
-          <p style="font-size:.9rem;color:#555;margin-bottom:0;">Produce as‑built documentation and interpretive materials to educate the public about the site’s cultural significance.</p>
-        </div>
-        <div>
-          <h4 style="color:#124559;margin-bottom:.3rem;">Phase 5 – Conservation Buffer and Monitoring Network</h4>
-          <p style="font-size:.9rem;color:#555;margin-bottom:.3rem;">Establish a vegetated buffer linking Seminole Spring, Orange Springs and Orange Creek.</p>
-          <p style="font-size:.9rem;color:#555;margin-bottom:0;">Implement quarterly monitoring of vegetation, erosion and water quality, with annual DEP and DHR reporting to ensure long‑term project success.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Photos section showcasing the springs and historic Townsend house -->
-    <section id="photos">
-      <h2>Photos</h2>
-      <div style="display:flex;flex-wrap:wrap;gap:1rem;">
-        <figure style="flex:1;min-width:250px;">
-          <img src="Orange1.jpg" alt="Orange Springs headwaters" style="width:100%;border-radius:8px;" />
-          <figcaption style="text-align:center;margin-top:.5rem;font-size:.9rem;color:#555;">
-            Orange Springs headwaters
-          </figcaption>
-          <p style="font-size:.9rem;color:#555;margin-top:.3rem;">
-            This natural spring has attracted visitors since the late 1850s as a mineral spa where people sought its reputed health benefits. Developers later promoted its “medicinal” waters and built a concrete rim around the spring, turning it into a community gathering place for swimming, picnics and rallies.
-          </p>
-          <p style="font-size:.9rem;color:#555;margin-top:.3rem;">
-            Despite these efforts, attempts in the 1930s to promote Orange Springs as a “Fountain of Youth” tourist destination ultimately failed. Nevertheless, the spring remained a beloved local gathering spot where residents continued to swim, picnic, attend church gatherings and political rallies.
-          </p>
-        </figure>
-        <figure style="flex:1;min-width:250px;">
-          <img src="Townsend_House_Orange_Springs01.jpg" alt="James W. Townsend House" style="width:100%;border-radius:8px;" />
-          <figcaption style="text-align:center;margin-top:.5rem;font-size:.9rem;color:#555;">
-            Historic James W. Townsend House
-          </figcaption>
-          <p style="font-size:.9rem;color:#555;margin-top:.3rem;">
-            Built around 1912 as a vacation home for James W. Townsend, this two‑story wood‑frame residence allowed the Townsend family to oversee their turpentine and lumber businesses in central Florida while enjoying the rural setting. It is the largest historic dwelling in Orange Springs and showcases the Florida “cracker” style with an I‑house and dogtrot plan and a wrap‑around veranda.
-          </p>
-          <p style="font-size:.9rem;color:#555;margin-top:.3rem;">
-            James and his brother William were major figures in Florida’s naval stores industry, building turpentine stills across the region after relocating from Georgia in the 1880s. Constructing this house enabled James to supervise his operations and offered his extended family a retreat near the newly constructed Ocala Northern Railroad.
-          </p>
-        </figure>
-      </div>
-    </section>
-    <section id="map-section">
-      <h2>Interactive Restoration Map</h2>
-      <p>
-        Use the map below to explore overlays showing flood zones and the Orange Springs project parcels. Toggle layers on or off to visualize
-        how the proposed restoration activities intersect with existing site conditions. Zoom in or out and click on features
-        for details.
-      </p>
-      <div id="map"></div>
-    </section>
-    <!-- Long‑term development goals replacing the documents, grant outline and contact sections -->
-    <section id="development">
-      <h2>Long‑Term Development Goals</h2>
-      <p>
-        To ensure the Orange Springs Restoration &amp; Preservation Project remains resilient and self‑sustaining, we are planning several
-        infrastructure projects that provide community benefits and emergency preparedness.
-      </p>
-      <div style="margin-top:1rem;">
-        <h4 style="color:#124559;margin-bottom:.3rem;">Dome&nbsp;1 – Water Bagging &amp; Storage</h4>
-        <p style="font-size:.9rem;color:#555;margin-bottom:.3rem;">
-          Construct a climate‑controlled geodesic dome (“Dome 1”) equipped with an industrial water bagging line. This facility will
-          produce sealed potable‑water bags for emergency use and to supply Fountara’s Water Bank. Bagging operations ensure that
-          safe drinking water is available during hurricanes, floods and other disasters.
-        </p>
-        <p style="font-size:.9rem;color:#555;margin-bottom:0;">
-          Surplus bagged water will be stored on‑site, creating a reserve that can be deployed quickly when needed, and integrated with
-          the Water Bank storage program.
-        </p>
-      </div>
-      <div style="margin-top:1rem;">
-        <h4 style="color:#124559;margin-bottom:.3rem;">Free Community Storm &amp; Disaster Shelter</h4>
-        <p style="font-size:.9rem;color:#555;margin-bottom:.3rem;">
-          Develop a free‑to‑public storm and disaster shelter integrated into the restoration campus. The shelter will provide secure space,
-          emergency supplies and communication resources for local residents during severe weather events.
-        </p>
-        <p style="font-size:.9rem;color:#555;margin-bottom:0;">
-          Powered by renewable energy and supplied with water from Dome 1, the shelter will serve as a community anchor when critical
-          services are disrupted, ensuring Orange Springs remains prepared for storms, floods and other emergencies.
-        </p>
-      </div>
-    </section>
+<header class="hero">
+  <div>
+    <img class="logo" src="./wtrcoin.png" alt="Fountara WTR" />
+    <h1>Orange Springs</h1>
+    <p class="tag">Restoration • Preservation • Community Resilience — styled to match the Fountara home experience.</p>
+    <div class="flex" style="margin-top:1rem">
+      <a href="#overview" class="btn">Overview</a>
+      <a href="#map-section" class="btn">Interactive Map</a>
+      <a href="#goals" class="btn secondary">Development Goals</a>
+    </div>
   </div>
-  <footer>
-    &copy; 2025 Fountara, LLC. All rights reserved.
-  </footer>
-  <!-- Leaflet JS and Esri Leaflet Plugin -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" crossorigin=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/esri-leaflet@3.0.9/dist/esri-leaflet.js"></script>
-  <script>
-    // Initialize the map near Orange Springs
-    var map = L.map('map').setView([29.509, -81.944], 14);
+</header>
 
-    // Base layer: OpenStreetMap
-    var baseLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-    }).addTo(map);
+<section id="overview" class="wrap section">
+  <div class="grid2">
+    <div class="card">
+      <h2>Project Overview</h2>
+      <p class="small">Preserve and restore a connected freshwater and cultural corridor spanning Seminole Spring, Orange Springs, and the Orange Creek–Orange Lake–Lochloosa system.</p>
+      <div class="kv"><span>Historic Resource</span><strong>James W. Townsend House</strong></div>
+      <div class="kv"><span>Counties</span><strong>Marion, Putnam, Alachua</strong></div>
+      <div class="kv"><span>Focus</span><strong>Hydrology, Vegetation, Cultural Protection</strong></div>
+    </div>
+    <div class="card">
+      <h2>Phased Work</h2>
+      <ul class="small" style="margin:0 0 0 1.2rem">
+        <li>Phase 1 — Archaeological & burial‑site survey; THPO coordination.</li>
+        <li>Phase 2 — Creek & spring restoration to Rodman, Orange & Lochloosa; DO uplift.</li>
+        <li>Phase 3 — Native re‑vegetation & bio‑engineering shoreline stabilization.</li>
+        <li>Phase 4 — Townsend House stabilization per Secretary Standards.</li>
+        <li>Phase 5 — Conservation buffer & monitoring with quarterly reporting.</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    // Additional basemaps from Esri
-    var topoLayer = L.esri.basemapLayer('Topographic');
-    var satelliteLayer = L.esri.basemapLayer('Imagery');
+<section class="wrap section">
+  <h2>Photos</h2>
+  <div class="gallery">
+    <figure class="card">
+      <img src="./Orange1.jpg" alt="Orange Springs headwaters" />
+      <figcaption>Orange Springs headwaters</figcaption>
+      <p class="small">A 19th‑century mineral‑spa destination later improved with a concrete rim and used for community gatherings.</p>
+    </figure>
+    <figure class="card">
+      <img src="./Townsend_House_Orange_Springs01.jpg" alt="James W. Townsend House" />
+      <figcaption>Historic James W. Townsend House</figcaption>
+      <p class="small">Two‑story “cracker” vernacular residence serving as a cultural anchor for interpretation and education.</p>
+    </figure>
+    <figure class="card">
+      <img src="./orange%202.jpg" alt="Orange Springs — additional view" />
+      <figcaption>Orange Springs — additional view</figcaption>
+      <p class="small">Context image for site interpretation and public education.</p>
+    </figure>
+    <figure class="card">
+      <img src="./orange%20spring%2001%20RCM.jpg" alt="Orange Spring — pool & run" />
+      <figcaption>Orange Spring — pool &amp; run</figcaption>
+      <p class="small">Orange Spring is a third‑magnitude spring with a kidney‑shaped pool about 110 × 90 ft, edged by a low concrete wall. Water issues from a circular vent (~25 ft across) in the south‑central pool into a cavern within the Hawthorn Group of sands, silts, and clays. Divers have accessed this chamber, where groundwater also enters laterally. The pool is murky green with a light hydrogen‑sulfide odor and algae/aquatic vegetation on the bottom. Flow exits northeast over a man‑made limestone cascade and runs ~500 ft to Orange Creek.</p>
+    </figure>
+  </div>
+</section>
 
-    // Overlay layers: property parcels and flood zones from Marion County GIS
-    var parcelsLayer = L.esri.dynamicMapLayer({
-      url: 'https://gis.ocalafl.org/arcgis/rest/services/Public/Parcels/MapServer',
-      opacity: 0.6
-    });
-    var floodLayer = L.esri.dynamicMapLayer({
-      url: 'https://gis.marionfl.org/public/rest/services/General/Flood_Zones/MapServer',
-      layers: [2, 3, 6, 7],
-      opacity: 0.6
-    });
+<section class="wrap section" id="map-section">
+  <h2>Interactive Map</h2>
+  <div id="map" class="card"></div>
+</section>
 
-    // Layer groups for base and overlays
-    var baseMaps = {
-      // Include the actual base layer instead of null so it appears in the layer control
-      'OpenStreetMap': baseLayer,
-      'Topo (Esri)': topoLayer,
-      'Satellite (Esri)': satelliteLayer
-    };
-    var overlayMaps = {
-      'Parcel Boundaries': parcelsLayer,
-      'Flood Zones (2017)': floodLayer
-    };
-    var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+<section id="goals" class="wrap section">
+  <div class="grid2">
+    <div class="card">
+      <h2>Dome 1 • Water Banking & Bagging</h2>
+      <p class="small">Construct a climate‑controlled dome on parcel 00398‑000‑00 (former spray field) with an industrial water‑bagging line for emergency distribution and Water Bank reserves. Add canning after revenue milestones. Integrate rooftop or ground‑mount solar and keep structure within height constraints (target ≤ 40 ft; verify county code).</p>
+    </div>
+    <div class="card">
+      <h2>Community Storm & Disaster Shelter</h2>
+      <p class="small">Provide a free‑to‑public shelter co‑located on the campus. Renewable‑powered, with potable‑water storage and comms, serving as a resilience hub for hurricanes and floods.</p>
+    </div>
+  </div>
+</section>
 
-    // Display overlays by default
-    parcelsLayer.addTo(map);
-    floodLayer.addTo(map);
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" crossorigin></script>
+<script src="https://cdn.jsdelivr.net/npm/esri-leaflet@3.0.9/dist/esri-leaflet.js"></script>
+<script>
+const map = L.map('map').setView([29.509,-81.944],14);
+const base = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap'}).addTo(map);
+const topo=L.esri.basemapLayer('Topographic'); const sat=L.esri.basemapLayer('Imagery');
+const parcels=L.esri.dynamicMapLayer({url:'https://gis.ocalafl.org/arcgis/rest/services/Public/Parcels/MapServer',opacity:0.6});
+const flood=L.esri.dynamicMapLayer({url:'https://gis.marionfl.org/public/rest/services/General/Flood_Zones/MapServer',layers:[2,3,6,7],opacity:0.6});
+const baseMaps={'OpenStreetMap':base,'Topo (Esri)':topo,'Satellite (Esri)':sat};
+const overlays={'Parcel Boundaries':parcels,'Flood Zones (2017)':flood};
+const ctl=L.control.layers(baseMaps,overlays,{collapsed:false}).addTo(map);
+parcels.addTo(map); flood.addTo(map);
 
-    // Layers for private parcels and government parcels. We'll combine
-    // Orange Springs and Seminole Springs parcels into a single "Private Parcels" layer
-    // and the various MCPA datasets into a single "Government Parcels" layer.
-    var privateLayer, govLayer;
-    // Helper to determine if a parcel owner is a government or public entity
-    function isGov(name) {
-      if (!name) return false;
-      return /county|state|city|town|district|public|authority|service|department/i.test(name);
-    }
-    function parcelPopup(feature, layer) {
-      var props = feature.properties || {};
-      var name = props.NAME || props.name || 'Parcel';
-      var parcel = props.PARCEL || props.parcel || '';
-      var acres = props.ACRES || props.acres || '';
-      var info = '<strong>' + name + '</strong>';
-      if (parcel) { info += '<br/>Parcel: ' + parcel; }
-      if (acres) { info += '<br/>Acres: ' + acres; }
-      layer.bindPopup(info);
-    }
-    /*
-      Load our parcel data.  Originally the map loaded the JSON files from the
-      MossBluffRestoration repository via raw.githubusercontent.com.  When
-      deployed on GitHub Pages this resulted in CORS issues and the layer
-      control failed to appear.  To avoid cross‑domain fetch problems, we
-      assume the GeoJSON files live alongside this HTML file in the same
-      repository (for example at "orangesprings.geojson" and
-      "seminolesprings.geojson").  If you keep the files in a subdirectory,
-      update the paths accordingly.
-    */
-    /*
-      Fetch the Orange Springs and Seminole Springs parcel data.
-      When deploying on GitHub Pages the relative paths to the GeoJSON files may be
-      rewritten or blocked by Jekyll.  To ensure the map layers always load,
-      retrieve the files via their raw.githubusercontent.com URL.  These endpoints
-      serve the same content from the repository and include permissive CORS
-      headers.  If you later decide to bundle the GeoJSON files in a different
-      location, update these URLs accordingly.
-    */
-    Promise.all([
-      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/orangesprings.geojson').then(function(r){ return r.json(); }),
-      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/seminolesprings.geojson').then(function(r){ return r.json(); }),
-      // Additional MCPA government parcel layers
-      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/MCPA%20Parcel%20DataGW.geojson').then(function(r){ return r.json(); }),
-      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/MCPA%20Parcel%20DataGW1.geojson').then(function(r){ return r.json(); }),
-      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/MCPA%20Parcel%20DataGW2.geojson').then(function(r){ return r.json(); }),
-      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/MCPA%20Parcel%20Datagreenway.geojson').then(function(r){ return r.json(); })
-    ]).then(function(results) {
-      // Orange Springs and Seminole Springs data
-      var orangeData = results[0];
-      var seminoleData = results[1];
-      // MCPA government parcel datasets
-      var mcpaGWData = results[2];
-      var mcpaGW1Data = results[3];
-      var mcpaGW2Data = results[4];
-      var mcpaGreenwayData = results[5];
-
-      // Classify Orange Springs and Seminole Springs parcels into private or government groups.
-      var privateFeatures = [];
-      var govFeatures = [];
-      function classifyFeatureCollection(data) {
-        if (!data || !data.features) return;
-        data.features.forEach(function(feat) {
-          var name = (feat.properties && (feat.properties.NAME || feat.properties.name)) || '';
-          // Treat parcels containing "greenways" in the name as government parcels
-          if (/greenways/i.test(name)) {
-            govFeatures.push(feat);
-          } else {
-            privateFeatures.push(feat);
-          }
-        });
-      }
-      classifyFeatureCollection(orangeData);
-      classifyFeatureCollection(seminoleData);
-      // Include all MCPA datasets as government parcels
-      [mcpaGWData, mcpaGW1Data, mcpaGW2Data, mcpaGreenwayData].forEach(function(data) {
-        if (data && data.features) govFeatures = govFeatures.concat(data.features);
-      });
-      privateLayer = L.geoJSON({ type: 'FeatureCollection', features: privateFeatures }, {
-        style: function() { return { color: '#ff8c00', weight: 2, fillOpacity: 0.2 }; },
-        onEachFeature: parcelPopup
-      });
-      govLayer = L.geoJSON({ type: 'FeatureCollection', features: govFeatures }, {
-        // Use a consistent fill opacity for government parcels so they are equally shaded
-        style: function() {
-          return { color: '#4169e1', weight: 2, fillOpacity: 0.3 };
-        },
-        onEachFeature: parcelPopup
-      });
-
-      // Add new overlays to the control
-      layerControl.addOverlay(govLayer, 'Government Parcels');
-      layerControl.addOverlay(privateLayer, 'Private Parcels');
-
-      // Add both layers to the map by default
-      govLayer.addTo(map);
-      privateLayer.addTo(map);
-
-      // Fit map to the bounds of both layers
-      var bounds = L.latLngBounds([]);
-      [govLayer, privateLayer].forEach(function(l) {
-        bounds.extend(l.getBounds());
-      });
-      map.fitBounds(bounds);
-    });
-  </script>
+Promise.all([
+  fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/orangesprings.geojson').then(r=>r.json()),
+  fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/seminolesprings.geojson').then(r=>r.json()),
+  fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/MCPA%20Parcel%20DataGW.geojson').then(r=>r.json()),
+  fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/MCPA%20Parcel%20DataGW1.geojson').then(r=>r.json()),
+  fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/MCPA%20Parcel%20DataGW2.geojson').then(r=>r.json()),
+  fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/MCPA%20Parcel%20Datagreenway.geojson').then(r=>r.json())
+]).then(([orange,seminole,gw,gw1,gw2,gww])=>{
+  const govData={type:'FeatureCollection',features:[...(gw.features||[]),...(gw1.features||[]),...(gw2.features||[]),...(gww.features||[])]};
+  const privData={type:'FeatureCollection',features:[...(orange.features||[]),...(seminole.features||[])]};
+  const gov=L.geoJSON(govData,{style:()=>({color:'#4169e1',weight:2,fillOpacity:0.30})}).addTo(map);
+  const priv=L.geoJSON(privData,{style:()=>({color:'#ff8c00',weight:2,fillOpacity:0.30})}).addTo(map);
+  ctl.addOverlay(gov,'Government Parcels'); ctl.addOverlay(priv,'Private Parcels');
+  const b=L.latLngBounds([]); b.extend(gov.getBounds()); b.extend(priv.getBounds()); map.fitBounds(b);
+});
+</script>
 </body>
 </html>

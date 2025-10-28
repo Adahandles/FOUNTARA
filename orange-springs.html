@@ -199,7 +199,8 @@
 
     // Layer groups for base and overlays
     var baseMaps = {
-      'OpenStreetMap': null,
+      // Include the actual base layer instead of null so it appears in the layer control
+      'OpenStreetMap': baseLayer,
       'Topo (Esri)': topoLayer,
       'Satellite (Esri)': satelliteLayer
     };

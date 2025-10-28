@@ -91,6 +91,21 @@
         Restoration efforts are guided by research, local knowledge, and collaboration with agencies and stakeholders.
       </p>
     </section>
+
+    <!-- Photos section showcasing the springs and historic Townsend house -->
+    <section id="photos">
+      <h2>Photos</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+        <figure style="flex:1;min-width:250px;">
+          <img src="Orange1.jpg" alt="Orange Springs headwaters" style="width:100%;border-radius:8px;" />
+          <figcaption style="text-align:center;margin-top:.5rem;font-size:.9rem;color:#555;">Orange Springs headwaters</figcaption>
+        </figure>
+        <figure style="flex:1;min-width:250px;">
+          <img src="Townsend_House_Orange_Springs01.jpg" alt="James W. Townsend House" style="width:100%;border-radius:8px;" />
+          <figcaption style="text-align:center;margin-top:.5rem;font-size:.9rem;color:#555;">Historic James W. Townsend House</figcaption>
+        </figure>
+      </div>
+    </section>
     <section id="map-section">
       <h2>Interactive Restoration Map</h2>
       <p>
@@ -112,6 +127,19 @@
           <li><a href="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/Fountara_Orange_Springs_Contractor_Document_Checklist.docx" target="_blank">Contractor Document Checklist (View)</a></li>
         </ul>
       </div>
+    </section>
+
+    <!-- Grant outline summarizing the restoration proposal and emergency water bag line -->
+    <section id="grant-outline">
+      <h2>Grant Outline</h2>
+      <p>This section summarizes key points from our Orange Springs restoration grant proposal and introduces the emergency drinking water bag line.</p>
+      <ul>
+        <li><strong>Executive Summary:</strong> Fountara seeks funding to restore Seminole Spring, Orange Springs and the Orange Creek–Orange Lake corridor, while preserving the historic James W. Townsend House.</li>
+        <li><strong>Purpose:</strong> Protect water quality, restore native ecosystems, and safeguard cultural resources across multiple counties.</li>
+        <li><strong>Scope &amp; Phases:</strong> Perform archaeological surveys, remove invasive biomass, stabilize banks, replant natives, restore the historic Townsend House, and establish a conservation buffer and monitoring network.</li>
+        <li><strong>Expected Outcomes:</strong> Reconnect spring flows, reduce invasive biomass by 90 %, achieve ≥75 % native plant coverage, stabilize eroding shorelines, protect cultural resources, and create a regional conservation corridor.</li>
+        <li><strong>Emergency Drinking Water Bag Line:</strong> In parallel with restoration efforts, Fountara plans to deploy a portable water bagging line to provide emergency potable water during disasters. This line will produce sealed drinking‑water bags for distribution to affected communities as part of our long‑term sustainability plan.</li>
+      </ul>
     </section>
     <section id="contact">
       <h2>Contact &amp; Partnerships</h2>
@@ -169,31 +197,61 @@
     parcelsLayer.addTo(map);
     floodLayer.addTo(map);
 
-    var orangeSpringsLayer;
-
-    // Fetch the Orange Springs parcels from the MossBluffRestoration repository
-    fetch('https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/orangesprings.geojson')
-      .then(function(response) { return response.json(); })
-      .then(function(data) {
-        orangeSpringsLayer = L.geoJSON(data, {
-          style: function() {
-            return { color: '#ff8c00', weight: 2, fillOpacity: 0.2 };
-          },
-          onEachFeature: function(feature, layer) {
-            var props = feature.properties || {};
-            var name = props.NAME || props.name || 'Orange Springs Parcel';
-            var parcel = props.PARCEL || props.parcel || '';
-            var acres = props.ACRES || props.acres || '';
-            var info = '<strong>' + name + '</strong>';
-            if (parcel) { info += '<br/>Parcel: ' + parcel; }
-            if (acres) { info += '<br/>Acres: ' + acres; }
-            layer.bindPopup(info);
-          }
-        });
-        orangeSpringsLayer.addTo(map);
-        layerControl.addOverlay(orangeSpringsLayer, 'Orange Springs Parcels');
-        map.fitBounds(orangeSpringsLayer.getBounds());
+    // We'll load Orange Springs and Seminole Springs parcels and split Orange Springs into government and private parcels.
+    var orangeGovLayer, orangePrivateLayer, seminoleLayer;
+    // Helper to determine if a parcel owner is a government or public entity
+    function isGov(name) {
+      if (!name) return false;
+      return /county|state|city|town|district|public|authority|service|department/i.test(name);
+    }
+    function parcelPopup(feature, layer) {
+      var props = feature.properties || {};
+      var name = props.NAME || props.name || 'Parcel';
+      var parcel = props.PARCEL || props.parcel || '';
+      var acres = props.ACRES || props.acres || '';
+      var info = '<strong>' + name + '</strong>';
+      if (parcel) { info += '<br/>Parcel: ' + parcel; }
+      if (acres) { info += '<br/>Acres: ' + acres; }
+      layer.bindPopup(info);
+    }
+    Promise.all([
+      fetch('https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/orangesprings.geojson').then(function(r){ return r.json(); }),
+      fetch('https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/seminolesprings.geojson').then(function(r){ return r.json(); })
+    ]).then(function(results) {
+      var orangeData = results[0];
+      var seminoleData = results[1];
+      orangeGovLayer = L.geoJSON(orangeData, {
+        filter: function(feature) {
+          return isGov(feature.properties && (feature.properties.NAME || feature.properties.name));
+        },
+        style: function() { return { color: '#28a745', weight: 2, fillOpacity: 0.2 }; },
+        onEachFeature: parcelPopup
       });
+      orangePrivateLayer = L.geoJSON(orangeData, {
+        filter: function(feature) {
+          return !isGov(feature.properties && (feature.properties.NAME || feature.properties.name));
+        },
+        style: function() { return { color: '#ff8c00', weight: 2, fillOpacity: 0.2 }; },
+        onEachFeature: parcelPopup
+      });
+      seminoleLayer = L.geoJSON(seminoleData, {
+        style: function() { return { color: '#6a0dad', weight: 2, fillOpacity: 0.2 }; },
+        onEachFeature: parcelPopup
+      });
+      layerControl.addOverlay(orangeGovLayer, 'Orange Springs Parcels (Gov)');
+      layerControl.addOverlay(orangePrivateLayer, 'Orange Springs Parcels (Private)');
+      layerControl.addOverlay(seminoleLayer, 'Seminole Springs Parcels');
+      // Add them to the map by default
+      orangeGovLayer.addTo(map);
+      orangePrivateLayer.addTo(map);
+      seminoleLayer.addTo(map);
+      // Fit map to the combined bounds of all parcel layers
+      var bounds = L.latLngBounds([]);
+      [orangeGovLayer, orangePrivateLayer, seminoleLayer].forEach(function(l) {
+        bounds.extend(l.getBounds());
+      });
+      map.fitBounds(bounds);
+    });
   </script>
 </body>
 </html>

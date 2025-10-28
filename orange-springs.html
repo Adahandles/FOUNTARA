@@ -224,9 +224,18 @@
       "seminolesprings.geojson").  If you keep the files in a subdirectory,
       update the paths accordingly.
     */
+    /*
+      Fetch the Orange Springs and Seminole Springs parcel data.
+      When deploying on GitHub Pages the relative paths to the GeoJSON files may be
+      rewritten or blocked by Jekyll.  To ensure the map layers always load,
+      retrieve the files via their raw.githubusercontent.com URL.  These endpoints
+      serve the same content from the repository and include permissive CORS
+      headers.  If you later decide to bundle the GeoJSON files in a different
+      location, update these URLs accordingly.
+    */
     Promise.all([
-      fetch('orangesprings.geojson').then(function(r){ return r.json(); }),
-      fetch('seminolesprings.geojson').then(function(r){ return r.json(); })
+      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/orangesprings.geojson').then(function(r){ return r.json(); }),
+      fetch('https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/seminolesprings.geojson').then(function(r){ return r.json(); })
     ]).then(function(results) {
       var orangeData = results[0];
       var seminoleData = results[1];

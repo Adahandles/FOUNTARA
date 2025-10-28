@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orange Springs Restoration &amp; Preservation Project</title>
+  <!-- Leaflet base CSS (loaded from a reliable CDN) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+    crossorigin=""
+  />
+  <style>
+    /* Simple responsive layout matching the Moss Bluff page */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #222;
+      background: #f2f5fa;
+    }
+    header {
+      background: #124559;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: #0e3145;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      padding: 10px 0;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .content {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+    h2 {
+      color: #124559;
+      margin-top: 1.5em;
+    }
+    #map {
+      width: 100%;
+      height: 600px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .doc-links ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .doc-links li {
+      margin-bottom: 0.5em;
+    }
+    footer {
+      background: #124559;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Orange Springs Restoration &amp; Preservation Project</h1>
+    <p>Restoring and preserving the Orange Springs wetlands through community‑driven restoration and sustainable practices.</p>
+  </header>
+  <nav>
+    <a href="#overview">Project Overview</a>
+    <a href="#map-section">Interactive Map</a>
+    <a href="#documents">Documents</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="content">
+    <section id="overview">
+      <h2>Project Overview</h2>
+      <p>
+        The Orange Springs Restoration &amp; Preservation Project aims to restore and enhance the natural springs and wetlands in the Orange Springs area of Florida.
+        The project will protect water quality, restore native vegetation, and provide educational and recreational opportunities.
+        Restoration efforts are guided by research, local knowledge, and collaboration with agencies and stakeholders.
+      </p>
+    </section>
+    <section id="map-section">
+      <h2>Interactive Restoration Map</h2>
+      <p>
+        Use the map below to explore overlays showing flood zones and the Orange Springs parcels. Toggle layers on or off to visualize
+        how the proposed restoration activities intersect with existing site conditions. Zoom in or out and click on features
+        for details.
+      </p>
+      <div id="map"></div>
+    </section>
+    <section id="documents">
+      <h2>Project Documents</h2>
+      <p>Review our project documents below. Clicking a document opens it in an online viewer rather than downloading the file.</p>
+      <div class="doc-links">
+        <ul>
+          <!-- Document links for Orange Springs project. These file names mirror the Moss Bluff docs but scoped to Orange Springs. -->
+          <li><a href="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/Fountara_Orange_Springs_Grant_Proposal.docx" target="_blank">Grant Proposal (View)</a></li>
+          <li><a href="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/Orange_Springs_Restoration_Brief.docx" target="_blank">Restoration Brief (View)</a></li>
+          <li><a href="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/Orange_Springs_Conditional_Purchase_and_Grantnomics_Plan.docx" target="_blank">Conditional Purchase &amp; Grantnomics Plan (View)</a></li>
+          <li><a href="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/Fountara_Orange_Springs_Contractor_Document_Checklist.docx" target="_blank">Contractor Document Checklist (View)</a></li>
+        </ul>
+      </div>
+    </section>
+    <section id="contact">
+      <h2>Contact &amp; Partnerships</h2>
+      <p>
+        Interested in collaborating? If you represent an agency, nonprofit organization, academic institution, or private sector partner
+        with interest in restoration and preservation of Orange Springs wetlands, we invite you to reach out. Together, we can restore and protect
+        Orange Springs.
+      </p>
+      <p>Email us at <a href="mailto:info@fountara.com">info@fountara.com</a></p>
+    </section>
+  </div>
+  <footer>
+    &copy; 2025 Fountara, LLC. All rights reserved.
+  </footer>
+  <!-- Leaflet JS and Esri Leaflet Plugin (loaded from CDNs) -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"
+    crossorigin=""
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/esri-leaflet@3.0.9/dist/esri-leaflet.js"></script>
+  <script>
+    // Initialize the map and set a reasonable default view near Orange Springs
+    var map = L.map('map').setView([29.509, -81.944], 14);
+
+    // Add a base map from OpenStreetMap
+    var baseLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Define overlay layers using Marion County GIS services
+    // Parcel boundaries from the Marion County Property Appraiser via the City of Ocala GIS MapServer
+    var parcelsLayer = L.esri.dynamicMapLayer({
+      url: 'https://gis.ocalafl.org/arcgis/rest/services/Public/Parcels/MapServer',
+      opacity: 0.6
+    });
+
+    // FEMA flood zones from the Marion County GIS open data site (MapServer)
+    var floodLayer = L.esri.dynamicMapLayer({
+      url: 'https://gis.marionfl.org/public/rest/services/General/Flood_Zones/MapServer',
+      layers: [2, 3, 6, 7], // FEMA Flood Zones 2017 (IDs 2 & 3) and Flood Prone/Transitional Areas (IDs 6 & 7)
+      opacity: 0.6
+    });
+
+    // Additional basemaps using Esri's basemap layers
+    var topoLayer = L.esri.basemapLayer('Topographic');
+    var satelliteLayer = L.esri.basemapLayer('Imagery');
+
+    // Collect the available base layers. The key is the label shown in the layer control, value is the Leaflet layer.
+    var baseMaps = {
+      'OpenStreetMap': null, // OSM is added manually; null values are ignored by Leaflet
+      'Topo (Esri)': topoLayer,
+      'Satellite (Esri)': satelliteLayer
+    };
+
+    // Collect overlay layers for the layer control
+    var overlayMaps = {
+      'Parcel Boundaries': parcelsLayer,
+      'Flood Zones (2017)': floodLayer
+    };
+
+    // Add layer control to the map and keep a reference so we can add overlays later
+    var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+
+    // Display both overlays by default
+    parcelsLayer.addTo(map);
+    floodLayer.addTo(map);
+
+    var orangeSpringsLayer;
+
+    // Load Orange Springs project parcels from the provided GeoJSON file and add as a distinct overlay
+    fetch('orangesprings.geojson')
+      .then(function (response) { return response.json(); })
+      .then(function (data) {
+        orangeSpringsLayer = L.geoJSON(data, {
+          style: function () {
+            // Use a vibrant orange color for Orange Springs
+            return { color: '#ff8c00', weight: 2, fillOpacity: 0.2 };
+          },
+          onEachFeature: function (feature, layer) {
+            var props = feature.properties || {};
+            var name = props.NAME || props.name || 'Orange Springs Parcel';
+            var parcel = props.PARCEL || props.parcel || '';
+            var acres = props.ACRES || props.acres || '';
+            var info = '<strong>' + name + '</strong>';
+            if (parcel) { info += '<br/>Parcel: ' + parcel; }
+            if (acres) { info += '<br/>Acres: ' + acres; }
+            layer.bindPopup(info);
+          }
+        });
+        orangeSpringsLayer.addTo(map);
+        layerControl.addOverlay(orangeSpringsLayer, 'Orange Springs Parcels');
+        // Fit the map to the Orange Springs parcels once loaded
+        map.fitBounds(orangeSpringsLayer.getBounds());
+      });
+  </script>
+</body>
+</html>

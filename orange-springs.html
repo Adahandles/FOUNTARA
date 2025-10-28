@@ -90,6 +90,36 @@
         Our goal is to protect water quality, restore native vegetation, and provide educational and recreational opportunities.
         Restoration efforts are guided by research, local knowledge, and collaboration with agencies and stakeholders.
       </p>
+      <!-- Detailed restoration phases for the Orange Springs project -->
+      <div style="margin-top:1.5rem;">
+        <h3 style="color:#124559;margin-bottom:.5rem;">Restoration Phases</h3>
+        <!-- Use subheadings and paragraphs rather than a bulleted list to align with site style -->
+        <div style="margin-bottom:1rem;">
+          <h4 style="color:#124559;margin-bottom:.3rem;">Phase 1 – Archaeological and Burial‑Site Survey</h4>
+          <p style="font-size:.9rem;color:#555;margin-bottom:.3rem;">Conduct a state‑licensed Phase IA/IB survey covering Seminole Spring, Orange Springs and the Orange Creek corridor.</p>
+          <p style="font-size:.9rem;color:#555;margin-bottom:0;">Identify and protect any cultural or burial sites per Florida Statute §872.05 and coordinate with tribal representatives.</p>
+        </div>
+        <div style="margin-bottom:1rem;">
+          <h4 style="color:#124559;margin-bottom:.3rem;">Phase 2 – Creek and Spring Restoration (Multi‑County Corridor)</h4>
+          <p style="font-size:.9rem;color:#555;margin-bottom:.3rem;">Remove muck, debris and invasives from Seminole Spring and Orange Springs downstream to Rodman Reservoir, Orange Lake and Lochloosa Lake.</p>
+          <p style="font-size:.9rem;color:#555;margin-bottom:0;">Restore hydrology and improve oxygen levels while minimizing mechanical disturbance.</p>
+        </div>
+        <div style="margin-bottom:1rem;">
+          <h4 style="color:#124559;margin-bottom:.3rem;">Phase 3 – Vegetation and Shoreline Stabilization</h4>
+          <p style="font-size:.9rem;color:#555;margin-bottom:.3rem;">Replant native wetland and upland species.</p>
+          <p style="font-size:.9rem;color:#555;margin-bottom:0;">Employ bio‑engineering techniques such as coir logs, root matting, live staking and native sod stabilization to secure shorelines.</p>
+        </div>
+        <div style="margin-bottom:1rem;">
+          <h4 style="color:#124559;margin-bottom:.3rem;">Phase 4 – Historic and Cultural Preservation</h4>
+          <p style="font-size:.9rem;color:#555;margin-bottom:.3rem;">Stabilize and restore the historic James W. Townsend House using the Secretary of the Interior’s Standards.</p>
+          <p style="font-size:.9rem;color:#555;margin-bottom:0;">Produce as‑built documentation and interpretive materials to educate the public about the site’s cultural significance.</p>
+        </div>
+        <div>
+          <h4 style="color:#124559;margin-bottom:.3rem;">Phase 5 – Conservation Buffer and Monitoring Network</h4>
+          <p style="font-size:.9rem;color:#555;margin-bottom:.3rem;">Establish a vegetated buffer linking Seminole Spring, Orange Springs and Orange Creek.</p>
+          <p style="font-size:.9rem;color:#555;margin-bottom:0;">Implement quarterly monitoring of vegetation, erosion and water quality, with annual DEP and DHR reporting to ensure long‑term project success.</p>
+        </div>
+      </div>
     </section>
 
     <!-- Photos section showcasing the springs and historic Townsend house -->
@@ -296,7 +326,10 @@
         onEachFeature: parcelPopup
       });
       govLayer = L.geoJSON({ type: 'FeatureCollection', features: govFeatures }, {
-        style: function() { return { color: '#4169e1', weight: 2, fillOpacity: 0.2 }; },
+        // Use a consistent fill opacity for government parcels so they are equally shaded
+        style: function() {
+          return { color: '#4169e1', weight: 2, fillOpacity: 0.3 };
+        },
         onEachFeature: parcelPopup
       });
 

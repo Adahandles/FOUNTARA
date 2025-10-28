@@ -270,19 +270,30 @@
       var mcpaGW2Data = results[4];
       var mcpaGreenwayData = results[5];
 
-      // Combine Orange Springs and Seminole Springs into a single "Private Parcels" layer
+      // Classify Orange Springs and Seminole Springs parcels into private or government groups.
       var privateFeatures = [];
-      if (orangeData && orangeData.features) privateFeatures = privateFeatures.concat(orangeData.features);
-      if (seminoleData && seminoleData.features) privateFeatures = privateFeatures.concat(seminoleData.features);
+      var govFeatures = [];
+      function classifyFeatureCollection(data) {
+        if (!data || !data.features) return;
+        data.features.forEach(function(feat) {
+          var name = (feat.properties && (feat.properties.NAME || feat.properties.name)) || '';
+          // Treat parcels containing "greenways" in the name as government parcels
+          if (/greenways/i.test(name)) {
+            govFeatures.push(feat);
+          } else {
+            privateFeatures.push(feat);
+          }
+        });
+      }
+      classifyFeatureCollection(orangeData);
+      classifyFeatureCollection(seminoleData);
+      // Include all MCPA datasets as government parcels
+      [mcpaGWData, mcpaGW1Data, mcpaGW2Data, mcpaGreenwayData].forEach(function(data) {
+        if (data && data.features) govFeatures = govFeatures.concat(data.features);
+      });
       privateLayer = L.geoJSON({ type: 'FeatureCollection', features: privateFeatures }, {
         style: function() { return { color: '#ff8c00', weight: 2, fillOpacity: 0.2 }; },
         onEachFeature: parcelPopup
-      });
-
-      // Combine MCPA datasets into a single "Government Parcels" layer
-      var govFeatures = [];
-      [mcpaGWData, mcpaGW1Data, mcpaGW2Data, mcpaGreenwayData].forEach(function(data) {
-        if (data && data.features) govFeatures = govFeatures.concat(data.features);
       });
       govLayer = L.geoJSON({ type: 'FeatureCollection', features: govFeatures }, {
         style: function() { return { color: '#4169e1', weight: 2, fillOpacity: 0.2 }; },

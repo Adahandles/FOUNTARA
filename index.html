@@ -147,24 +147,36 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
 <div class="wrap" id="waterbank">
   <h2 class="section-title">Water Bank</h2>
   <div class="card">
-    <p class="small">Reserve storage by the gallon or by the case. Convert reservations to deliveries any time.</p>
-    <div class="flex">
-      <button class="btn secondary" onclick="reserve(250)">Reserve 250 gal</button>
-      <button class="btn secondary" onclick="reserve(1000)">Reserve 1,000 gal</button>
-      <button class="btn secondary" onclick="reserve(5000)">Reserve 5,000 gal</button>
-    </div>
-    <!-- New inputs for destination and action -->
-    <div class="grid2" style="margin-top:1rem">
-      <label>Destination Address
-        <input id="wb_destination" class="input" type="text" placeholder="Delivery address or location" />
+    <p class="small">Reserve storage by entering the number of gallons. Convert reservations to deliveries any time.</p>
+    <!-- New input fields for Water Bank reservations -->
+    <div class="grid2">
+      <label>Gallons to Reserve
+        <input id="reserve_gal" class="input" type="number" placeholder="Gallons" min="1" />
       </label>
-      <label>Water Bank Action
-        <select id="wb_action" class="input">
-          <option value="fill_up">Fill Up (customer pickup)</option>
-          <option value="bulk_water">Bulk Water (delivery by Fountara)</option>
+      <label>Bank Branch
+        <select id="bank_branch" class="input">
+          <option value="orange">Orange Springs Bank</option>
+          <option value="black">Black Sink Bank</option>
+          <option value="moss">Moss Bluff Bank</option>
         </select>
       </label>
     </div>
+    <div class="grid2" style="margin-top:1rem">
+      <label>Water Bank Action
+        <select id="wb_action" class="input" onchange="toggleDestination()">
+          <option value="pickup">Pickup (customer pickup)</option>
+          <option value="delivery">Delivery (by Fountara)</option>
+        </select>
+      </label>
+      <label id="dest_label" style="display:none;">Destination Address
+        <input id="wb_destination" class="input" type="text" placeholder="Delivery address or location" />
+      </label>
+    </div>
+    <div class="flex" style="margin-top:1rem">
+      <button class="btn secondary" onclick="reserve()">Reserve</button>
+    </div>
+    <!-- Display distance and token reward -->
+    <div id="wb_info" class="small" style="margin-top:0.5rem;color:var(--muted)"></div>
   </div>
   <!-- Reserves summary -->
   <div class="card" style="margin-top:1rem;">
@@ -173,6 +185,8 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
     <div class="kv"><span class="muted">Cases Reserved</span><strong id="wb_reserved_cases">0</strong></div>
     <div class="kv"><span class="muted">Tankers Reserved</span><strong id="wb_reserved_tankers">0</strong></div>
     <div class="kv"><span class="muted">Delivery Credit (USD)</span><strong id="wb_reserved_credit">$0.00</strong></div>
+    <div class="kv"><span class="muted">Withdraw Rights Reserves</span><strong id="wb_withdraw_rights">0</strong></div>
+    <div class="kv"><span class="muted">Bagged &amp; Cans Reserves</span><strong id="wb_bagged_cans">0</strong></div>
   </div>
 </div>
 
@@ -215,6 +229,7 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
 let pay='WTR', cart=[];
 // Track reserves
 let reserved_gal=0, reserved_cases=0, reserved_tankers=0, reserved_credit=0;
+let reserved_rights=0, reserved_bagged_cans=0; // new counters for rights and bagged/cans
 // Payment method variable
 let paymentMethod='echk';
 function price(product, qty, miles){
@@ -248,38 +263,114 @@ function renderCart(){
   ).join('<br>');
 }
 function setPay(x){pay=x;}
-function reserve(g){
-  // get destination and action
-  const dest=document.getElementById('wb_destination') ? document.getElementById('wb_destination').value.trim() : '';
+// Show or hide destination field based on action selection
+function toggleDestination(){
+  const action=document.getElementById('wb_action') ? document.getElementById('wb_action').value : '';
+  const label=document.getElementById('dest_label');
+  if(label){
+    label.style.display = action === 'delivery' ? '' : 'none';
+  }
+}
+
+// Fetch coordinates for an address using Nominatim (may require User-Agent)
+async function getCoordinates(address){
+  try {
+    const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&q='+encodeURIComponent(address);
+    const res=await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' }});
+    const data=await res.json();
+    if(data && data.length>0){
+      return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+    }
+  } catch(err){}
+  return null;
+}
+
+// Compute distance between two lat/lon points using the haversine formula (miles)
+function haversineDistance(lat1, lon1, lat2, lon2){
+  const R=3958.8; // Earth radius in miles
+  const dLat=(lat2-lat1) * Math.PI / 180;
+  const dLon=(lon2-lon1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+  const c=2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R*c;
+}
+
+// Calculate round-trip distance from Orange Springs, FL to a destination
+async function calculateDistance(address){
+  const coords=await getCoordinates(address);
+  if(!coords){ return null; }
+  const ORANGE_LAT=29.5060816;
+  const ORANGE_LON=-81.9453664;
+  const d=haversineDistance(ORANGE_LAT, ORANGE_LON, coords.lat, coords.lon);
+  return d*2;
+}
+async function reserve(){
+  // get number of gallons from input
+  const gInput=document.getElementById('reserve_gal');
+  const g= gInput ? parseFloat(gInput.value) : null;
+  if(!g || g <= 0){ alert('Please enter a valid number of gallons.'); return; }
+  const branch=document.getElementById('bank_branch') ? document.getElementById('bank_branch').value : '';
   const actionSelect=document.getElementById('wb_action');
   const action=actionSelect ? actionSelect.value : '';
-  const actionLabel = actionSelect && actionSelect.selectedIndex >= 0 ? actionSelect.options[actionSelect.selectedIndex].text : '';
-  let desc=`WaterBank ${g} gal`;
-  if(dest){desc+=` to ${dest}`;}
-  if(actionLabel){desc+=` (${actionLabel})`;}
+  const dest=document.getElementById('wb_destination') ? document.getElementById('wb_destination').value.trim() : '';
+
+  // Build description
+  let desc=`Reserve ${g} gal @ ${branch}`;
+  if(action === 'delivery' && dest){ desc+=` to ${dest}`; }
+  desc+=` (${action})`;
+
   // update reserves counters
   reserved_gal += g;
+  reserved_rights += g;
   // categorize cases vs tankers based on amount
   if(g >= 5000){
     reserved_tankers += 1;
   } else {
     reserved_cases += 1;
   }
+  // update bagged & cans: treat each reservation as one bagged & cans entry
+  reserved_bagged_cans += 1;
   reserved_credit += g * 0.05;
+
   // update DOM reserves
   const galEl=document.getElementById('wb_reserved_gal');
   const casesEl=document.getElementById('wb_reserved_cases');
   const tankEl=document.getElementById('wb_reserved_tankers');
   const creditEl=document.getElementById('wb_reserved_credit');
+  const rightsEl=document.getElementById('wb_withdraw_rights');
+  const baggedEl=document.getElementById('wb_bagged_cans');
   if(galEl) galEl.textContent = reserved_gal;
   if(casesEl) casesEl.textContent = reserved_cases;
   if(tankEl) tankEl.textContent = reserved_tankers;
   if(creditEl) creditEl.textContent = `$${reserved_credit.toFixed(2)}`;
+  if(rightsEl) rightsEl.textContent = reserved_rights;
+  if(baggedEl) baggedEl.textContent = reserved_bagged_cans;
+
+  // Calculate WRE reward: 0.0001 WRE per 100 gallons
+  const wre = (g / 100) * 0.0001;
+
+  // Update information panel with tokens and distance (if applicable)
+  const infoEl=document.getElementById('wb_info');
+  if(infoEl) {
+    infoEl.innerHTML = `WRE reward: <strong>${wre.toFixed(6)} WRE</strong>`;
+  }
+
+  // If delivery, calculate distance
+  if(action === 'delivery' && dest){
+    const dist = await calculateDistance(dest);
+    if(dist !== null && infoEl){
+      infoEl.innerHTML += `<br/>Approx. round trip distance: <strong>${dist.toFixed(2)} mi</strong>`;
+    }
+  }
+
+  // Add to cart (reflect cost as credit only)
   cart.push({p:desc,q:1,m:0,t:g*0.05});
   renderCart();
 }
 ['product','qty','miles'].forEach(id=>document.getElementById(id).addEventListener('input',renderQuote));
 renderQuote();
+// Initialize destination visibility on page load
+toggleDestination();
 </script>
 
 <!-- Listener for payment method dropdown -->

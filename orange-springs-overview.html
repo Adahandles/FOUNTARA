@@ -1,103 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Orange Springs – Overview</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Use the same font as the main Fountara site -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    /* Dark theme variables from the Fountara home page */
-    :root {
-      --bg1: #001018;
-      --bg2: #00243a;
-      --bg3: #0b1930;
-      --cyan: #6cf;
-      --cyan2: #8cf;
-      --txt: #eaf1fb;
-      --muted: #a7b6c7;
-      --card: rgba(0,0,0,.25);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, sans-serif;
-      color: var(--txt);
-      background: linear-gradient(270deg, var(--bg1), var(--bg2), var(--bg3), var(--bg1));
-      background-size: 600% 600%;
-      animation: aurora 22s ease infinite;
-    }
-    @keyframes aurora {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      padding: 1rem;
-      background: rgba(0, 0, 0, 0.4);
-      justify-content: center;
-    }
-    nav a {
-      padding: 0.6rem 1.2rem;
-      border-radius: 14px;
-      border: 2px solid var(--cyan2);
-      background: linear-gradient(180deg, rgba(108,207,255,.25), rgba(108,207,255,.1));
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.95rem;
-      text-decoration: none;
-      box-shadow: 0 0 22px rgba(108,207,255,.35);
-      transition: all .25s ease;
-    }
-    nav a:hover {
-      background: linear-gradient(180deg, rgba(108,207,255,.4), rgba(108,207,255,.2));
-      box-shadow: 0 0 32px rgba(108,207,255,.55);
-      transform: translateY(-1px);
-    }
-    .wrap {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-    h1 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      margin-top: 1.5rem;
-      text-align: center;
-    }
-    p {
-      margin: 1rem 0;
-      line-height: 1.6;
-    }
-    img.section-image {
-      width: 100%;
-      border-radius: 12px;
-      margin-top: 1rem;
-      box-shadow: 0 0 12px rgba(0,0,0,0.5);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Orange Springs – Overview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/orange-springs.css">
+    <style>
+        /* Additional styling for the proposal sections to match Fountara's dark theme */
+        .proposal-section {
+            background: var(--bg3);
+            border: 1px solid var(--bg2);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        .proposal-section h2 {
+            color: var(--cyan);
+            margin-top: 0;
+        }
+        .proposal-section h3 {
+            color: var(--green);
+            margin-top: 1em;
+        }
+        .proposal-section ul {
+            list-style: disc;
+            padding-left: 1.5em;
+        }
+        .proposal-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+        .proposal-section th,
+        .proposal-section td {
+            border: 1px solid var(--bg2);
+            padding: 8px;
+        }
+        .proposal-section th {
+            background: var(--bg2);
+        }
+        .proposal-section tr:nth-child(odd) td {
+            background: var(--bg3);
+        }
+    </style>
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="orange-springs-overview.html">Overview</a>
-    <a href="orange-springs-history.html">History</a>
-    <a href="orange-springs-scientific.html">Science</a>
-    <a href="orange-springs-research.html">Research</a>
-  </na<11>Orange Springs Overview</h1>
-<img class="section-image" src="assets/img/orange-spring-1.jpg" alt="Orange Springs pool">
-<h2>Restoration & Preservation Grant Proposal Outline</h2>
-<p>This outline summarises the proposed multi‑phase restoration and preservation effort for the Orange Springs property. Each phase focuses on a different aspect of acquisition, rehabilitation, and long‑term stewardship.</p>
-<ol>
-  <li><strong>Phase 1: Acquisition & Stabilisation (0‑6 months)</strong> – Secure ownership of the spring and surrounding land, fence and stabilise the site, and perform initial clean‑up and hazard mitigation. Funding sources: Fountara investment and matching grants.</li>
-  <li><strong>Phase 2: Environmental Restoration (6‑18 months)</strong> – Remove invasive vegetation, replant native species, restore the spring run and riparian habitats, and monitor water quality. Funding sources: conservation grants, volunteer labour, partnerships with environmental groups.</li>
-  <li><strong>Phase 3: Historical Structure Rehabilitation (12‑24 months)</strong> – Restore the historic Townsend House and any remaining structures, ensuring structural integrity, ADA compliance, and interpretive signage. Funding sources: historic preservation grants, Fountara, local artisans and donors.</li>
-  <li><strong>Phase 4: Education & Interpretation (18‑30 months)</strong> – Develop visitor facilities and educational programs, including exhibits on the spring’s history, ecology and cultural significance, and create interactive displays for schools and visitors. Funding sources: donations, community organisations, Fountara.</li>
-  <li><strong>Phase 5: Sustainable Operations & Eco‑Tourism (24‑36 months)</strong> – Establish long‑term stewardship through responsible spring‑water bottling, guided tours and eco‑tourism initiatives to support ongoing maintenance and conservation. Funding sources: Fountara investment, project revenue and continuing partnerships.</li>
-</ol>
-<p>The project partners include Fountara as the principal sponsor, state and private grantors, local historical and environmental organisations, and community members who contribute volunteer support and donations. By working together, these contributors will ensure Orange Springs is preserved and enjoyed for generations.</p>
+<div class="wrap">
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="orange-springs-overview.html">Overview</a>
+        <a href="orange-springs-history.html">History</a>
+        <a href="orange-springs-scientific.html">Science &amp; Ecology</a>
+        <a href="orange-springs-research.html">Research &amp; Development</a>
+    </nav>
+    <h1>Orange Springs Overview</h1>
+    <!-- Hero image -->
+    <img src="assets/img/orange-spring-1.jpg" alt="Orange Springs pool" style="width:100%; border-radius:8px; margin-bottom:20px;">
+
+    <!-- Grant proposal outline -->
+    <div class="proposal-section">
+        <h2>Executive Summary</h2>
+        <p><strong>Applicant:</strong> Fountara, LLC<br>
+           <strong>Project:</strong> Orange Springs, Seminole Spring &amp; Orange Creek System Restoration &amp; Preservation<br>
+           <strong>Location:</strong> Corridor spanning Seminole Spring and Orange Springs headwaters (Marion County) down Orange Creek into Putnam and Alachua counties, encompassing the James&nbsp;W.&nbsp;Townsend House (NRHP&nbsp;#98001343).</p>
+        <p>
+            This grant proposal aims to preserve and restore one of North Florida’s most interconnected freshwater and cultural systems. The project integrates Seminole Spring, Orange Springs, and the Orange&nbsp;Creek–Orange&nbsp;Lake–Lochloosa&nbsp;Lake corridor, addressing ecological, hydrological, and historic‑preservation priorities under a single multi‑county plan.
+        </p>
+        <ul>
+            <li>Safeguard and document Seminole Spring and Orange Springs headwaters.</li>
+            <li>Remove invasive vegetation, fallen trees and accumulated muck to restore natural flow and oxygenation.</li>
+            <li>Stabilize eroding banks and re‑establish native vegetation across riparian zones.</li>
+            <li>Conduct archaeological and burial‑site assessments prior to disturbance to protect cultural resources.</li>
+            <li>Stabilize and preserve the James&nbsp;W.&nbsp;Townsend House, a key heritage landmark.</li>
+        </ul>
+    </div>
+
+    <div class="proposal-section">
+        <h2>Scope of Work &amp; Phases</h2>
+        <h3>Phase&nbsp;1 – Archaeological &amp; Burial‑Site Survey</h3>
+        <p>State‑licensed survey across Seminole Spring, Orange Springs and the Orange Creek corridor to identify and protect cultural or burial sites in coordination with tribal representatives.</p>
+        <h3>Phase&nbsp;2 – Creek &amp; Spring Restoration</h3>
+        <p>Remove muck, debris and invasive plants from Seminole Spring and Orange Springs downstream to Rodman Reservoir, Orange Lake and Lochloosa Lake; restore hydrology and oxygen levels while minimizing mechanical disturbance.</p>
+        <h3>Phase&nbsp;3 – Vegetation &amp; Shoreline Stabilization</h3>
+        <p>Replant native wetland and upland species using bio‑engineering methods such as coir logs, root matting, live staking and native sod to stabilize banks.</p>
+        <h3>Phase&nbsp;4 – Historic &amp; Cultural Preservation</h3>
+        <p>Stabilize and rehabilitate the James&nbsp;W.&nbsp;Townsend House following the Secretary of the Interior’s Standards and produce documentation and interpretive materials for public education.</p>
+        <h3>Phase&nbsp;5 – Conservation Buffer &amp; Monitoring Network</h3>
+        <p>Establish vegetated buffers linking the springs and creek; implement quarterly monitoring of vegetation, erosion and water quality with annual reporting to DEP and DHR.</p>
+        <h3>Phase&nbsp;6 – Future Infrastructure Planning</h3>
+        <p>Plan for monolithic dome emergency shelters and renewable‑powered water storage facilities after restoration objectives are met; these components are not included in current funding.</p>
+    </div>
+
+    <div class="proposal-section">
+        <h2>Expected Outcomes &amp; Performance Indicators</h2>
+        <ul>
+            <li>Restored hydrologic connectivity across ≥15 miles of the Seminole–Orange–Orange&nbsp;Lake–Lochloosa corridor.</li>
+            <li>≥90 % reduction in invasive biomass and ≥75 % native cover within 12 months.</li>
+            <li>Improved shoreline stability and reduced erosion by ≥60 %.</li>
+            <li>Verified archaeological compliance and protection of burial sites.</li>
+            <li>Stabilized and preserved James&nbsp;W.&nbsp;Townsend House for future interpretation.</li>
+            <li>Creation of a regional conservation and education corridor with volunteer and community involvement.</li>
+        </ul>
+        <h3>Key Metrics</h3>
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Target</th>
+            </tr>
+            <tr>
+                <td>Linear miles restored</td>
+                <td>≥ 15 miles continuous flow</td>
+            </tr>
+            <tr>
+                <td>Invasive biomass removal</td>
+                <td>≥ 90 % reduction</td>
+            </tr>
+            <tr>
+                <td>Native vegetation coverage</td>
+                <td>≥ 75 % within 12 months</td>
+            </tr>
+            <tr>
+                <td>Shoreline stability gain</td>
+                <td>≥ 60 % erosion reduction</td>
+            </tr>
+            <tr>
+                <td>Archaeological compliance</td>
+                <td>100 % DHR approval</td>
+            </tr>
+            <tr>
+                <td>Townsend House preservation</td>
+                <td>Complete stabilization</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="proposal-section">
+        <h2>Background &amp; Need</h2>
+        <p>The Orange Springs–Seminole Spring–Orange Creek system forms one of Florida’s most significant freshwater corridors, flowing from two spring heads through Putnam County into Rodman Reservoir and west into Orange and Lochloosa Lakes. Despite relatively high water quality, the system is threatened by invasive vegetation, debris, bank erosion and hydrologic fragmentation from decades of unmanaged obstruction and aging infrastructure. The James W. Townsend House, built in the late 1800s and listed on the National Register of Historic Places, sits at the heart of this landscape. Preservation of the house and associated archaeological resources—as well as the springs and waterway—supports cultural heritage, ecological health and regional water resilience. Without intervention, invasive biomass and erosion will continue to reduce oxygen levels and degrade habitats, burial resources may be unintentionally disturbed and the Townsend House risks further deterioration. Immediate multi‑county restoration is necessary to protect these irreplaceable natural and cultural assets and to fulfil objectives of the Florida Springs Restoration Initiative, St. Johns River Water Management District and the Florida Division of Historical Resources.</p>
+    </div>
+
+    <div class="proposal-section">
+        <h2>Goals &amp; Objectives</h2>
+        <p><strong>Primary Goal:</strong> Restore and protect the Seminole Spring–Orange Springs–Orange Creek–Orange Lake–Lochloosa Lake system while preserving the James W. Townsend House and associated cultural resources, ensuring long‑term ecological integrity, historical continuity and community resilience.</p>
+        <h3>Objective Highlights</h3>
+        <ul>
+            <li><strong>Water Quality:</strong> Monitor and maintain high‑quality water by removing nutrient‑laden muck and reducing runoff via vegetated buffers.</li>
+            <li><strong>Hydrologic Connectivity:</strong> Reconnect the corridor by removing debris and invasives and restoring natural flow gradients.</li>
+            <li><strong>Invasive Removal &amp; Native Planting:</strong> Remove hydrilla, torpedo grass and other invasive species; replant native wetland and upland vegetation using bio‑engineering methods.</li>
+            <li><strong>Archaeological &amp; Burial Protection:</strong> Perform Phase IA/IB surveys and coordinate with DHR and tribal representatives; halt work if remains are discovered.</li>
+            <li><strong>Historic Preservation:</strong> Stabilize and rehabilitate the James W. Townsend House with appropriate materials and interpretive signage.</li>
+            <li><strong>Conservation Buffer &amp; Monitoring:</strong> Create vegetated buffers, conduct quarterly environmental monitoring and share data publicly.</li>
+            <li><strong>Community Partnerships:</strong> Formalize multi‑county agreements, engage private partners and volunteers and establish educational programs.</li>
+            <li><strong>Future Resilience:</strong> Plan for long‑term infrastructure like monolithic domes and pollinator meadows, with independent environmental review.</li>
+        </ul>
+    </div>
+
+    <div class="proposal-section">
+        <h2>Implementation &amp; Timeline</h2>
+        <p>The project will run over 24 months with subsequent monitoring for five years. Work phases overlap strategically to maintain momentum and ensure that no physical activity begins before cultural clearance. Key milestones include completion of archaeological surveys by Month 3, mid‑point hydrologic restoration by Month 6, invasive removal by Month 9, Townsend House restoration by Month 14 and buffer installation and monitoring launch by Month 18. Planning for future emergency shelters occurs in Months 20‑24, followed by quarterly and annual monitoring through Years 3‑7.</p>
+        <table>
+            <tr>
+                <th>Phase</th>
+                <th>Duration</th>
+                <th>Main Deliverables</th>
+            </tr>
+            <tr>
+                <td>1 – Archaeology &amp; Burial Survey</td>
+                <td>Months 1‑3</td>
+                <td>CRAS report and DHR clearance</td>
+            </tr>
+            <tr>
+                <td>2 – Creek &amp; Spring Restoration</td>
+                <td>Months 3‑9</td>
+                <td>Debris removal, flow restoration and oxygenation</td>
+            </tr>
+            <tr>
+                <td>3 – Vegetation &amp; Shoreline Stabilization</td>
+                <td>Months 9‑15</td>
+                <td>Native planting, erosion control and invasive follow‑up</td>
+            </tr>
+            <tr>
+                <td>4 – Historic Preservation</td>
+                <td>Months 10‑16</td>
+                <td>Stabilization and restoration of Townsend House</td>
+            </tr>
+            <tr>
+                <td>5 – Buffer &amp; Monitoring</td>
+                <td>Months 16‑20</td>
+                <td>Vegetated buffer installation and monitoring program launch</td>
+            </tr>
+            <tr>
+                <td>6 – Future Infrastructure Planning</td>
+                <td>Months 20‑24</td>
+                <td>Feasibility studies for dome shelters and canning facilities</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="proposal-section">
+        <h2>Budget Overview</h2>
+        <p>Fountara, LLC requests full grant funding for both environmental restoration and historic preservation. Costs are allocated across project management, archaeological surveys, restoration activities, vegetation stabilization, monitoring, conservation buffers and specialist consultants. Separate budgets cover restoration (<strong>$1.375 million</strong>) and historic preservation (<strong>$1.15 million</strong>), with a combined total of <strong>$2.525 million</strong>. All partner contributions are treated as in‑kind support, and a formal match‑waiver accompanies the application. Post‑grant maintenance will rely on county stewardship agreements, volunteer programs and additional grants, ensuring long‑term sustainability.</p>
+    </div>
+
+    <div class="proposal-section">
+        <h2>Long‑Term Sustainability &amp; Monitoring</h2>
+        <p>Following the two‑year restoration period, quarterly water‑quality and vegetation surveys will continue for five years. Annual reports to DEP, SJRWMD and DHR will track progress against key metrics. A stewardship framework assigns responsibilities to Fountara, state agencies and county partners for hydrology, vegetation, cultural sites, the Townsend House and monitoring networks. Maintenance funding will come from county agreements, dedicated stewardship funds, additional grants and volunteer support. After Year 15, the site will transition to heritage‑park status managed by Fountara and the counties. Future risk management includes invasive control, storm damage protocols, funding reserves and structural inspections. A renewable energy component and plans for emergency shelters will expand the project’s resilience and community value.</p>
+    </div>
 </div>
 </body>
 </html>

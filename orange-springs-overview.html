@@ -7,21 +7,101 @@
     <link rel="stylesheet" href="assets/css/orange-springs.css">
     <!-- Leaflet CSS for interactive map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha384-sA+e6P3WdIerAbUqP6qiXgAO7XnjEz1QN8bw2JLqz6mRpxyE0FtKfaAaxxi6p+f5" crossorigin="" />
+    <!-- Google Fonts: use Inter to match other Fountara pages -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* Card style from Fountara for proposal sections */
+        /*
+         * Fountara base theme definitions
+         *
+         * Define the dark gradient background and accent colours used throughout
+         * Fountara’s site. These variables allow the proposal page to inherit
+         * the same palette and typography as other Fountara pages. The body
+         * and navigation are styled here to match the overall look and feel
+         * of the site.
+         */
+        :root {
+            /* Base colour palette used across Fountara pages */
+            --bg1: #001018;
+            --bg2: #00243a;
+            --bg3: #0b1930;
+            --cyan: #6cf;
+            --cyan2: #8cf;
+            --green: #00c49a; /* additional accent for objective headings */
+            --txt: #eaf1fb;
+            --muted: #a7b6c7;
+            --card: rgba(0,0,0,.25);
+        }
+        /* Global reset */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, sans-serif;
+            color: var(--txt);
+            /* Animated aurora gradient like other pages */
+            background: linear-gradient(270deg, var(--bg1), var(--bg2), var(--bg3), var(--bg1));
+            background-size: 600% 600%;
+            animation: aurora 22s ease infinite;
+            overflow-x: hidden;
+        }
+        @keyframes aurora {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        /* Navigation bar styling consistent with other Orange Springs pages */
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+        }
+        nav a {
+            padding: 0.6rem 1.2rem;
+            border-radius: 14px;
+            border: 2px solid var(--cyan2);
+            background: linear-gradient(180deg, rgba(108,207,255,.25), rgba(108,207,255,.1));
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            box-shadow: 0 0 22px rgba(108,207,255,.35);
+            transition: all .25s ease;
+        }
+        nav a:hover {
+            background: linear-gradient(180deg, rgba(108,207,255,.4), rgba(108,207,255,.2));
+            box-shadow: 0 0 32px rgba(108,207,255,.55);
+            transform: translateY(-1px);
+        }
+        /* Wrapper and headings similar to other pages */
+        .wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        h1 {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-top: 1.5rem;
+        }
+
+        /* Card style for proposal sections */
         .card {
             background: var(--card);
             border: 1px solid #ffffff22;
             border-radius: 14px;
-            padding: 16px;
+            padding: 1.5rem;
             box-shadow: 0 0 18px rgba(108,207,255,.15);
             margin-bottom: 24px;
         }
-        /* Proposal headings use Fountara accent colours */
+        /* Proposal headings use accent colours */
         .proposal-section h2 { color: var(--cyan); margin-top: 0; }
         .proposal-section h3 { color: var(--green); margin-top: 1em; }
         .proposal-section ul { list-style: disc; padding-left: 1.5em; }
-        /* Table styling consistent with dark theme */
+        /* Table styling */
         .proposal-section table { width: 100%; border-collapse: collapse; margin-top: 1em; }
         .proposal-section th, .proposal-section td {
             border: 1px solid #ffffff22;

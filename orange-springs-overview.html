@@ -8,6 +8,41 @@
     <!-- Leaflet CSS for interactive map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha384-sA+e6P3WdIerAbUqP6qiXgAO7XnjEz1QN8bw2JLqz6mRpxyE0FtKfaAaxxi6p+f5" crossorigin="" />
     <style>
+        /* Fountara dark theme variables and base styling */
+        :root {
+            --bg1: #001018;
+            --bg2: #00243a;
+            --bg3: #0b1930;
+            --cyan: #6cf;
+            --cyan2: #8cf;
+            --green: #4bd295;
+            --txt: #eaf1fb;
+            --muted: #a7b6c7;
+            --card: rgba(0, 0, 0, .25);
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            color: var(--txt);
+            background: linear-gradient(270deg, var(--bg1), var(--bg2), var(--bg3), var(--bg1));
+            background-size: 600% 600%;
+            animation: aurora 22s ease infinite;
+            overflow-x: hidden;
+        }
+        @keyframes aurora {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+        nav a {
+            color: var(--cyan);
+            margin-right: 15px;
+            text-decoration: none;
+        }
+        nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--txt); margin-top: 0; }
         /* Card style from Fountara for proposal sections */
         .card {
             background: var(--card);
@@ -150,7 +185,7 @@
 
     <div class="card proposal-section">
         <h2>Implementation &amp; Timeline</h2>
-        <p>The project will run over 24 months with subsequent monitoring for five years. Work phases overlap strategically to maintain momentum and ensure that no physical activity begins before cultural clearance. Key milestones include completion of archaeological surveys by Month 3, mid‑point hydrologic restoration by Month 6, invasive removal by Month 9, Townsend House restoration by Month 14 and buffer installation and monitoring launch by Month 18. Planning for future emergency shelters occurs in Months 20–24, followed by quarterly and annual monitoring through Years 3–7.</p>
+        <p>The project will run over 24 months with subsequent monitoring for five years. Work phases overlap strategically to maintain momentum and ensure that no physical activity begins before cultural clearance. Key milestones include completion of archaeological surveys by Month 3, mid‑point hydrologic restoration by Month 6, invasive removal by Month 9, Townsend House restoration by Month 14 and buffer installation and monitoring launch by Month 18. Planning for future emergency shelters occurs in Months 20‑24, followed by quarterly and annual monitoring through Years 3‑7.</p>
         <table>
             <tr>
                 <th>Phase</th>
@@ -159,32 +194,32 @@
             </tr>
             <tr>
                 <td>1 – Archaeology &amp; Burial Survey</td>
-                <td>Months 1–3</td>
+                <td>Months 1‑3</td>
                 <td>CRAS report and DHR clearance</td>
             </tr>
             <tr>
                 <td>2 – Creek &amp; Spring Restoration</td>
-                <td>Months 3–9</td>
+                <td>Months 3‑9</td>
                 <td>Debris removal, flow restoration and oxygenation</td>
             </tr>
             <tr>
                 <td>3 – Vegetation &amp; Shoreline Stabilization</td>
-                <td>Months 9–15</td>
+                <td>Months 9‑15</td>
                 <td>Native planting, erosion control and invasive follow‑up</td>
             </tr>
             <tr>
                 <td>4 – Historic Preservation</td>
-                <td>Months 10–16</td>
+                <td>Months 10‑16</td>
                 <td>Stabilization and restoration of Townsend House</td>
             </tr>
             <tr>
                 <td>5 – Buffer &amp; Monitoring</td>
-                <td>Months 16–20</td>
+                <td>Months 16‑20</td>
                 <td>Vegetated buffer installation and monitoring program launch</td>
             </tr>
             <tr>
                 <td>6 – Future Infrastructure Planning</td>
-                <td>Months 20–24</td>
+                <td>Months 20‑24</td>
                 <td>Feasibility studies for dome shelters and canning facilities</td>
             </tr>
         </table>

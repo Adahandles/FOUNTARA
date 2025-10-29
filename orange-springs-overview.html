@@ -287,15 +287,16 @@
   }).addTo(map);
 
   // GeoJSON layers
-  // Derive the base path from the current page so that the JSON files load correctly
-  // regardless of whether the site is served from the repository root or GitHub Pages.
-  const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+  // Use a CORS-friendly CDN to load GeoJSON files from GitHub. The rawcdn.githack.com
+  // domain serves raw GitHub files with appropriate CORS headers, which allows
+  // fetch() in browser environments like GitHub Pages to access them. Without this
+  // intermediate CDN, browsers block cross-origin fetches from raw.githubusercontent.com.
   const geojsonFiles = [
-    'data/orangesprings.geojson',
-    'data/seminolesprings.geojson',
-    'data/mcpa-parcel-datagw.geojson',
-    'data/mcpa-parcel-datagw1.geojson'
-  ].map(f => basePath + f);
+    'https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/orangesprings.geojson',
+    'https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/seminolesprings.geojson',
+    'https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/mcpa-parcel-datagw.geojson',
+    'https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/mcpa-parcel-datagw1.geojson'
+  ];
 
   var layerControl = L.control.layers(null, null).addTo(map);
 

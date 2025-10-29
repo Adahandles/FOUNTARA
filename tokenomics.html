@@ -67,9 +67,9 @@
     <h2 class="section-title">Emissions &amp; Liquidity Strategy</h2>
     <div class="card">
       <p>WTR tokens are emitted gradually rather than all at once. At genesis, 50&nbsp;000&nbsp;WTR were minted to the treasury. New WTR enters circulation over a three‑year emissions schedule to fund staking rewards, bond interest and community incentives. Emissions decay by roughly 25&nbsp;% each year, balancing early growth with long‑term scarcity.</p>
-      <p><strong>Bond Proceeds to Liquidity:</strong> When a bond tranche funds, the ADA raised is paired with treasury WTR and deposited into a liquidity pool on a Cardano DEX (such as Minswap or WingRiders). This provides deep trading liquidity for WTR. LP tokens representing the position are held by the Fountara treasury and locked under a 3‑of‑5 multi‑signature script. Fees earned from the pool accrue back to the treasury to support buybacks and future emissions.</p>
-      <p><strong>On‑Chain Custody:</strong> All treasury assets—including reserves, LP tokens and emission keys—are secured on-chain. A 3‑of‑5 multi‑signature policy (with a mix of core team and community trustees) controls any movement of funds. This ensures that bond proceeds and liquidity positions cannot be misused or withdrawn unilaterally. Transparency dashboards allow anyone to verify the addresses and balances on the Cardano ledger.</p>
-      <p class="muted">We are exploring integration with Optim Finance’s Liquidity Bond contracts for future tranches. Optim’s on‑chain architecture allows non‑custodial lending of ADA staking rights【203516177829327†L96-L113】, but final adoption will depend on community feedback and technical audits.</p>
+      <p><strong>Bond Proceeds to Liquidity:</strong> On tranche close, ADA is paired with WTR and routed across multiple DEXs (Minswap 40%, WingRiders 30%, SundaeSwap 20%, MuesliSwap 10%) as defined in <code>liquidity_targets</code>. LP tokens from each DEX are locked under the same 3-of-5 multisig.</p>
+      <p><strong>Treasury Returns:</strong> Fees from all pools accumulate in the treasury to fund future emissions, staking rewards, and buyback operations.</p>
+      <p class="muted">This routing model ensures deep liquidity, price stability, and transparency across all major Cardano DEXs.</p>
     </div>
     <h2 class="section-title">Utility &amp; Use Cases</h2>
     <div class="card">

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Orange Springs Overview</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Use a consistent theme for all Orange Springs pages -->
   <style>
     :root {
       --bg1: #011723;
@@ -16,12 +17,15 @@
       --muted: #a0b4c5;
       --card: #042c3c;
     }
+    /* Reset margins and set font */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       color: var(--txt);
       background: linear-gradient(180deg, var(--bg1), var(--bg2));
+      line-height: 1.5;
     }
+    /* Sticky navigation bar */
     nav {
       display: flex;
       justify-content: center;
@@ -44,6 +48,7 @@
     nav a:hover {
       background: linear-gradient(45deg, var(--cyan2), var(--cyan));
     }
+    /* Page layout wrapper */
     .wrap {
       max-width: 900px;
       margin: auto;
@@ -61,20 +66,36 @@
       box-shadow: 0 0 18px rgba(0,0,0,0.25);
       margin-bottom: 20px;
     }
-    .proposal-section h2 {
+    .card h2 {
       color: var(--cyan);
       margin-top: 0;
     }
+    /* Map styling */
+    /*
+     * Map container styling
+     *
+     * Leaflet will dynamically add classes and inline styles to the map div at runtime.
+     * Without an explicit height, the container collapses to 0 pixels high, causing
+     * tiles to spill outside the page. Setting a fixed height here and hiding
+     * overflow prevents that behaviour and keeps the map neatly contained.
+     */
     #map {
       width: 100%;
-      height: 400px;
+      height: 500px;
+      overflow: hidden;
       border-radius: 14px;
       border: 1px solid #ffffff22;
       box-shadow: 0 0 18px rgba(108,207,255,.15);
     }
+    /* Ensure Leaflet's internal container expands to fill its parent */
+    .leaflet-container {
+      height: 100% !important;
+      width: 100% !important;
+    }
   </style>
 </head>
 <body>
+  <!-- Navigation -->
   <nav>
     <a href="index.html">Home</a>
     <a href="orange-springs-overview.html">Overview</a>
@@ -84,9 +105,20 @@
   </nav>
   <div class="wrap">
     <h1>Orange Springs Overview</h1>
+    <!-- Hero image -->
     <img src="assets/img/orange-spring-1.jpg" alt="Orange Springs" style="width:100%; border-radius:14px;">
-    <!-- Proposal sections remain unchanged (not included here for brevity) -->
-    <div class="card proposal-section">
+    <!-- Overview content -->
+    <div class="card">
+      <h2>About Orange Springs</h2>
+      <p>
+        Orange Springs is a natural mineral spring located in northeast Marion County, Florida.  Once the site of one of the state’s earliest health resorts, today the spring and its 67‑acre surroundings form the heart of Fountara’s sustainable spring‑water project.
+      </p>
+      <p>
+        The spring discharges millions of gallons of water per day from the Floridan aquifer.  A consumptive‑use permit limits withdrawals to roughly 200,000 gallons daily, ensuring continued flow while allowing Fountara to bottle and distribute this water in recyclable aluminum cans.  By combining modern sustainability with a commitment to protecting Orange Springs’ natural heritage, we aim to preserve this vibrant resource for generations.
+      </p>
+    </div>
+    <!-- Interactive map section -->
+    <div class="card">
       <h2>Interactive Map</h2>
       <p>Explore the Orange Springs project area using the map below. Use the layer control to toggle basemaps and data layers.</p>
       <div id="map"></div>
@@ -99,7 +131,7 @@
     // Initialize map centered on Orange Springs
     var map = L.map('map').setView([29.509, -81.944], 14);
     // Base layers
-    var openStreetMap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    var openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
     var topoLayer = L.esri.basemapLayer('Topographic');

@@ -7,12 +7,14 @@
   <!-- Social preview -->
   <meta property="og:title" content="Stake WTR — Fountara" />
   <meta property="og:description" content="Lock your Water Tokens (WTR) to earn Water Bank rewards and support our water infrastructure." />
-  <meta property="og:image" content="./wtrcoin.png" />
+  <!-- Updated OG image path -->
+  <meta property="og:image" content="assets/img/wtrcoin.png" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Stake WTR — Fountara" />
   <meta name="twitter:description" content="Lock your Water Tokens (WTR) to earn Water Bank rewards and support our water infrastructure." />
-  <meta name="twitter:image" content="./wtrcoin.png" />
+  <!-- Updated Twitter image path -->
+  <meta name="twitter:image" content="assets/img/wtrcoin.png" />
   <link rel="icon" href="./Flogo.jpg" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
@@ -40,7 +42,8 @@
 </head>
 <body>
   <header class="wrap" style="text-align:center;padding-top:3rem">
-    <img src="./wtrcoin.png" alt="Water Token (WTR)" style="width:160px;height:160px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 26px var(--cyan2);margin-bottom:1rem" />
+    <!-- Updated header image path -->
+    <img src="assets/img/wtrcoin.png" alt="Water Token (WTR)" style="width:160px;height:160px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 26px var(--cyan2);margin-bottom:1rem" />
     <h1>Stake Your WTR</h1>
     <p class="muted" style="margin:0 auto 1.6rem;max-width:560px">Staking helps secure our water reserves and powers new wells and pipelines. Lock your WTR tokens to earn Water Bank rewards (distributed in WTR) and support sustainable water infrastructure.</p>
     <div style="display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap">
@@ -73,8 +76,14 @@
       positions.innerHTML = `<div><strong>${amt}</strong> WTR staked • APY 8% • Lock-up 90 days</div>`;
     }
   </script>
+  <!-- Updated footer with verification info -->
   <footer style="color:var(--muted);text-align:center;padding:2rem 1rem">
-    Fountara • info@fountara.com
+    <div>Fountara • info@fountara.com</div>
+    <div style="margin-top:0.5rem">
+      <strong style="color:var(--cyan2)">Verified on Cardano</strong><br/>
+      Policy ID: 7e159ba1d6ef752b5f3ba12a97f3b46a9706687b233341cc5f83d33b<br/>
+      Fingerprint: asset1npw022evzyjh6xlz0cydt8qsa5ctplxnwuhxc2
+    </div>
   </footer>
 </body>
 </html>

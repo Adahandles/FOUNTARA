@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Orange Springs – History</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Import Inter font for consistent typography -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -12,6 +13,7 @@
       --bg3: #0b1930;
       --cyan: #6cf;
       --cyan2: #8cf;
+      --green: #4bd295;
       --txt: #eaf1fb;
       --muted: #a7b6c7;
       --card: rgba(0,0,0,.25);
@@ -30,6 +32,7 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+    /* Navigation bar styling – consistent with other pages */
     nav {
       display: flex;
       flex-wrap: wrap;
@@ -55,6 +58,7 @@
       box-shadow: 0 0 32px rgba(108,207,255,.55);
       transform: translateY(-1px);
     }
+    /* Layout wrapper */
     .wrap {
       max-width: 900px;
       margin: 0 auto;
@@ -86,6 +90,19 @@
       color: var(--muted);
       margin-top: 0.3rem;
     }
+    /* Card styling for narrative section – matches overview appeal */
+    .card {
+      background: var(--card);
+      border: 1px solid #ffffff22;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 0 18px rgba(108,207,255,.15);
+      margin-top: 24px;
+    }
+    .card h2 {
+      color: var(--cyan);
+      margin-top: 0;
+    }
   </style>
 </head>
 <body>
@@ -93,8 +110,8 @@
     <a href="index.html">Home</a>
     <a href="orange-springs-overview.html">Overview</a>
     <a href="orange-springs-history.html">History</a>
-    <a href="orange-springs-scientific.html">Science</a>
-    <a href="orange-springs-research.html">Research</a>
+    <a href="orange-springs-scientific.html">Science &amp; Ecology</a>
+    <a href="orange-springs-research.html">Research &amp; Development</a>
   </nav>
   <div class="wrap">
     <h1>Orange Springs History</h1>
@@ -103,10 +120,10 @@
       <figcaption>Historic marker summarizing Orange Springs’ past as a health resort and Civil War refuge.</figcaption>
     </figure>
     <p>
-      Orange Springs has been valued by humans for centuries. Indigenous peoples likely visited the spring long before European settlers arrived. During the Second Seminole War (1835–1842), a fort named Fort Russell was built nearby as part of the conflict and the U.S. government encouraged settlement through the Armed Occupation Act of 1842【47†L253-L261】. In 1843 John W. Pearson and Senator David Levy Yulee purchased the spring property and turned it into a thriving health resort【47†L261-L267】. By the early 1850s the resort included a large hotel, mills, shops and a church and welcomed visitors who travelled by steamboat and stagecoach to “take the waters”【6†L79-L87】【15†L53-L61】.
+      Orange Springs has been valued by humans for centuries. Indigenous peoples likely visited the spring long before European settlers arrived. During the Second&nbsp;Seminole War (1835–1842), a fort named Fort&nbsp;Russell was built nearby as part of the conflict and the U.S. government encouraged settlement through the Armed Occupation Act of 1842【47†L253-L261】. In 1843 John&nbsp;W.&nbsp;Pearson and Senator David Levy Yulee purchased the spring property and turned it into a thriving health resort【47†L261-L267】. By the early 1850s the resort included a large hotel, mills, shops and a church and welcomed visitors who travelled by steamboat and stagecoach to “take the waters”【6†L79-L87】【15†L53-L61】.
     </p>
     <p>
-      The Civil War disrupted Orange Springs. Pearson organized the Oklawaha Rangers militia and produced arms for the Confederacy【6†L96-L104】. After his death in 1864 and a tax sale in 1875, the resort declined【6†L101-L107】. In the late 19th century the property changed hands several times. In 1912 turpentine entrepreneur James W. Townsend built the two‑story frame house that still stands today【47†L237-L245】. The “Townsend House” served as a seasonal home and base for Townsend’s business but also became a local landmark. Townsend died in 1944 and the house fell into disuse until the 1970s, when his granddaughter restored it and briefly reopened it as a bed‑and‑breakfast inn. It was listed on the National Register of Historic Places in 1988【34†L49-L57】.
+      The Civil War disrupted Orange Springs. Pearson organized the Oklawaha Rangers militia and produced arms for the Confederacy【6†L96-L104】. After his death in 1864 and a tax sale in 1875, the resort declined【6†L101-L107】. In the late 19th century the property changed hands several times. In 1912 turpentine entrepreneur James&nbsp;W.&nbsp;Townsend built the two‑story frame house that still stands today【47†L237-L245】. The “Townsend House” served as a seasonal home and base for Townsend’s business but also became a local landmark. Townsend died in 1944 and the house fell into disuse until the 1970s, when his granddaughter restored it and briefly reopened it as a bed‑and‑breakfast inn. It was listed on the National Register of Historic Places in 1988【34†L49-L57】.
     </p>
     <p>
       Although attempts to revive Orange Springs as a tourist destination continued into the early 20th century—promoters even marketed it as a “Fountain of Youth”—they never regained its antebellum popularity【6†L129-L137】. Public swimming at the spring ended around 1990 when a bottled water plant opened on the site【33†L100-L107】. Today, Orange Springs remains quiet but retains its historic structures and rich heritage. The Townsend House is preserved as a private office and historic site, and a state marker commemorates the spring’s storied past【33†L109-L115】.
@@ -115,6 +132,19 @@
       <img class="section-image" src="assets/img/townsend-house-orange-springs01.jpg" alt="Townsend House at Orange Springs">
       <figcaption>The Townsend House, built in 1912, now serves as Fountara’s office and a preserved landmark.</figcaption>
     </figure>
+    <!-- Added narrative section about the Townsend House history and legends -->
+    <div class="card">
+      <h2>James W. Townsend House: History, Legends &amp; Legacy</h2>
+      <p>
+        The James W. Townsend House – sometimes called the Orange Springs Inn – is a two‑story vernacular home that has come to symbolize Orange Springs itself. James W. Townsend, a turpentine magnate who built an empire from Florida’s pines, constructed the house in 1912 as a family retreat and base for his business operations. The structure reflects a mix of vernacular traditions: it began as a classic dogtrot house with an open central breezeway flanked by rooms on either side but soon evolved into a two‑story I‑house with a wraparound porch, chamfered posts and simple scroll‑sawn brackets. Built from locally milled lumber and resting on brick piers, the white‑painted house was designed to offer comfort in Florida’s heat. Even today, its green‑trimmed veranda and airy porches remain a striking sight under the moss‑draped oaks【9†L519-L527】.
+      </p>
+      <p>
+        Long before Townsend’s era, Orange Springs was known for its mineral spring and health resort. In the 1840s and 1850s entrepreneur John W. Pearson built a resort here with hotels, mills, a store, a cotton gin and more. Visitors travelled from afar to “take the waters,” believing the sulfur‑rich spring could heal ailments. The Civil War turned Orange Springs into a refuge; Pearson’s machine shop produced muskets and even a cannon for Confederate forces. By the war’s end and Pearson’s death, however, the resort declined and was sold in 1875. When Townsend purchased the property around the turn of the century, he found a landscape dotted with abandoned buildings and vast pine forests ripe for turpentine. His new house would become the grandest residence in the quiet hamlet【15†L370-L378】.
+      </p>
+      <p>
+        Townsend’s turpentine empire stretched across several counties, and he used the Orange Springs house as a seasonal headquarters. Family stories describe cattlemen and turpentine workers visiting, while children played by the spring. The house retained its prominence even as Orange Springs slipped into obscurity. In the 1970s Townsend’s granddaughter restored the home and opened it as a small inn; guests were treated to tales of healing waters, Confederate cannonry and ghostly legends. In 1988 the house was listed on the National Register of Historic Places for its architectural significance and association with Townsend. Although it is now a private office, the house stands as the largest historic residence in Orange Springs and a bridge between the town’s frontier past and present【9†L525-L533】.
+      </p>
+    </div>
   </div>
 </body>
 </html>

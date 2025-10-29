@@ -1,194 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Orange Springs Overview</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Use a consistent theme for all Orange Springs pages -->
-  <style>
-    :root {
-      --bg1: #011723;
-      --bg2: #012336;
-      --bg3: #023042;
-      --cyan: #00bcd4;
-      --cyan2: #00a0bd;
-      --green: #00c49a;
-      --txt: #f0f4f8;
-      --muted: #a0b4c5;
-      --card: #042c3c;
-    }
-    /* Reset margins and set font */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: var(--txt);
-      background: linear-gradient(180deg, var(--bg1), var(--bg2));
-      line-height: 1.5;
-    }
-    /* Sticky navigation bar */
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-      background: var(--bg3);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    nav a {
-      color: var(--txt);
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      background: linear-gradient(45deg, var(--cyan), var(--cyan2));
-      border: 1px solid #ffffff33;
-      transition: background .3s;
-    }
-    nav a:hover {
-      background: linear-gradient(45deg, var(--cyan2), var(--cyan));
-    }
-    /* Page layout wrapper */
-    .wrap {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      font-size: clamp(2rem, 4vw, 3rem);
-      margin-top: 0;
-    }
-    .card {
-      background: var(--card);
-      padding: 20px;
-      border-radius: 14px;
-      box-shadow: 0 0 18px rgba(0,0,0,0.25);
-      margin-bottom: 20px;
-    }
-    .card h2 {
-      color: var(--cyan);
-      margin-top: 0;
-    }
-    /* Map styling */
-    /*
-     * Map container styling
-     *
-     * Leaflet will dynamically add classes and inline styles to the map div at runtime.
-     * Without an explicit height, the container collapses to 0 pixels high, causing
-     * tiles to spill outside the page. Setting a fixed height here and hiding
-     * overflow prevents that behaviour and keeps the map neatly contained.
-     */
-    #map {
-      width: 100%;
-      height: 500px;
-      overflow: hidden;
-      border-radius: 14px;
-      border: 1px solid #ffffff22;
-      box-shadow: 0 0 18px rgba(108,207,255,.15);
-    }
-    /* Ensure Leaflet's internal container expands to fill its parent */
-    .leaflet-container {
-      height: 100% !important;
-      width: 100% !important;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Orange Springs – Overview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/orange-springs.css">
+    <!-- Leaflet CSS for interactive map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha384-sA+e6P3WdIerAbUqP6qiXgAO7XnjEz1QN8bw2JLqz6mRpxyE0FtKfaAaxxi6p+f5" crossorigin="" />
+    <style>
+        /* Card style from Fountara for proposal sections */
+        .card {
+            background: var(--card);
+            border: 1px solid #ffffff22;
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 0 18px rgba(108,207,255,.15);
+            margin-bottom: 24px;
+        }
+        /* Proposal headings use Fountara accent colours */
+        .proposal-section h2 { color: var(--cyan); margin-top: 0; }
+        .proposal-section h3 { color: var(--green); margin-top: 1em; }
+        .proposal-section ul { list-style: disc; padding-left: 1.5em; }
+        /* Table styling consistent with dark theme */
+        .proposal-section table { width: 100%; border-collapse: collapse; margin-top: 1em; }
+        .proposal-section th, .proposal-section td {
+            border: 1px solid #ffffff22;
+            padding: 8px;
+        }
+        .proposal-section th { background: var(--bg2); }
+        .proposal-section tr:nth-child(odd) td { background: var(--card); }
+        /* Map container styling */
+        #map {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 14px;
+            border: 1px solid #ffffff22;
+            box-shadow: 0 0 18px rgba(108,207,255,.15);
+        }
+        /* Ensure Leaflet containers expand to fill their parent */
+        .leaflet-container {
+            height: 100% !important;
+            width: 100% !important;
+        }
+    </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="orange-springs-overview.html">Overview</a>
-    <a href="orange-springs-history.html">History</a>
-    <a href="orange-springs-scientific.html">Science &amp; Ecology</a>
-    <a href="orange-springs-research.html">Research &amp; Development</a>
-  </nav>
-  <div class="wrap">
+<div class="wrap">
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="orange-springs-overview.html">Overview</a>
+        <a href="orange-springs-history.html">History</a>
+        <a href="orange-springs-scientific.html">Science &amp; Ecology</a>
+        <a href="orange-springs-research.html">Research &amp; Development</a>
+    </nav>
     <h1>Orange Springs Overview</h1>
     <!-- Hero image -->
-    <img src="assets/img/orange-spring-1.jpg" alt="Orange Springs" style="width:100%; border-radius:14px;">
-    <!-- Overview content -->
-    <div class="card">
-      <h2>About Orange Springs</h2>
-      <p>
-        Orange Springs is a natural mineral spring located in northeast Marion County, Florida.  Once the site of one of the state’s earliest health resorts, today the spring and its 67‑acre surroundings form the heart of Fountara’s sustainable spring‑water project.
-      </p>
-      <p>
-        The spring discharges millions of gallons of water per day from the Floridan aquifer.  A consumptive‑use permit limits withdrawals to roughly 200,000 gallons daily, ensuring continued flow while allowing Fountara to bottle and distribute this water in recyclable aluminum cans.  By combining modern sustainability with a commitment to protecting Orange Springs’ natural heritage, we aim to preserve this vibrant resource for generations.
-      </p>
+    <img src="assets/img/orange-spring-1.jpg" alt="Orange Springs pool" style="width:100%; border-radius:8px; margin-bottom:20px;">
+
+    <!-- Proposal sections using card styling -->
+    <div class="card proposal-section">
+        <h2>Executive Summary</h2>
+        <p><strong>Applicant:</strong> Fountara, LLC<br>
+           <strong>Project:</strong> Orange Springs, Seminole Spring &amp; Orange Creek System Restoration &amp; Preservation<br>
+           <strong>Location:</strong> Corridor spanning Seminole Spring and Orange Springs headwaters (Marion County) down Orange Creek into Putnam and Alachua counties, encompassing the James W. Townsend House (NRHP #98001343).</p>
+        <p>This grant proposal aims to preserve and restore one of North Florida’s most interconnected freshwater and cultural systems. The project integrates Seminole Spring, Orange Springs, and the Orange Creek–Orange Lake–Lochloosa Lake corridor, addressing ecological, hydrological and historic‑preservation priorities under a single multi‑county plan.</p>
+        <ul>
+            <li>Safeguard and document Seminole Spring and Orange Springs headwaters.</li>
+            <li>Remove invasive vegetation, fallen trees and accumulated muck to restore natural flow and oxygenation.</li>
+            <li>Stabilize eroding banks and re‑establish native vegetation across riparian zones.</li>
+            <li>Conduct archaeological and burial‑site assessments prior to disturbance to protect cultural resources.</li>
+            <li>Stabilize and preserve the James W. Townsend House, a key heritage landmark.</li>
+        </ul>
     </div>
-    <!-- Interactive map section -->
-    <div class="card">
-      <h2>Interactive Map</h2>
-      <p>Explore the Orange Springs project area using the map below. Use the layer control to toggle basemaps and data layers.</p>
-      <div id="map"></div>
+
+    <div class="card proposal-section">
+        <h2>Scope of Work &amp; Phases</h2>
+        <h3>Phase 1 – Archaeological &amp; Burial‑Site Survey</h3>
+        <p>State‑licensed survey across Seminole Spring, Orange Springs and the Orange Creek corridor to identify and protect cultural or burial sites in coordination with tribal representatives.</p>
+        <h3>Phase 2 – Creek &amp; Spring Restoration</h3>
+        <p>Remove muck, debris and invasive plants from Seminole Spring and Orange Springs downstream to Rodman Reservoir, Orange Lake and Lochloosa Lake; restore hydrology and oxygen levels while minimizing mechanical disturbance.</p>
+        <h3>Phase 3 – Vegetation &amp; Shoreline Stabilization</h3>
+        <p>Replant native wetland and upland species using bio‑engineering methods such as coir logs, root matting, live staking and native sod to stabilize banks.</p>
+        <h3>Phase 4 – Historic &amp; Cultural Preservation</h3>
+        <p>Stabilize and rehabilitate the James W. Townsend House following the Secretary of the Interior’s Standards and produce documentation and interpretive materials for public education.</p>
+        <h3>Phase 5 – Conservation Buffer &amp; Monitoring Network</h3>
+        <p>Establish vegetated buffers linking the springs and creek; implement quarterly monitoring of vegetation, erosion and water quality with annual reporting to DEP and DHR.</p>
+        <h3>Phase 6 – Future Infrastructure Planning</h3>
+        <p>Plan for monolithic dome emergency shelters and renewable‑powered water storage facilities after restoration objectives are met; these components are not included in current funding.</p>
     </div>
-  </div>
-  <!-- Leaflet and Esri Leaflet scripts for interactive map -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" crossorigin=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/esri-leaflet@3.0.9/dist/esri-leaflet.js"></script>
-  <script>
-    // Initialize map centered on Orange Springs
-    var map = L.map('map').setView([29.509, -81.944], 14);
-    // Base layers
-    var openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-    var topoLayer = L.esri.basemapLayer('Topographic');
-    var satelliteLayer = L.esri.basemapLayer('Imagery');
-    // Dynamic overlay layers
-    var parcelsLayer = L.esri.dynamicMapLayer({
-      url: 'https://gis.ocalafl.org/arcgis/rest/services/Public/Parcels/MapServer',
-      opacity: 0.6
-    });
-    var floodLayer = L.esri.dynamicMapLayer({
-      url: 'https://gis.marionfl.org/public/rest/services/General/Flood_Zones/MapServer',
-      layers: [2, 3, 6, 7],
-      opacity: 0.6
-    });
-    // Orange Springs parcels (GeoJSON) from MossBluffRestoration repo
-    var orangeSpringsLayer;
-    fetch('https://raw.githubusercontent.com/Adahandles/MossBluffRestoration/main/orangesprings.geojson')
-      .then(function(resp) { return resp.json(); })
-      .then(function(data) {
-        orangeSpringsLayer = L.geoJSON(data, {
-          style: function() {
-            return { color: '#ff8c00', weight: 2, fillOpacity: 0.2 };
-          },
-          onEachFeature: function(feature, layer) {
-            var props = feature.properties || {};
-            var name = props.NAME || props.name || 'Orange Springs Parcel';
-            var parcel = props.PARCEL || props.parcel || '';
-            var acres = props.ACRES || props.acres || '';
-            var info = '<strong>' + name + '</strong>';
-            if (parcel) info += '<br/>Parcel: ' + parcel;
-            if (acres) info += '<br/>Acres: ' + acres;
-            layer.bindPopup(info);
+
+    <div class="card proposal-section">
+        <h2>Expected Outcomes &amp; Performance Indicators</h2>
+        <ul>
+            <li>Restored hydrologic connectivity across ≥15 miles of the Seminole–Orange–Orange Lake–Lochloosa corridor.</li>
+            <li>≥90 % reduction in invasive biomass and ≥75 % native cover within 12 months.</li>
+            <li>Improved shoreline stability and reduced erosion by ≥60 %.</li>
+            <li>Verified archaeological compliance and protection of burial sites.</li>
+            <li>Stabilized and preserved James W. Townsend House for future interpretation.</li>
+            <li>Creation of a regional conservation and education corridor with volunteer and community involvement.</li>
+        </ul>
+        <h3>Key Metrics</h3>
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Target</th>
+            </tr>
+            <tr>
+                <td>Linear miles restored</td>
+                <td>≥ 15 miles continuous flow</td>
+            </tr>
+            <tr>
+                <td>Invasive biomass removal</td>
+                <td>≥ 90 % reduction</td>
+            </tr>
+            <tr>
+                <td>Native vegetation coverage</td>
+                <td>≥ 75 % within 12 months</td>
+            </tr>
+            <tr>
+                <td>Shoreline stability gain</td>
+                <td>≥ 60 % erosion reduction</td>
+            </tr>
+            <tr>
+                <td>Archaeological compliance</td>
+                <td>100 % DHR approval</td>
+            </tr>
+            <tr>
+                <td>Townsend House preservation</td>
+                <td>Complete stabilization</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card proposal-section">
+        <h2>Background &amp; Need</h2>
+        <p>The Orange Springs–Seminole Spring–Orange Creek system forms one of Florida’s most significant freshwater corridors, flowing from two spring heads through Putnam County into Rodman Reservoir and west into Orange and Lochloosa Lakes. Despite relatively high water quality, the system is threatened by invasive vegetation, debris, bank erosion and hydrologic fragmentation from decades of unmanaged obstruction and aging infrastructure. The James W. Townsend House, built in the late 1800s and listed on the National Register of Historic Places, sits at the heart of this landscape. Preservation of the house and associated archaeological resources—as well as the springs and waterway—supports cultural heritage, ecological health and regional water resilience. Without intervention, invasive biomass and erosion will continue to reduce oxygen levels and degrade habitats, burial resources may be unintentionally disturbed and the Townsend House risks further deterioration. Immediate multi‑county restoration is necessary to protect these irreplaceable natural and cultural assets and to fulfil objectives of the Florida Springs Restoration Initiative, St. Johns River Water Management District and the Florida Division of Historical Resources.</p>
+    </div>
+
+    <div class="card proposal-section">
+        <h2>Goals &amp; Objectives</h2>
+        <p><strong>Primary Goal:</strong> Restore and protect the Seminole Spring–Orange Springs–Orange Creek–Orange Lake–Lochloosa Lake system while preserving the James W. Townsend House and associated cultural resources, ensuring long‑term ecological integrity, historical continuity and community resilience.</p>
+        <h3>Objective Highlights</h3>
+        <ul>
+            <li><strong>Water Quality:</strong> Monitor and maintain high‑quality water by removing nutrient‑laden muck and reducing runoff via vegetated buffers.</li>
+            <li><strong>Hydrologic Connectivity:</strong> Reconnect the corridor by removing debris and invasives and restoring natural flow gradients.</li>
+            <li><strong>Invasive Removal &amp; Native Planting:</strong> Remove hydrilla, torpedo grass and other invasive species; replant native wetland and upland vegetation using bio‑engineering methods.</li>
+            <li><strong>Archaeological &amp; Burial Protection:</strong> Perform Phase IA/IB surveys and coordinate with DHR and tribal representatives; halt work if remains are discovered.</li>
+            <li><strong>Historic Preservation:</strong> Stabilize and rehabilitate the James W. Townsend House with appropriate materials and interpretive signage.</li>
+            <li><strong>Conservation Buffer &amp; Monitoring:</strong> Create vegetated buffers, conduct quarterly environmental monitoring and share data publicly.</li>
+            <li><strong>Community Partnerships:</strong> Formalize multi‑county agreements, engage private partners and volunteers and establish educational programs.</li>
+            <li><strong>Future Resilience:</strong> Plan for long‑term infrastructure like monolithic domes and pollinator meadows, with independent environmental review.</li>
+        </ul>
+    </div>
+
+    <div class="card proposal-section">
+        <h2>Implementation &amp; Timeline</h2>
+        <p>The project will run over 24 months with subsequent monitoring for five years. Work phases overlap strategically to maintain momentum and ensure that no physical activity begins before cultural clearance. Key milestones include completion of archaeological surveys by Month 3, mid‑point hydrologic restoration by Month 6, invasive removal by Month 9, Townsend House restoration by Month 14 and buffer installation and monitoring launch by Month 18. Planning for future emergency shelters occurs in Months 20–24, followed by quarterly and annual monitoring through Years 3–7.</p>
+        <table>
+            <tr>
+                <th>Phase</th>
+                <th>Duration</th>
+                <th>Main Deliverables</th>
+            </tr>
+            <tr>
+                <td>1 – Archaeology &amp; Burial Survey</td>
+                <td>Months 1–3</td>
+                <td>CRAS report and DHR clearance</td>
+            </tr>
+            <tr>
+                <td>2 – Creek &amp; Spring Restoration</td>
+                <td>Months 3–9</td>
+                <td>Debris removal, flow restoration and oxygenation</td>
+            </tr>
+            <tr>
+                <td>3 – Vegetation &amp; Shoreline Stabilization</td>
+                <td>Months 9–15</td>
+                <td>Native planting, erosion control and invasive follow‑up</td>
+            </tr>
+            <tr>
+                <td>4 – Historic Preservation</td>
+                <td>Months 10–16</td>
+                <td>Stabilization and restoration of Townsend House</td>
+            </tr>
+            <tr>
+                <td>5 – Buffer &amp; Monitoring</td>
+                <td>Months 16–20</td>
+                <td>Vegetated buffer installation and monitoring program launch</td>
+            </tr>
+            <tr>
+                <td>6 – Future Infrastructure Planning</td>
+                <td>Months 20–24</td>
+                <td>Feasibility studies for dome shelters and canning facilities</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card proposal-section">
+        <h2>Budget Overview</h2>
+        <p>Fountara, LLC requests full grant funding for both environmental restoration and historic preservation. Costs are allocated across project management, archaeological surveys, restoration activities, vegetation stabilization, monitoring, conservation buffers and specialist consultants. Separate budgets cover restoration (<strong>$1.375 million</strong>) and historic preservation (<strong>$1.15 million</strong>), with a combined total of <strong>$2.525 million</strong>. All partner contributions are treated as in‑kind support, and a formal match‑waiver accompanies the application. Post‑grant maintenance will rely on county stewardship agreements, volunteer programs and additional grants, ensuring long‑term sustainability.</p>
+    </div>
+
+    <div class="card proposal-section">
+        <h2>Long‑Term Sustainability &amp; Monitoring</h2>
+        <p>Following the two‑year restoration period, quarterly water‑quality and vegetation surveys will continue for five years. Annual reports to DEP, SJRWMD and DHR will track progress against key metrics. A stewardship framework assigns responsibilities to Fountara, state agencies and county partners for hydrology, vegetation, cultural sites, the Townsend House and monitoring networks. Maintenance funding will come from county agreements, dedicated stewardship funds, additional grants and volunteer support. After Year 15, the site will transition to heritage‑park status managed by Fountara and the counties. Future risk management includes invasive control, storm damage protocols, funding reserves and structural inspections. A renewable energy component and plans for emergency shelters will expand the project’s resilience and community value.</p>
+    </div>
+
+    <!-- Interactive Map Section -->
+    <div class="card proposal-section">
+        <h2>Interactive Map</h2>
+        <p>Explore the Orange Springs project area using the map below. Use the layer control to toggle data layers.</p>
+        <div id="map"></div>
+    </div>
+</div>
+
+<!-- Leaflet JS for interactive map -->
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha384-mJAyhpQgEZNauJ/etOZkP2fdsjRKu+eQ16YkCm5rYwgxAKdNaYTX3n1fJIT6B5E+" crossorigin=""></script>
+<script>
+  // Initialize map
+  var map = L.map('map').setView([29.509, -81.833], 14);
+
+  // Base layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 19
+  }).addTo(map);
+
+  // GeoJSON layers
+  const geojsonFiles = [
+    'data/orangesprings.geojson',
+    'data/seminolesprings.geojson',
+    'data/mcpa-parcel-datagw.geojson',
+    'data/mcpa-parcel-datagw1.geojson',
+    'data/mcpa-parcel-datagw2.geojson',
+    'data/mcpa-parcel-datagreenway.geojson'
+  ];
+
+  var layerControl = L.control.layers(null, null).addTo(map);
+
+  geojsonFiles.forEach(function(file) {
+    fetch(file)
+      .then(resp => resp.json())
+      .then(data => {
+        var layer = L.geoJSON(data, {
+          style: function(feature) {
+            return { color: '#ff7800', weight: 1 };
           }
-        });
-        orangeSpringsLayer.addTo(map);
-        layerControl.addOverlay(orangeSpringsLayer, 'Orange Springs Parcels');
-        // Fit map to the parcels layer once loaded
-        map.fitBounds(orangeSpringsLayer.getBounds());
+        }).addTo(map);
+        var name = file.replace('data/', '').replace('.geojson', '');
+        layerControl.addOverlay(layer, name);
       })
-      .catch(function(err) {
-        console.error('Failed to load Orange Springs parcels:', err);
+      .catch(err => {
+        console.error('Error loading', file, err);
       });
-    // Set up base and overlay maps
-    var baseMaps = {
-      'OpenStreetMap': openStreetMap,
-      'Topo (Esri)': topoLayer,
-      'Satellite (Esri)': satelliteLayer
-    };
-    var overlayMaps = {
-      'Parcel Boundaries': parcelsLayer,
-      'Flood Zones': floodLayer
-    };
-    // Add dynamic overlays by default
-    parcelsLayer.addTo(map);
-    floodLayer.addTo(map);
-    // Layer control
-    var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
-  </script>
+  });
+</script>
 </body>
 </html>

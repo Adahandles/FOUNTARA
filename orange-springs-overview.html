@@ -217,35 +217,49 @@
     // Initialize map
     var map = L.map('map').setView([29.509, -81.833], 14);
     // Base layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors',
+    // Define base map layers: topographic and satellite
+    const topoBase = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '&copy; Esri &mdash; Source: Esri, Garmin, USGS, NPS',
       maxZoom: 19
-    }).addTo(map);
-    // GeoJSON layers
-    // Use a CORS-friendly CDN to load GeoJSON files from GitHub.
-    const geojsonFiles = [
-      'https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/orangesprings.geojson',
-      'https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/seminolesprings.geojson',
-      'https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/mcpa-parcel-datagw.geojson',
-      'https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/mcpa-parcel-datagw1.geojson'
-    ];
-    var layerControl = L.control.layers(null, null).addTo(map);
-    geojsonFiles.forEach(function(file) {
-      fetch(file)
-        .then(resp => resp.json())
-        .then(data => {
-          var layer = L.geoJSON(data, {
-            style: function(feature) {
-              return { color: '#ff7800', weight: 1 };
-            }
-          }).addTo(map);
-          var name = file.split('/').pop().replace('.geojson','');
-          layerControl.addOverlay(layer, name);
-        })
-        .catch(err => {
-          console.error('Error loading', file, err);
-        });
     });
+    const satelliteBase = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '&copy; Esri &mdash; Source: Esri, USGS, NGA',
+      maxZoom: 19
+    });
+    topoBase.addTo(map);
+    // Define overlay layers for parcel and flood data
+    const govParcelsLayer = L.geoJSON(null, { style: { color: '#ff7800', weight: 1 } });
+    const privateParcelsLayer = L.geoJSON(null, { style: { color: '#00bfff', weight: 1 } });
+    const floodPlainLayer = L.geoJSON(null, { style: { color: '#7fff00', weight: 1 } });
+    // Load GeoJSON data from CORS-friendly CDN
+    fetch('https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/mcpa-parcel-datagw.geojson')
+      .then(r => r.json())
+      .then(data => govParcelsLayer.addData(data))
+      .catch(err => console.error('Error loading gov parcels', err));
+    fetch('https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/mcpa-parcel-datagw1.geojson')
+      .then(r => r.json())
+      .then(data => privateParcelsLayer.addData(data))
+      .catch(err => console.error('Error loading private parcels', err));
+    fetch('https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/orangesprings.geojson')
+      .then(r => r.json())
+      .then(data => floodPlainLayer.addData(data))
+      .catch(err => console.error('Error loading flood plain', err));
+    // Create base and overlay layer groups
+    const baseLayers = {
+      'Topographic': topoBase,
+      'Satellite': satelliteBase
+    };
+    const overlayLayers = {
+      'Government Parcels': govParcelsLayer,
+      'Private Parcels': privateParcelsLayer,
+      'Flood Plain': floodPlainLayer
+    };
+    // Add all overlay layers to map by default
+    govParcelsLayer.addTo(map);
+    privateParcelsLayer.addTo(map);
+    floodPlainLayer.addTo(map);
+    // Add layer control with toggles
+    L.control.layers(baseLayers, overlayLayers, { collapsed: false, position: 'topright' }).addTo(map);
   </script>
 </body>
 </html>

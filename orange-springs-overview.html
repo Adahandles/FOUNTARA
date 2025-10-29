@@ -217,13 +217,13 @@
     // Initialize map
     var map = L.map('map').setView([29.509, -81.833], 14);
     // Base layer
-    // Define base map layers: topographic and satellite
-    const topoBase = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-      attribution: '&copy; Esri &mdash; Source: Esri, Garmin, USGS, NPS',
-      maxZoom: 19
+    // Define base map layers: use openly accessible tile providers
+    const topoBase = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenTopoMap contributors',
+      maxZoom: 17
     });
-    const satelliteBase = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-      attribution: '&copy; Esri &mdash; Source: Esri, USGS, NGA',
+    const satelliteBase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
       maxZoom: 19
     });
     topoBase.addTo(map);
@@ -231,16 +231,16 @@
     const govParcelsLayer = L.geoJSON(null, { style: { color: '#ff7800', weight: 1 } });
     const privateParcelsLayer = L.geoJSON(null, { style: { color: '#00bfff', weight: 1 } });
     const floodPlainLayer = L.geoJSON(null, { style: { color: '#7fff00', weight: 1 } });
-    // Load GeoJSON data from CORS-friendly CDN
-    fetch('https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/mcpa-parcel-datagw.geojson')
+    // Load GeoJSON data from relative paths (assumes the site is hosted on the same domain)
+    fetch('data/mcpa-parcel-datagw.geojson')
       .then(r => r.json())
       .then(data => govParcelsLayer.addData(data))
       .catch(err => console.error('Error loading gov parcels', err));
-    fetch('https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/mcpa-parcel-datagw1.geojson')
+    fetch('data/mcpa-parcel-datagw1.geojson')
       .then(r => r.json())
       .then(data => privateParcelsLayer.addData(data))
       .catch(err => console.error('Error loading private parcels', err));
-    fetch('https://rawcdn.githack.com/Adahandles/FOUNTARA/main/data/orangesprings.geojson')
+    fetch('data/orangesprings.geojson')
       .then(r => r.json())
       .then(data => floodPlainLayer.addData(data))
       .catch(err => console.error('Error loading flood plain', err));

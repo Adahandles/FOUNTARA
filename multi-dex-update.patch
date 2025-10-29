@@ -1,0 +1,66 @@
+diff --git a/docs/tranche.WTR-T90-2025Q4.json b/docs/tranche.WTR-T90-2025Q4.json
+index 3a2bcd0..e4b9a17 100644
+--- a/docs/tranche.WTR-T90-2025Q4.json
++++ b/docs/tranche.WTR-T90-2025Q4.json
+@@ -12,6 +12,13 @@
+     "apr_ada_comment": "ADA APR is set to 0.00 intentionally; this tranche is designed for WTR-only rewards.",
+     "apr_wtr": 0.12,
+     "cap_ada": 250000,
+     "early_exit": "disabled",
+     "start_epoch": 630,
+     "end_epoch": 642
+   },
++  "liquidity_targets": [
++    {"dex":"Minswap","pair":"WTR/ADA","share":0.40},
++    {"dex":"WingRiders","pair":"WTR/ADA","share":0.30},
++    {"dex":"SundaeSwap","pair":"WTR/ADA","share":0.20},
++    {"dex":"MuesliSwap","pair":"WTR/ADA","share":0.10}
++  ],
+   "wallets": {
+-    "escrow": "<TO_BE_DEPLOYED>",
+-    "lp_multisig": "<TO_BE_DEPLOYED>",
+-    "payout_reserve": "<TO_BE_DEPLOYED>"
++    "escrow": "addr1_wtr_escrow",
++    "lp_multisig": "addr1_wtr_lpdesk",
++    "payout_reserve": "addr1_wtr_payout"
+   },
+   "audit": {
+     "multisig_scheme": "3-of-5",
+diff --git a/bond.html b/bond.html
+index 4e9bcd2..c63a112 100644
+--- a/bond.html
++++ b/bond.html
+@@ -37,7 +37,9 @@
+       <div class="grid2">
+         <div>
+           <p><strong>Tranche ID:</strong> WTR-T90-2025Q4</p>
+           <p><strong>Tenor:</strong> 90&nbsp;days</p>
+           <p><strong>APR&nbsp;(WTR):</strong> 12%</p>
+         </div>
+         <div>
+           <p><strong>Cap:</strong> 250,000&nbsp;ADA</p>
+           <p><strong>Start&nbsp;Epoch:</strong> 630</p>
+           <p><strong>End&nbsp;Epoch:</strong> 642</p>
+         </div>
+       </div>
+-      <p class="muted" style="margin-top:1rem">This tranche is designed for WTR-only rewards. ADA APR is intentionally set to 0.00, and early exit is disabled. Funds are escrowed under a 3-of-5 multisig.</p>
+-      <p class="muted">To participate, deposit ADA during the funding window. Upon maturity, your principal plus WTR yield will be returned.</p>
++      <p class="muted" style="margin-top:1rem"><strong>Use of Funds:</strong> 100% of ADA raised is paired with treasury WTR and routed to multiple DEXs per <code>liquidity_targets</code>. LP tokens from each DEX are locked under the 3-of-5 multisig treasury.</p>
++      <p class="muted"><strong>Rewards &amp; Emissions:</strong> Investors receive ADA principal at maturity plus 12% yield in WTR. Early exit disabled for LP stability.</p>
++      <p class="muted">All DEX fees accrue to the treasury and support future emissions and buybacks.</p>
+       <div style="text-align:center;margin-top:1.4rem">
+         <a href="#" class="btn">Join Waitlist</a>
+       </div>
+diff --git a/tokenomics.html b/tokenomics.html
+index 982cd54..ef11c23 100644
+--- a/tokenomics.html
++++ b/tokenomics.html
+@@ -25,7 +25,10 @@
+     <h2 class="section-title">Emissions &amp; Liquidity Strategy</h2>
+     <div class="card">
+-      <p>WTR tokens are emitted gradually rather than all at once. At genesis, 50&nbsp;000&nbsp;WTR were minted to the treasury. New WTR enters circulation over a three-year emissions schedule to fund staking rewards, bond interest and community incentives. Emissions decay by roughly 25&nbsp;% each year, balancing early growth with long-term scarcity.</p>
+-      <p><strong>Bond Proceeds to Liquidity:</strong> When a bond tranche funds, the ADA raised is paired with treasury WTR and deposited into a liquidity pool on a Cardano DEX (such as Minswap or WingRiders). This provides deep trading liquidity for WTR. LP tokens representing the position are held by the Fountara treasury and locked under a 3-of-5 multi-signature script. Fees earned from the pool accrue back to the treasury to support buybacks and future emissions.</p>
++      <p>WTR tokens are emitted gradually rather than all at once. At genesis, 50&nbsp;000&nbsp;WTR were minted to the treasury. New WTR enters circulation over a three-year emissions schedule to fund staking rewards, bond interest and community incentives. Emissions decay by roughly 25&nbsp;% each year, balancing early growth with long-term scarcity.</p>
++      <p><strong>Bond Proceeds to Liquidity:</strong> On tranche close, ADA is paired with WTR and routed across multiple DEXs (Minswap 40%, WingRiders 30%, SundaeSwap 20%, MuesliSwap 10%) as defined in <code>liquidity_targets</code>. LP tokens from each DEX are locked under the same 3-of-5 multisig. </p>
++      <p><strong>Treasury Returns:</strong> Fees from all pools accumulate in the treasury to fund future emissions, staking rewards, and buyback operations.</p>
++      <p class="muted">This routing model ensures deep liquidity, price stability, and transparency across all major Cardano DEXs.</p>

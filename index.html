@@ -215,18 +215,27 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
         <button class="btn" onclick="setPay('ADA')">ADA</button>
       </div>
       <p class="small muted" style="margin-top:.8rem">Handles supported: <strong>$Waterpay</strong>, <strong>$homeyield</strong>.</p>
-      <!-- New payment method selector -->
-      <label style="display:block;margin-top:.8rem">Payment Method
-        <select id="paymentMethod" class="input">
-          <option value="echk">Bank eCheck</option>
-          <option value="card">Credit / Debit Card</option>
-          <option value="venmo">Venmo</option>
-          <option value="paypal">PayPal</option>
-          <option value="cashapp">Cash App</option>
-          <option value="chime">Chime</option>
-          <option value="anycrypto">Any Crypto (auto-swap to ADA)</option>
-        </select>
-      </label>
+      <!-- Wallet payment method buttons -->
+      <div id="walletButtons" class="flex" style="margin-top:.8rem;flex-wrap:wrap;gap:.5rem;">
+        <button class="btn secondary wallet-btn" data-wallet="Daedalus">Daedalus</button>
+        <button class="btn secondary wallet-btn" data-wallet="Yoroi">Yoroi</button>
+        <button class="btn secondary wallet-btn" data-wallet="Lace">Lace</button>
+        <button class="btn secondary wallet-btn" data-wallet="Eternl">Eternl</button>
+        <button class="btn secondary wallet-btn" data-wallet="Typhon">Typhon</button>
+        <button class="btn secondary wallet-btn" data-wallet="Vespr">Vespr</button>
+        <button class="btn secondary wallet-btn" data-wallet="ADALite">ADALite</button>
+        <button class="btn secondary wallet-btn" data-wallet="NuFi">NuFi</button>
+        <button class="btn secondary wallet-btn" data-wallet="Gero">Gero</button>
+        <button class="btn secondary wallet-btn" data-wallet="LodeWallet">LodeWallet</button>
+        <button class="btn secondary wallet-btn" data-wallet="CoinWallet">Coin Wallet</button>
+        <button class="btn secondary wallet-btn" data-wallet="ADAWallet">ADAWallet</button>
+        <button class="btn secondary wallet-btn" data-wallet="Atomic">Atomic</button>
+        <button class="btn secondary wallet-btn" data-wallet="Gem">Gem Wallet</button>
+        <button class="btn secondary wallet-btn" data-wallet="Trust">Trust Wallet</button>
+        <button class="btn secondary wallet-btn" data-wallet="Exodus">Exodus</button>
+        <button class="btn secondary wallet-btn" data-wallet="Nami">Nami</button>
+        <button class="btn secondary wallet-btn" data-wallet="Flint">Flint</button>
+      </div>
     </div>
     <div class="card">
       <h3 style="margin-top:0">Cart</h3>
@@ -244,7 +253,7 @@ let pay='WTR', cart=[];
 // Track reserves
 let reserved_gal=0, reserved_cases=0, reserved_tankers=0, reserved_credit=0;
 let reserved_rights=0, reserved_bagged_cans=0; // new counters for rights and bagged/cans
-// Payment method variable
+// Payment method variable (unused placeholder to maintain backward compatibility)
 let paymentMethod='echk';
 // Additional counters for Fountara and user reserves by category
 let bank_tanker_gal=0, bank_canned_gal=0, bank_bagged_gal=0;
@@ -284,9 +293,12 @@ function setPay(x){pay=x;}
 function connectWallet(){
   const walletSelect = document.getElementById('walletDropdown');
   if(walletSelect){
-    walletSelect.innerHTML = '<option value="">Select wallet</option>' +
-      '<option value="wallet1">Cardano Wallet 1</option>' +
-      '<option value="wallet2">Cardano Wallet 2</option>';
+    const wallets = [
+      'Daedalus','Yoroi','Lace','Eternl','Typhon','Vespr','ADALite','NuFi','Gero','LodeWallet','Coin Wallet','ADAWallet','Atomic','Gem','Trust','Exodus','Nami','Flint'
+    ];
+    let html = '<option value="">Select wallet</option>';
+    wallets.forEach(function(w){ html += `<option value="${w}">${w}</option>`; });
+    walletSelect.innerHTML = html;
     walletSelect.style.display = '';
   }
 }
@@ -440,15 +452,7 @@ renderQuote();
 toggleDestination();
 </script>
 
-<!-- Listener for payment method dropdown -->
-<script>
-const pmEl = document.getElementById('paymentMethod');
-if (pmEl) {
-  pmEl.addEventListener('change', function(){
-    paymentMethod = this.value;
-  });
-}
-</script>
+<!-- No payment method dropdown listener needed since wallets are buttons -->
 
 <!-- Verified on Cardano Footer -->
 <footer style="color:var(--muted);text-align:center;padding:2rem 1rem">

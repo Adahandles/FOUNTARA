@@ -5,6 +5,8 @@
     <title>Orange Springs – Overview</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/css/orange-springs.css">
+    <!-- Leaflet CSS for interactive map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha384-sA+e6P3WdIerAbUqP6qiXgAO7XnjEz1QN8bw2JLqz6mRpxyE0FtKfaAaxxi6p+f5" crossorigin="" />
     <style>
         /* Card style from Fountara for proposal sections */
         .card {
@@ -15,7 +17,7 @@
             box-shadow: 0 0 18px rgba(108,207,255,.15);
             margin-bottom: 24px;
         }
-        /* Proposal headings to use Fountara accent colours */
+        /* Proposal headings use Fountara accent colours */
         .proposal-section h2 { color: var(--cyan); margin-top: 0; }
         .proposal-section h3 { color: var(--green); margin-top: 1em; }
         .proposal-section ul { list-style: disc; padding-left: 1.5em; }
@@ -27,6 +29,14 @@
         }
         .proposal-section th { background: var(--bg2); }
         .proposal-section tr:nth-child(odd) td { background: var(--card); }
+        /* Map container styling */
+        #map {
+            width: 100%;
+            height: 400px;
+            border-radius: 14px;
+            border: 1px solid #ffffff22;
+            box-shadow: 0 0 18px rgba(108,207,255,.15);
+        }
     </style>
 </head>
 <body>
@@ -42,19 +52,19 @@
     <!-- Hero image -->
     <img src="assets/img/orange-spring-1.jpg" alt="Orange Springs pool" style="width:100%; border-radius:8px; margin-bottom:20px;">
 
-    <!-- Grant proposal outline -->
+    <!-- Proposal sections using card styling -->
     <div class="card proposal-section">
         <h2>Executive Summary</h2>
         <p><strong>Applicant:</strong> Fountara, LLC<br>
            <strong>Project:</strong> Orange Springs, Seminole Spring &amp; Orange Creek System Restoration &amp; Preservation<br>
-           <strong>Location:</strong> Corridor spanning Seminole Spring and Orange Springs headwaters (Marion County) down Orange Creek into Putnam and Alachua counties, encompassing the James&nbsp;W.&nbsp;Townsend House (NRHP&nbsp;#98001343).</p>
-        <p>This grant proposal aims to preserve and restore one of North Florida’s most interconnected freshwater and cultural systems. The project integrates Seminole Spring, Orange Springs, and the Orange&nbsp;Creek–Orange&nbsp;Lake–Lochloosa&nbsp;Lake corridor, addressing ecological, hydrological and historic‑preservation priorities under a single multi‑county plan.</p>
+           <strong>Location:</strong> Corridor spanning Seminole Spring and Orange Springs headwaters (Marion County) down Orange Creek into Putnam and Alachua counties, encompassing the James W. Townsend House (NRHP #98001343).</p>
+        <p>This grant proposal aims to preserve and restore one of North Florida’s most interconnected freshwater and cultural systems. The project integrates Seminole Spring, Orange Springs, and the Orange Creek–Orange Lake–Lochloosa Lake corridor, addressing ecological, hydrological and historic‑preservation priorities under a single multi‑county plan.</p>
         <ul>
             <li>Safeguard and document Seminole Spring and Orange Springs headwaters.</li>
             <li>Remove invasive vegetation, fallen trees and accumulated muck to restore natural flow and oxygenation.</li>
             <li>Stabilize eroding banks and re‑establish native vegetation across riparian zones.</li>
             <li>Conduct archaeological and burial‑site assessments prior to disturbance to protect cultural resources.</li>
-            <li>Stabilize and preserve the James&nbsp;W.&nbsp;Townsend House, a key heritage landmark.</li>
+            <li>Stabilize and preserve the James W. Townsend House, a key heritage landmark.</li>
         </ul>
     </div>
 
@@ -189,6 +199,55 @@
         <h2>Long‑Term Sustainability &amp; Monitoring</h2>
         <p>Following the two‑year restoration period, quarterly water‑quality and vegetation surveys will continue for five years. Annual reports to DEP, SJRWMD and DHR will track progress against key metrics. A stewardship framework assigns responsibilities to Fountara, state agencies and county partners for hydrology, vegetation, cultural sites, the Townsend House and monitoring networks. Maintenance funding will come from county agreements, dedicated stewardship funds, additional grants and volunteer support. After Year 15, the site will transition to heritage‑park status managed by Fountara and the counties. Future risk management includes invasive control, storm damage protocols, funding reserves and structural inspections. A renewable energy component and plans for emergency shelters will expand the project’s resilience and community value.</p>
     </div>
+
+    <!-- Interactive Map Section -->
+    <div class="card proposal-section">
+        <h2>Interactive Map</h2>
+        <p>Explore the Orange Springs project area using the map below. Use the layer control to toggle data layers.</p>
+        <div id="map"></div>
+    </div>
 </div>
+
+<!-- Leaflet JS for interactive map -->
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha384-mJAyhpQgEZNauJ/etOZkP2fdsjRKu+eQ16YkCm5rYwgxAKdNaYTX3n1fJIT6B5E+" crossorigin=""></script>
+<script>
+  // Initialize map
+  var map = L.map('map').setView([29.509, -81.833], 14);
+
+  // Base layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 19
+  }).addTo(map);
+
+  // GeoJSON layers
+  const geojsonFiles = [
+    'data/orangesprings.geojson',
+    'data/seminolesprings.geojson',
+    'data/mcpa-parcel-datagw.geojson',
+    'data/mcpa-parcel-datagw1.geojson',
+    'data/mcpa-parcel-datagw2.geojson',
+    'data/mcpa-parcel-datagreenway.geojson'
+  ];
+
+  var layerControl = L.control.layers(null, null).addTo(map);
+
+  geojsonFiles.forEach(function(file) {
+    fetch(file)
+      .then(resp => resp.json())
+      .then(data => {
+        var layer = L.geoJSON(data, {
+          style: function(feature) {
+            return { color: '#ff7800', weight: 1 };
+          }
+        }).addTo(map);
+        var name = file.replace('data/', '').replace('.geojson', '');
+        layerControl.addOverlay(layer, name);
+      })
+      .catch(err => {
+        console.error('Error loading', file, err);
+      });
+  });
+</script>
 </body>
 </html>

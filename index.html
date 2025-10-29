@@ -174,6 +174,7 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
     </div>
     <div class="flex" style="margin-top:1rem">
       <button class="btn secondary" onclick="reserve()">Reserve</button>
+      <button class="btn secondary" onclick="redeem()">Redeem</button>
     </div>
     <!-- Display distance and token reward -->
     <div id="wb_info" class="small" style="margin-top:0.5rem;color:var(--muted)"></div>
@@ -429,6 +430,49 @@ async function reserve(){
   cart.push({p:desc,q:1,m:0,t:g*0.05});
   renderCart();
 }
+
+// Redeem reserved gallons
+function redeem(){
+  const gInput = document.getElementById('reserve_gal');
+  const g = gInput ? parseFloat(gInput.value) : null;
+  if(!g || g <= 0){ alert('Please enter a valid number of gallons to redeem.'); return; }
+  // Determine category and update counters
+  if(g >= 5000){
+    if(my_tanker_gal >= g){
+      my_tanker_gal -= g;
+      bank_tanker_gal -= g;
+    } else { alert('Not enough tanker gallons reserved.'); return; }
+  } else if(g >= 1000){
+    if(my_canned_gal >= g){
+      my_canned_gal -= g;
+      bank_canned_gal -= g;
+    } else { alert('Not enough canned gallons reserved.'); return; }
+  } else {
+    if(my_bagged_gal >= g){
+      my_bagged_gal -= g;
+      bank_bagged_gal -= g;
+    } else { alert('Not enough bagged gallons reserved.'); return; }
+  }
+  const my_total = my_tanker_gal + my_canned_gal + my_bagged_gal;
+  const bank_total = bank_tanker_gal + bank_canned_gal + bank_bagged_gal;
+  // Update my reserves display
+  const mt = document.getElementById('my_tanker_gal'); if(mt) mt.textContent = my_tanker_gal;
+  const mc = document.getElementById('my_canned_gal'); if(mc) mc.textContent = my_canned_gal;
+  const mb = document.getElementById('my_bagged_gal'); if(mb) mb.textContent = my_bagged_gal;
+  const mtt= document.getElementById('my_total_gal'); if(mtt) mtt.textContent = my_total;
+  // Update bank reserves and WTR display
+  const bt  = document.getElementById('bank_tanker_gal'); if(bt)  bt.textContent  = bank_tanker_gal;
+  const bc  = document.getElementById('bank_canned_gal'); if(bc)  bc.textContent  = bank_canned_gal;
+  const bb  = document.getElementById('bank_bagged_gal'); if(bb)  bb.textContent  = bank_bagged_gal;
+  const btt = document.getElementById('bank_total_gal'); if(btt) btt.textContent = bank_total;
+  const btw = document.getElementById('bank_tanker_wtr'); if(btw) btw.textContent = (bank_tanker_gal / 1000000).toFixed(6);
+  const bcw = document.getElementById('bank_canned_wtr'); if(bcw) bcw.textContent = (bank_canned_gal / 1000000).toFixed(6);
+  const bbw = document.getElementById('bank_bagged_wtr'); if(bbw) bbw.textContent = (bank_bagged_gal / 1000000).toFixed(6);
+  const bwt = document.getElementById('bank_total_wtr'); if(bwt) bwt.textContent = (bank_total / 1000000).toFixed(6);
+  // Inform user of redemption
+  const infoEl = document.getElementById('wb_info');
+  if(infoEl){ infoEl.innerHTML = `<strong>Redeemed ${g} gallons.</strong>`; }
+}
 ['product','qty','miles'].forEach(id=>document.getElementById(id).addEventListener('input',renderQuote));
 renderQuote();
 // Initialize destination visibility on page load
@@ -438,6 +482,20 @@ connectWallet();
 </script>
 
 <!-- No payment method dropdown listener needed since wallets are buttons -->
+<!-- EXPLORER & SOCIAL LINKS SECTION -->
+<div class="wrap" id="explorers">
+  <h2 class="section-title">Explorer & Social Links</h2>
+  <div class="card">
+    <div class="flex" style="flex-direction:column;gap:.6rem;">
+      <a href="https://cardanoscan.io/token/7e159ba1d6ef752b5f3ba12a97f3b46a9706687b233341cc5f83d33b575452?address=addr1qx5849f4wn4xrl9rjlwmjz5xm9y29xxmdvcwuvk74tqnuzwrqdzj3qwwqvjhuwl4wtlrk4cd5la4rwtthxfk9a7aw5gsfgd9f3" class="btn secondary" target="_blank">CardanoScan</a>
+      <a href="https://cexplorer.io/asset/asset1npw022evzyjh6xlz0cydt8qsa5ctplxnwuhxc2" class="btn secondary" target="_blank">CExplorer</a>
+      <a href="https://adastat.net/tokens/7e159ba1d6ef752b5f3ba12a97f3b46a9706687b233341cc5f83d33b575452" class="btn secondary" target="_blank">ADAStat</a>
+      <a href="https://pool.pm/asset1npw022evzyjh6xlz0cydt8qsa5ctplxnwuhxc2" class="btn secondary" target="_blank">pool.pm</a>
+      <a href="https://x.com/Fountara" class="btn secondary" target="_blank">Fountara on X</a>
+    </div>
+  </div>
+</div>
+
 
 <!-- Verified on Cardano Footer -->
 <footer style="color:var(--muted);text-align:center;padding:2rem 1rem">

@@ -84,9 +84,8 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
   <!-- SDVOB Certification Banner -->
   <!-- This banner highlights Fountara's Small Disadvantaged Veteran‑Owned Business (SDVOB) status.
        The logo file should be added to the assets/img folder (e.g., sdvob_logo.png). Update the UEI number as needed. -->
-  <div class="wrap" style="display:flex;align-items:center;justify-content:center;gap:1rem;padding:1rem 0;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,.15);">
-    <img src="assets/img/sdvob_logo.png" alt="SDVOSB (SBA) Certified" style="height:48px;width:auto;border-radius:8px;" />
-    <!-- Updated banner text: show SDVOSB (SBA) status and Fountara’s UEI from SAM.gov -->
+  <div class="wrap" style="display:flex;align-items:center;justify-content:center;padding:1rem 0;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,.15);">
+    <!-- Banner showing SDVOSB (SBA) status and Fountara’s UEI; removed duplicate logo for a cleaner single message -->
     <span style="font-size:1.1rem;color:var(--cyan2);font-weight:600;">SDVOSB (SBA) &bull; UEI: WZPHLQHHFG99 (SAM.gov)</span>
   </div>
 
@@ -150,7 +149,7 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
   <div class="grid2">
     <div class="card">
       <label>Product</label>
-      <select class="input" id="product">
+      <select class="input" id="product" onchange="toggleSodFields()">
         <option value="water">Bulk Potable Water</option>
         <option value="sod">Farm-fresh Sod</option>
       </select>
@@ -161,6 +160,21 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
       <div class="kv small" style="margin-top:.8rem">
         <span>Delivery distance (miles)</span>
         <input class="input" id="miles" type="number" min="0" value="10" />
+      </div>
+      <!-- Additional fields that appear only when ordering sod -->
+      <div id="sodFields" style="display:none;margin-top:.8rem;">
+        <label class="small">Bahia pallets
+          <input class="input" id="palletsBahia" type="number" min="0" value="0" />
+        </label>
+        <label class="small" style="margin-top:.5rem;">Bermuda pallets
+          <input class="input" id="palletsBermuda" type="number" min="0" value="0" />
+        </label>
+        <label class="small" style="margin-top:.5rem;">Zoysia pallets
+          <input class="input" id="palletsZoysia" type="number" min="0" value="0" />
+        </label>
+        <label class="small" style="margin-top:.5rem;">Destination address
+          <input class="input" id="sodAddr" type="text" placeholder="Delivery address" />
+        </label>
       </div>
       <div class="flex" style="margin-top:1rem">
         <button class="btn" onclick="addToCart()">Add to Cart</button>
@@ -375,6 +389,20 @@ function haversineDistance(lat1, lon1, lat2, lon2){
   const c=2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   return R*c;
 }
+
+// Show or hide sod order fields based on product selection
+function toggleSodFields(){
+  const product = document.getElementById('product') ? document.getElementById('product').value : '';
+  const sodDiv = document.getElementById('sodFields');
+  if(sodDiv){
+    sodDiv.style.display = (product === 'sod') ? '' : 'none';
+  }
+}
+
+// Initialize the page by hiding or showing the sod fields based on the default product selection
+window.addEventListener('DOMContentLoaded', function(){
+  toggleSodFields();
+});
 
 // Calculate round-trip distance from Orange Springs, FL to a destination
 async function calculateDistance(address){

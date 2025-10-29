@@ -287,12 +287,14 @@
   }).addTo(map);
 
   // GeoJSON layers
+  // Use absolute GitHub raw URLs to avoid relative path issues on GitHub Pages
+  const baseURL = 'https://raw.githubusercontent.com/Adahandles/FOUNTARA/main/';
   const geojsonFiles = [
     'data/orangesprings.geojson',
     'data/seminolesprings.geojson',
     'data/mcpa-parcel-datagw.geojson',
     'data/mcpa-parcel-datagw1.geojson'
-  ];
+  ].map(f => baseURL + f);
 
   var layerControl = L.control.layers(null, null).addTo(map);
 

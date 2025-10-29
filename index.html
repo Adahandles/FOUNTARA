@@ -183,7 +183,7 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
     <!-- Wallet connect section -->
     <div id="walletConnect" style="margin-bottom:1rem;">
       <button class="btn" onclick="connectWallet()">Connect Wallet</button>
-      <select id="walletDropdown" class="input" style="display:none;margin-top:.5rem"></select>
+      <select id="walletDropdownConnect" class="input" style="display:none;margin-top:.5rem"></select>
     </div>
     <!-- Fountara Water Bank summary -->
     <div class="card" style="margin-top:0;">
@@ -215,26 +215,19 @@ footer{color:var(--muted);text-align:center;padding:2rem 1rem}
         <button class="btn" onclick="setPay('ADA')">ADA</button>
       </div>
       <p class="small muted" style="margin-top:.8rem">Handles supported: <strong>$Waterpay</strong>, <strong>$homeyield</strong>.</p>
-      <!-- Wallet payment method buttons -->
-      <div id="walletButtons" class="flex" style="margin-top:.8rem;flex-wrap:wrap;gap:.5rem;">
-        <button class="btn secondary wallet-btn" data-wallet="Daedalus">Daedalus</button>
-        <button class="btn secondary wallet-btn" data-wallet="Yoroi">Yoroi</button>
-        <button class="btn secondary wallet-btn" data-wallet="Lace">Lace</button>
-        <button class="btn secondary wallet-btn" data-wallet="Eternl">Eternl</button>
-        <button class="btn secondary wallet-btn" data-wallet="Typhon">Typhon</button>
-        <button class="btn secondary wallet-btn" data-wallet="Vespr">Vespr</button>
-        <button class="btn secondary wallet-btn" data-wallet="ADALite">ADALite</button>
-        <button class="btn secondary wallet-btn" data-wallet="NuFi">NuFi</button>
-        <button class="btn secondary wallet-btn" data-wallet="Gero">Gero</button>
-        <button class="btn secondary wallet-btn" data-wallet="LodeWallet">LodeWallet</button>
-        <button class="btn secondary wallet-btn" data-wallet="CoinWallet">Coin Wallet</button>
-        <button class="btn secondary wallet-btn" data-wallet="ADAWallet">ADAWallet</button>
-        <button class="btn secondary wallet-btn" data-wallet="Atomic">Atomic</button>
-        <button class="btn secondary wallet-btn" data-wallet="Gem">Gem Wallet</button>
-        <button class="btn secondary wallet-btn" data-wallet="Trust">Trust Wallet</button>
-        <button class="btn secondary wallet-btn" data-wallet="Exodus">Exodus</button>
-        <button class="btn secondary wallet-btn" data-wallet="Nami">Nami</button>
-        <button class="btn secondary wallet-btn" data-wallet="Flint">Flint</button>
+      <!-- Wallet payment method selector -->
+      <div style="margin-top:.8rem;">
+        <label for="walletDropdown" class="small muted">Select Cardano wallet</label>
+        <select id="walletDropdownCheckout" style="width:100%;margin-top:.3rem;padding:.4rem;border-radius:.5rem;display:none;"></select>
+      </div>
+      <!-- Alternative payment buttons -->
+      <div class="flex" style="margin-top:.8rem;flex-wrap:wrap;gap:.5rem;">
+        <button class="btn secondary">Venmo</button>
+        <button class="btn secondary">PayPal</button>
+        <button class="btn secondary">Cash App</button>
+        <button class="btn secondary">Chime</button>
+        <button class="btn secondary">Zelle</button>
+        <button class="btn secondary">Card</button>
       </div>
     </div>
     <div class="card">
@@ -291,16 +284,19 @@ function renderCart(){
 function setPay(x){pay=x;}
 // Connect a wallet: reveal dropdown with sample Cardano wallets
 function connectWallet(){
-  const walletSelect = document.getElementById('walletDropdown');
-  if(walletSelect){
-    const wallets = [
-      'Daedalus','Yoroi','Lace','Eternl','Typhon','Vespr','ADALite','NuFi','Gero','LodeWallet','Coin Wallet','ADAWallet','Atomic','Gem','Trust','Exodus','Nami','Flint'
-    ];
-    let html = '<option value="">Select wallet</option>';
-    wallets.forEach(function(w){ html += `<option value="${w}">${w}</option>`; });
-    walletSelect.innerHTML = html;
-    walletSelect.style.display = '';
-  }
+  // Populate all wallet dropdowns (connect section and checkout)
+  const wallets = [
+    'Daedalus','Yoroi','Lace','Eternl','Typhon','Vespr','ADALite','NuFi','Gero','LodeWallet','Coin Wallet','ADAWallet','Atomic','Gem','Trust','Exodus','Nami','Flint'
+  ];
+  let html = '<option value="">Select wallet</option>';
+  wallets.forEach(function(w){ html += `<option value="${w}">${w}</option>`; });
+  ['walletDropdownConnect','walletDropdownCheckout'].forEach(function(id){
+    const s = document.getElementById(id);
+    if(s){
+      s.innerHTML = html;
+      s.style.display = '';
+    }
+  });
 }
 // Show or hide destination field based on action selection
 function toggleDestination(){
@@ -411,19 +407,6 @@ async function reserve(){
   if(bankBagW)  bankBagW.textContent  = (bank_bagged_gal / 1000000).toFixed(6);
   if(bankTotW)  bankTotW.textContent  = (bank_total / 1000000).toFixed(6);
 
-  // update DOM reserves
-  const galEl=document.getElementById('wb_reserved_gal');
-  const casesEl=document.getElementById('wb_reserved_cases');
-  const tankEl=document.getElementById('wb_reserved_tankers');
-  const creditEl=document.getElementById('wb_reserved_credit');
-  const rightsEl=document.getElementById('wb_withdraw_rights');
-  const baggedEl=document.getElementById('wb_bagged_cans');
-  if(galEl) galEl.textContent = reserved_gal;
-  if(casesEl) casesEl.textContent = reserved_cases;
-  if(tankEl) tankEl.textContent = reserved_tankers;
-  if(creditEl) creditEl.textContent = `$${reserved_credit.toFixed(2)}`;
-  if(rightsEl) rightsEl.textContent = reserved_rights;
-  if(baggedEl) baggedEl.textContent = reserved_bagged_cans;
 
   // Calculate WRE reward: 0.0001 WRE per 100 gallons
   const wre = (g / 100) * 0.0001;
@@ -450,6 +433,8 @@ async function reserve(){
 renderQuote();
 // Initialize destination visibility on page load
 toggleDestination();
+// Populate wallet dropdown on page load
+connectWallet();
 </script>
 
 <!-- No payment method dropdown listener needed since wallets are buttons -->

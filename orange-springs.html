@@ -57,21 +57,22 @@
                 Native peoples valued Florida’s springs long before Europeans arrived. By the 1820s, settlers had noted Orange Springs, and during the Second Seminole War (1835–1842) Fort Russell was erected nearby. After the war the 1842 Armed Occupation Act lured American settlers to the region. In 1843, John W. Pearson and Senator David Levy Yulee purchased the land and developed Orange Springs into a fashionable health resort. By the early 1850s the site had a large hotel, mills and shops, and a church; visitors travelled by steamboat and stagecoach to “take the waters”.
             </p>
             <p>
-                The Civil War saw Pearson convert his machinery into an arms factory and organize the “Oklawaha Rangers” militia. After his death in 1864 and a post‑war tax sale in 1875, Orange Springs declined. Turpentine entrepreneur James W. Townsend bought the property before 1900 and in 1912 built the two‑story frame house still standing today. Although early 20th‑century boosters tried to revive tourism – even dubbing the spring a “Fountain of Youth” – the hotel closed, the Ocala Northern Railroad spur was abandoned, and the spring returned to quiet rural use. Orange Springs remained a local swimming hole until circa 1990, when a bottling plant opened and public access was closed:contentReference[oaicite:14]{index=14}. A state marker now commemorates its colourful past:contentReference[oaicite:15]{index=15}.
+                The Civil War saw Pearson convert his machinery into an arms factory and organize the “Oklawaha Rangers” militia. After his death in 1864 and a post‑war tax sale in 1875, Orange Springs declined. Turpentine entrepreneur James W. Townsend bought the property before 1900 and in 1912 built the two‑story frame house still standing today. Although early 20th‑century boosters tried to revive tourism – even dubbing the spring a “Fountain of Youth” – the hotel closed, the Ocala Northern Railroad spur was abandoned, and the spring returned to quiet rural use. Orange Springs remained a local swimming hole until circa 1990, when a bottling plant opened and public access was closed. A state marker now commemorates its colourful past.
             </p>
         </div>
     </div>
 
     <figure style="margin-top:20px;">
         <img src="assets/img/townsend-house-orange-springs01.jpg" alt="Townsend House at Orange Springs" class="section-image">
-        <figcaption>The Townsend House, built in 1912, now serves as Fountara’s office and a historic landmark.</figcaption>
+        <!-- Updated caption to remove mention of Fountara using the house as an office -->
+        <figcaption>The Townsend House, built in 1912, is a historic landmark.</figcaption>
     </figure>
 </section>
 
 <section id="science">
     <h2>Scientific &amp; Ecological Features</h2>
     <p>
-        Orange Springs is a window into Florida’s karst geology. The spring emerges from the Floridan Aquifer, producing a pool about 85 × 100 ft with a depth of 20 ft at its limestone vent:contentReference[oaicite:16]{index=16}. Its clear, green‑tinged water carries a noticeable sulfur odor caused by hydrogen sulfide, a product of organic matter deep underground:contentReference[oaicite:17]{index=17}. The pool supports algae and sulfur‑loving bacteria and overflows into a shallow run feeding Orange Creek:contentReference[oaicite:19]{index=19}. The surrounding forest provides habitat for fish, turtles, and wading birds while filtering runoff.
+        Orange Springs is a window into Florida’s karst geology. The spring emerges from the Floridan Aquifer, producing a pool about 85 × 100 ft with a depth of 20 ft at its limestone vent. Its clear, green‑tinged water carries a noticeable sulfur odor caused by hydrogen sulfide, a product of organic matter deep underground. The pool supports algae and sulfur‑loving bacteria and overflows into a shallow run feeding Orange Creek. The surrounding forest provides habitat for fish, turtles, and wading birds while filtering runoff.
     </p>
     <p>
         Water quality at Orange Springs remains high. Its constant 72 °F (22 °C) temperature, calcium‑rich chemistry and neutral pH make it a healthy ecosystem. Unlike some Florida springs, Orange Springs shows little nitrate pollution. A consumptive use permit ensures withdrawals stay within sustainable limits and regular monitoring tracks flow and chemistry to detect any changes.
@@ -81,7 +82,7 @@
 <section id="research">
     <h2>Research &amp; Development</h2>
     <p>
-        Responsible stewardship is central to Fountara’s work at Orange Springs. Water is drawn via an underground pipe to minimize disturbance, then aerated and filtered to remove natural sulfur odors before bottling:contentReference[oaicite:24]{index=24}. Researchers are interested in the spring’s microbial ecology; white sulfur‑oxidizing bacteria (*Thiothrix* spp.) thrive on its sulfide‑rich waters and have been studied to better understand nutrient cycling. State agencies include Orange Springs in monitoring networks, tracking water flow, temperature, oxygen and nutrient levels. 
+        Responsible stewardship is central to Fountara’s work at Orange Springs. Water is drawn via an underground pipe to minimize disturbance, then aerated and filtered to remove natural sulfur odors before bottling. Researchers are interested in the spring’s microbial ecology; white sulfur‑oxidizing bacteria (*Thiothrix* spp.) thrive on its sulfide‑rich waters and have been studied to better understand nutrient cycling. State agencies include Orange Springs in monitoring networks, tracking water flow, temperature, oxygen and nutrient levels. 
     </p>
     <p>
         Fountara’s vision extends beyond bottling. The team envisions an interactive map tool that displays real‑time data and illustrates how Orange Springs links to the broader Ocklawaha and St. Johns River systems. By combining historical interpretation, ecological research and community education, we aim to celebrate Orange Springs’ heritage while ensuring its waters remain a vibrant, protected resource for generations to come.
@@ -127,7 +128,7 @@
             return { color: '#ff7800', weight: 1 };
           }
         }).addTo(map);
-        layerControl.addOverlay(layer, file.replace(/data\\//, '').replace(/\\.geojson/, ''));
+        layerControl.addOverlay(layer, file.replace(/data\//, '').replace(/\.geojson/, ''));
       })
       .catch(err => {
         console.error('Error loading', file, err);

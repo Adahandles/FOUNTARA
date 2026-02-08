@@ -130,8 +130,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/esri-leaflet@3.0.9/dist/esri-leaflet.js"></script>
   <script>
-    // Initialize the map near Orange Springs
-    var map = L.map('map').setView([29.509, -81.944], 14);
+    // Initialize the map near Orange Springs with broader regional view
+    var map = L.map('map').setView([29.509, -81.944], 11);
 
     // Base layer: OpenStreetMap
     var baseLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -153,6 +153,58 @@
       opacity: 0.6
     });
 
+    // Putnam County layers
+    var putnamParcelsLayer = L.esri.dynamicMapLayer({
+      url: 'https://maps.putnam-fl.com/arcgis/rest/services/Public/Parcels/MapServer',
+      opacity: 0.5
+    });
+    var putnamZoningLayer = L.esri.dynamicMapLayer({
+      url: 'https://maps.putnam-fl.com/arcgis/rest/services/Public/Zoning/MapServer',
+      opacity: 0.5
+    });
+    var putnamRoadsLayer = L.esri.dynamicMapLayer({
+      url: 'https://maps.putnam-fl.com/arcgis/rest/services/Public/Roads/MapServer',
+      opacity: 0.5
+    });
+
+    // Alachua County layers
+    var alachuaParcelsLayer = L.esri.dynamicMapLayer({
+      url: 'https://maps.alachuacounty.us/arcgis/rest/services/External/PropertyAppraiser/MapServer',
+      opacity: 0.5
+    });
+    var alachuaConservationLayer = L.esri.dynamicMapLayer({
+      url: 'https://maps.alachuacounty.us/arcgis/rest/services/External/Conservation/MapServer',
+      opacity: 0.5
+    });
+    var alachuaZoningLayer = L.esri.dynamicMapLayer({
+      url: 'https://maps.alachuacounty.us/arcgis/rest/services/External/Zoning/MapServer',
+      opacity: 0.5
+    });
+
+    // St. Johns River Water Management District (SJRWMD) layers
+    var sjrwmdSurfaceWaterLayer = L.esri.dynamicMapLayer({
+      url: 'https://ca.dep.state.fl.us/arcgis/rest/services/OpenData/SURFACE_WATER/MapServer',
+      opacity: 0.5
+    });
+    var sjrwmdWetlandsLayer = L.esri.dynamicMapLayer({
+      url: 'https://ca.dep.state.fl.us/arcgis/rest/services/OpenData/WETLANDS/MapServer',
+      opacity: 0.5
+    });
+    var sjrwmdSpringsLayer = L.esri.dynamicMapLayer({
+      url: 'https://ca.dep.state.fl.us/arcgis/rest/services/OpenData/SPRINGS/MapServer',
+      opacity: 0.5
+    });
+
+    // Florida DEP Environmental layers
+    var depProtectedAreasLayer = L.esri.dynamicMapLayer({
+      url: 'https://ca.dep.state.fl.us/arcgis/rest/services/OpenData/PROTECTED_AREAS/MapServer',
+      opacity: 0.5
+    });
+    var depConservationLandsLayer = L.esri.dynamicMapLayer({
+      url: 'https://ca.dep.state.fl.us/arcgis/rest/services/OpenData/CONSERVATION_LANDS/MapServer',
+      opacity: 0.5
+    });
+
     // Layer groups for base and overlays
     var baseMaps = {
       'OpenStreetMap': null,
@@ -160,8 +212,19 @@
       'Satellite (Esri)': satelliteLayer
     };
     var overlayMaps = {
-      'Parcel Boundaries': parcelsLayer,
-      'Flood Zones (2017)': floodLayer
+      'Marion - Parcels': parcelsLayer,
+      'Marion - Flood Zones (2017)': floodLayer,
+      'Putnam - Parcels': putnamParcelsLayer,
+      'Putnam - Zoning': putnamZoningLayer,
+      'Putnam - Roads': putnamRoadsLayer,
+      'Alachua - Parcels': alachuaParcelsLayer,
+      'Alachua - Conservation': alachuaConservationLayer,
+      'Alachua - Zoning': alachuaZoningLayer,
+      'SJRWMD - Surface Water': sjrwmdSurfaceWaterLayer,
+      'SJRWMD - Wetlands': sjrwmdWetlandsLayer,
+      'SJRWMD - Springs': sjrwmdSpringsLayer,
+      'FL DEP - Protected Areas': depProtectedAreasLayer,
+      'FL DEP - Conservation Lands': depConservationLandsLayer
     };
     var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
 

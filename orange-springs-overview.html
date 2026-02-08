@@ -318,10 +318,16 @@
 
   var layerControl = L.control.layers(null, null).addTo(map);
 
-  geojsonFiles.forEach(function(file) {
-    fetch(file)
-      .then(resp => resp.json())
-      .then(data => {
+  // Load all GeoJSON files and handle results
+  var loadPromises = geojsonFiles.map(function(file) {
+    return fetch(file)
+      .then(function(resp) {
+        if (!resp.ok) {
+          throw new Error('HTTP ' + resp.status + ': ' + resp.statusText);
+        }
+        return resp.json();
+      })
+      .then(function(data) {
         var layer = L.geoJSON(data, {
           style: function(feature) {
             return { color: '#ff7800', weight: 1 };
@@ -329,10 +335,57 @@
         }).addTo(map);
         var name = file.replace('data/', '').replace('.geojson', '');
         layerControl.addOverlay(layer, name);
+        console.log('✓ Successfully loaded:', file);
+        return { status: 'success', file: file };
       })
-      .catch(err => {
-        console.error('Error loading', file, err);
+      .catch(function(err) {
+        console.warn('✗ Failed to load ' + file + ':', err.message);
+        return { status: 'failed', file: file, error: err.message };
       });
+  });
+
+  // After all files are processed, display summary if needed
+  Promise.allSettled(loadPromises).then(function(results) {
+    var loadedFiles = [];
+    var failedFiles = [];
+    
+    results.forEach(function(result) {
+      if (result.status === 'fulfilled') {
+        if (result.value.status === 'success') {
+          loadedFiles.push(result.value.file);
+        } else {
+          failedFiles.push(result.value.file);
+        }
+      } else {
+        // This shouldn't happen since we catch errors, but handle it anyway
+        failedFiles.push('unknown');
+      }
+    });
+
+    if (failedFiles.length > 0) {
+      var message = '<strong>Map Data Status:</strong><br>';
+      if (loadedFiles.length === 0) {
+        message += 'GeoJSON data files are not yet available. The base map is shown.<br><br>';
+      } else {
+        message += loadedFiles.length + ' of ' + geojsonFiles.length + ' data layers loaded successfully.<br><br>';
+      }
+      message += '<strong>Failed to load:</strong><br>';
+      failedFiles.forEach(function(f) {
+        message += '• ' + f.replace('data/', '') + '<br>';
+      });
+      
+      // Display message on map
+      var popup = L.popup({
+        closeButton: true,
+        autoClose: false,
+        closeOnClick: false
+      })
+        .setLatLng(map.getCenter())
+        .setContent(message)
+        .openOn(map);
+    } else {
+      console.log('✓ All ' + loadedFiles.length + ' GeoJSON layers loaded successfully');
+    }
   });
 </script>
 </body>
